@@ -1,0 +1,8 @@
+@import "../index.css";
+
+#form_container {
+ 
+  background-color: var(--secondary);
+  max-width: max-content;
+ 
+}
