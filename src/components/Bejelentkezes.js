@@ -31,7 +31,7 @@ export default function Bejelentkezes() {
       <Navbars />
       <Container id="form_container">
         <Row md={{ span: 3, offset: 3 }}>
-          <Form className=" text-center" id="login">
+          <Form className=" text-center" id="login" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email:</Form.Label>
               <Form.Control type="email" placeholder="email cím" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
@@ -45,7 +45,7 @@ export default function Bejelentkezes() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Jelszó:</Form.Label>
-              <Form.Control type="current-password" placeholder="jelszó" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
+              <Form.Control type="password" placeholder="jelszó" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
             </Form.Group>
             <div>{errors.password && (
                 <span className="text-danger">{errors.password[0]}</span>
