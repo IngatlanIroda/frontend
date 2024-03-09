@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         console.log(token)
         adat._token = token;
         console.log(adat)
-        //lekérjük a csrf tokent
+        
       
         //bejelentkezés
         //Összegyűjtjük egyetlen objektumban az űrlap adatokat
