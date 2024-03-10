@@ -1,4 +1,4 @@
-import React,{ createContext, useContext, useState } from "react";
+import React,{ createContext, useContext, useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,10 +6,11 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
+    const [user,  setUser] = useState(null);
     const [errors, setErrors] = useState({
         name: "",
         email: "",
+        jogosultsag:"3",
         password: "",
         password_confirmation: "",
     });
@@ -64,9 +65,37 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const register =  async ({ ...adat }, vegpont) => {
+        await csrf()
+        console.log(token)
+        adat._token = token;
+        console.log(adat)
+        
+      
+        //bejelentkezés
+        //Összegyűjtjük egyetlen objektumban az űrlap adatokat
+
+        // Megrpóbáljuk elküldeni a /register végpontra az adatot
+        // hiba esetén kiiratjuk a hibaüzenetet
+        try {
+            await axios.post("/register", adat);
+            console.log("siker");
+            //sikeres bejelentkezés/regisztráció esetén
+            //Lekérdezzük a usert
+            await getUser();
+            //elmegyünk  a kezdőlapra
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+            if (error.response.status === 422) {
+                setErrors(error.response.data.errors);
+            }
+        }
+    };
+ 
     return (
         <AuthContext.Provider
-            value={{ logout, loginReg, errors, getUser, user }}
+            value={{ logout, loginReg, register, errors, getUser, user }}
         >
             {children}
         </AuthContext.Provider>

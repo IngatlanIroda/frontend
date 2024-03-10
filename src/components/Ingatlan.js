@@ -1,13 +1,23 @@
-import React from 'react'
-import Navbars from './Navbars';
+import Navbars from "./Navbars";
+import Kartya from "./Kartya";
+import React from "react";
+import {AuthProviderIngatlan, useAuthContextIngatlan} from "../contexts/AuthContextIngatlan";
+import Container from "react-bootstrap/esm/Container";
 
-const Ingatlan = () => {
+export default function Ingatlan() {
+  const {ingatlan} = useAuthContextIngatlan();
+  
   return (
     <>
-    <Navbars/>
-    <div>Ingatlan</div>
-    </>
-  )
-}
+      <AuthProviderIngatlan>
+        <Navbars />
 
-export default Ingatlan;
+        <Container>
+          {ingatlan.map((item, index) => (
+            <Kartya key={index} data={item} />
+          ))}
+        </Container>
+      </AuthProviderIngatlan>
+    </>
+  );
+}

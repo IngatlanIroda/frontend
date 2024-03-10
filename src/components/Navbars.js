@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import style from "./module_navbar.css";
 import useAuthContext from "../contexts/AuthContext";
+import Button from 'react-bootstrap/Button';
 
 export default function Navbars() {
   const { user, logout } = useAuthContext();
@@ -26,8 +27,8 @@ export default function Navbars() {
            
             {user ? 
               <>
-              
-                <Nav.Link href="/kijelentkezes" onClick={logout}>Kijelentkezés</Nav.Link>
+                <Button variant="primary" onClick={logout}>Kijelentkezés</Button>             
+               
               </>
             :
               <>

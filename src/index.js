@@ -6,14 +6,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthProviderIngatlan } from "./contexts/AuthContextIngatlan";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <AuthProviderIngatlan>
       <AuthProvider>
         <App />
       </AuthProvider>
+      </AuthProviderIngatlan>
     </BrowserRouter>
   </React.StrictMode>
 );

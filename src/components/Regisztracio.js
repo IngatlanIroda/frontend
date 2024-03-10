@@ -8,26 +8,28 @@ import Row from "react-bootstrap/esm/Row";
 const Regisztracio = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [jogosultsag, setJogosultsag ] = "3";
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
 
-  const { loginReg, errors } = useAuthContext();
-  const handleSubmit = async (e) => {
+  const { register, errors } = useAuthContext();
+  const handleRegister = async (e) => {
     e.preventDefault();
     const adat = {
       name: name,
       email: email,
+      jogosultsag: jogosultsag,
       password: password,
       password_confirmation: password_confirmation,
     };
-    loginReg(adat, "/register");
+    register(adat, "/register");
   };
   return (
     <>
       <Navbars />
       <Container id="form_container">
         <Row md={{ span: 3, offset: 3 }}>
-          <Form className=" text-center" id="login" onSubmit={handleSubmit}>
+          <Form className=" text-center" id="login" onSubmit={handleRegister}>
             <h1 className="text-center">Regisztráció</h1>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Név:</Form.Label>
