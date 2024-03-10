@@ -7,8 +7,10 @@ export const AuthProviderIngatlan = ({ children }) => {
    
     const [ingatlan,  setIngatlan] = useState([]);
     const [errors, setErrors] = useState({
+        ing_id:"",
         ing_tipus: "",
-        futes_tipus: "",
+        tipus_megnevezes: "",
+        kategoria: "",
         nagysag:"",
         szobaszam: "",
         telepules: "Nincs",
@@ -20,7 +22,7 @@ export const AuthProviderIngatlan = ({ children }) => {
        
         const fetchData = async () => {
           try {
-            await axios.get("/ingatlans").then((response) => {
+            await axios.get("/ingatlanKartyaLista").then((response) => {
                 console.log(response.data);
                 setIngatlan(response.data);
                 

@@ -1,29 +1,54 @@
-import React from 'react'
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-
-export default function Kartya({data}){
-  const {telepules,ing_tipus, futes_tipus, nagysag}= data;
+import React, { useState } from "react";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import style from "./module_card.css";
+import haz1 from "../foto/haz1.jpg";
+import EgyIngatlan from "./EgyIngatlan";
+export default function Kartya({ data }) {
+  const {
+    ing_id,
+    telepules_megnevezes,
+    tipus_megnevezes,
+    kategoria,
+    nagysag,
+    szobaszam,
+  } = data;
+  console.log({ing_id})
+  const [showText, setShowText] = useState(kategoria === "i");
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="https://www.istockphoto.com/hu/fot%C3%B3/%C3%A9p%C3%ADt%C3%A9si-daru-a-lak%C3%B3h%C3%A1zak-k%C3%B6z%C3%B6tt-egy-naps%C3%BCt%C3%A9ses-ny%C3%A1ri-napon-gm1398954037-452943782" />
+    <Card style={{ width: "18rem", margin: "1rem" }}>
+      <Card.Img variant="top" src={haz1} alt="property"/>
       <Card.Body>
-        <Card.Title>{telepules}</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
+        <Card.Title>{telepules_megnevezes}</Card.Title>
+
+        {showText ? (
+          <>
+            <Card.Text>{tipus_megnevezes} </Card.Text>
+          </>
+        ) : (
+          <>
+            <Card.Text> </Card.Text>
+          </>
+        )}
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <ListGroup.Item>{ing_tipus}</ListGroup.Item>
-        <ListGroup.Item>{futes_tipus}</ListGroup.Item>
-        <ListGroup.Item>{nagysag}</ListGroup.Item>
+        {showText ? (
+          <>
+            <ListGroup.Item>fűtés:</ListGroup.Item>
+          </>
+        ) : (
+          <>
+            <ListGroup.Item>fűtés: {tipus_megnevezes} </ListGroup.Item>
+          </>
+        )}
+
+        <ListGroup.Item>alapterület: {nagysag} m2</ListGroup.Item>
+        <ListGroup.Item>szobák száma: {szobaszam}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
+        <Card.Link href="./EgyIngatlan/${data.ing_id}" >Részletek</Card.Link>
+       
       </Card.Body>
     </Card>
   );
 }
-

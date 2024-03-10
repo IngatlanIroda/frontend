@@ -12,6 +12,7 @@ import Admin from "./components/Admin";
 
 import Kijelentkezes from "./components/Kijelentkezes";
 import Regisztracio from "./components/Regisztracio";
+import EgyIngatlan from "./components/EgyIngatlan";
 import useAuthContext from "./contexts/AuthContext";
 import AuthLayout from "./layouts/AuthLayout";
 import GuestLayout from "./layouts/GuestLayout";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/bejelentkezes" element={<Bejelentkezes />} />
           <Route path="/kijelentkezes" element={<Kijelentkezes />} />
           <Route path="/regisztracio" element={<Regisztracio />} />
+          <Route path="/egyingatlan/:ing_id" element={<EgyIngatlan />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
        

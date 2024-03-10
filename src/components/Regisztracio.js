@@ -30,7 +30,7 @@ const Regisztracio = () => {
       <Container id="form_container">
         <Row md={{ span: 3, offset: 3 }}>
           <Form className=" text-center" id="login" onSubmit={handleRegister}>
-            <h1 className="text-center">Regisztráció</h1>
+            <Form.Text id="formtext" className="text-center" display="block" >Regisztráció</Form.Text>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Név:</Form.Label>
               <Form.Control
@@ -104,7 +104,7 @@ const Regisztracio = () => {
               )}
             </div>
 
-            <Button variant="primary" type="submit">
+            <Button id="formButton" variant="primary" type="submit">
               Regisztrálok
             </Button>
           </Form>

@@ -16,3 +16,9 @@ body {
   --back: rgb(49, 74, 92);
 	font-family: "Montserrat", sans-serif;
 }
+#formButton{
+  background-color: var(--back);
+}
+#formtext{
+  font-size: x-large;
+}
