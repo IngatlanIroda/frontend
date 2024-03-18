@@ -10,7 +10,9 @@ export const AuthProvider = ({ children }) => {
     const [errors, setErrors] = useState({
         name: "",
         email: "",
-        jogosultsag:"3",
+        szulIdo:"",
+        aktiv:"",
+        jogosultsag:"",
         password: "",
         password_confirmation: "",
     });
@@ -47,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         //bejelentkezés
         //Összegyűjtjük egyetlen objektumban az űrlap adatokat
 
-        // Megrpóbáljuk elküldeni a /login végpontra az adatot
+        // Megrpóbáljuk elküldeni a /register végpontra az adatot
         // hiba esetén kiiratjuk a hibaüzenetet
         try {
             await axios.post(vegpont, adat);
@@ -80,7 +82,7 @@ export const AuthProvider = ({ children }) => {
         try {
             await axios.post("/register", adat);
             console.log("siker");
-            //sikeres bejelentkezés/regisztráció esetén
+            //sikeres regisztráció esetén
             //Lekérdezzük a usert
             await getUser();
             //elmegyünk  a kezdőlapra

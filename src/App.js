@@ -9,7 +9,7 @@ import Hirdetes from "./components/Hirdetes";
 import Bejelentkezes from "./components/Bejelentkezes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Admin from "./components/Admin";
-
+import UserAdmin from "./components/UserAdmin";
 import Kijelentkezes from "./components/Kijelentkezes";
 import Regisztracio from "./components/Regisztracio";
 import EgyIngatlan from "./components/EgyIngatlan";
@@ -30,8 +30,9 @@ function App() {
           <Route path="/bejelentkezes" element={<Bejelentkezes />} />
           <Route path="/kijelentkezes" element={<Kijelentkezes />} />
           <Route path="/regisztracio" element={<Regisztracio />} />
-          <Route path="/egyingatlan/:ing_id" element={<EgyIngatlan />} />
+          <Route path="/egyingatlan" element={<EgyIngatlan />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/useradmin" element={<UserAdmin />} />
           <Route path="*" element={<NotFound />} />
        
         

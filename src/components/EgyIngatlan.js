@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import style from "./module_card.css";
 import Kartya from "./Kartya";
@@ -12,14 +12,20 @@ import Row from "react-bootstrap/esm/Row";
 import Card from "react-bootstrap/Card";
 import haz1 from "../foto/haz1.jpg";
 import Ingatlan from "./Ingatlan";
-import { useParams } from "react-router-dom";
-export default function EgyIngatlan({data}) {
-  const { ingatlan } = useAuthContextIngatlan();
-  const { ing_id } = useParams();
-  //const  aktIngatlan = data;
+import {useContextIngatlan} from "../contexts/ContextIngatlan"
+import { ContextIngatlanProvider } from "../contexts/ContextIngatlan";
+
+
+export default function EgyIngatlan() {
+
+ const { selectedIngatlan} = useContextIngatlan();
+
+ console.log(selectedIngatlan)
+ /* const  aktIngatlan = data;
  
-  console.log(ing_id)
-  /*  const {
+
+ const {
+   ing_id,
     telepules_megnevezes,
     tipus_megnevezes,
     kategoria,
@@ -31,28 +37,30 @@ export default function EgyIngatlan({data}) {
     terasz,
     kert,
   } = data; 
-  console.log(data) */
-  const [showText, setShowText] = useState(ingatlan.kategoria === "i");
-  const [showErkely, setShowErkely] = useState(ingatlan.erkely === true);
-  const [showTerasz, setShowTerasz] = useState(ingatlan.terasz === true);
-  const [showKert, setShowKert] = useState(ingatlan.kert === true);
-  
+  console.log(data)  */
+ 
+  const [showText, setShowText] = useState(selectedIngatlan.kategoria === "i");
+  const [showErkely, setShowErkely] = useState(selectedIngatlan.erkely === true);
+  const [showTerasz, setShowTerasz] = useState(selectedIngatlan.terasz === true);
+  const [showKert, setShowKert] = useState(selectedIngatlan.kert === true);
+ 
   return (
     <>
-      <AuthProviderIngatlan>
+     
         <Navbars />
-
+        <ContextIngatlanProvider>
         <Container id="card_container">
           <Row>
-          {ingatlan? (
+         
+          {selectedIngatlan? (
             <Card style={{ width: "30rem", margin: "1rem" }}>
               <Card.Img variant="top" src={haz1} alt="property" />
               <Card.Body>
-                <Card.Title>{ingatlan.telepules_megnevezes}</Card.Title>
+                <Card.Title>{selectedIngatlan.telepules_megnevezes}</Card.Title>
 
                 {showText ? (
                   <>
-                    <Card.Text>{ingatlan.tipus_megnevezes} </Card.Text>
+                    <Card.Text>{selectedIngatlan.tipus_megnevezes} </Card.Text>
                   </>
                 ) : (
                   <>
@@ -67,12 +75,12 @@ export default function EgyIngatlan({data}) {
                   </>
                 ) : (
                   <>
-                    <ListGroup.Item>fűtés: {ingatlan.tipus_megnevezes} </ListGroup.Item>
+                    <ListGroup.Item>fűtés: {selectedIngatlan.tipus_megnevezes} </ListGroup.Item>
                   </>
                 )}
 
-                <ListGroup.Item>alapterület: {ingatlan.nagysag} m2</ListGroup.Item>
-                <ListGroup.Item>szobák száma: {ingatlan.szobaszam}</ListGroup.Item>
+                <ListGroup.Item>alapterület: {selectedIngatlan.nagysag} m2</ListGroup.Item>
+                <ListGroup.Item>szobák száma: {selectedIngatlan.szobaszam}</ListGroup.Item>
                 
                   {showErkely ? (
                     <>
@@ -103,17 +111,19 @@ export default function EgyIngatlan({data}) {
                       <ListGroup.Item>kert: nincs </ListGroup.Item>
                     </>
                   )}
-                  <ListGroup.Item>{ingatlan.leiras}</ListGroup.Item>
+                  <ListGroup.Item>{selectedIngatlan.leiras}</ListGroup.Item>
                
               </ListGroup>
-              <Card.Body>cím: {ingatlan.cim}</Card.Body>
+              <Card.Body>cím: {selectedIngatlan.cim}</Card.Body>
             </Card>
             ):(
                 <p>Nincs ilyen ingatlan</p>
             )}
           </Row>
+          
         </Container>
-      </AuthProviderIngatlan>
+        </ContextIngatlanProvider> 
+      
     </>
   );
 }

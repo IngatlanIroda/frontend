@@ -7,8 +7,10 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 const Regisztracio = () => {
   const [name, setName] = useState("");
+  const [szulIdo, setSzulIdo] = useState("");
+  const [aktiv, setAktiv] = useState("1");
   const [email, setEmail] = useState("");
-  const [jogosultsag, setJogosultsag ] = "3";
+ const [jogosultsag, setJogosultsag] ="2";
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
 
@@ -17,8 +19,11 @@ const Regisztracio = () => {
     e.preventDefault();
     const adat = {
       name: name,
+      szulIdo:szulIdo,
+      jogosultsag,
+      aktiv:aktiv,
       email: email,
-      jogosultsag: jogosultsag,
+     
       password: password,
       password_confirmation: password_confirmation,
     };
@@ -30,7 +35,9 @@ const Regisztracio = () => {
       <Container id="form_container">
         <Row md={{ span: 3, offset: 3 }}>
           <Form className=" text-center" id="login" onSubmit={handleRegister}>
-            <Form.Text id="formtext" className="text-center" display="block" >Regisztráció</Form.Text>
+            <Form.Text id="formtext" className="text-center" display="block">
+              Regisztráció
+            </Form.Text>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Név:</Form.Label>
               <Form.Control
@@ -47,7 +54,25 @@ const Regisztracio = () => {
                 )}
               </div>
             </Form.Group>
-
+            <Form.Group classSzulIdo="mb-3" controlId="formBasicDate">
+              <Form.Label>Születési ideje:</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="születési ideje"
+                value={szulIdo}
+                onChange={(e) => {
+                  setSzulIdo(e.target.value);
+                }}
+              />
+              <div>
+                {errors.szulIdo && (
+                  <span classSzulIdo="date">{errors.szulIdo[0]}</span>
+                )} 
+              </div>
+              
+            </Form.Group>
+            <input type="hidden"value={aktiv}></input>
+          
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>email:</Form.Label>
               <Form.Control

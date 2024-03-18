@@ -8,10 +8,12 @@ import {
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import EgyIngatlan from "./EgyIngatlan";
-
+import ContextIngatlan, { useContextIngatlan } from "../contexts/ContextIngatlan";
 export default function Ingatlan() {
   const { ingatlan } = useAuthContextIngatlan();
-
+  
+  const {selectedIngatlan} =useAuthContextIngatlan();
+ 
   return (
     <>
       <AuthProviderIngatlan>
@@ -21,8 +23,10 @@ export default function Ingatlan() {
           <Row>
             {ingatlan.map((item, index) => (
               <>
+             
                 <Kartya key={index} data={item} />
-              </>
+              
+                </>
             ))}
           </Row>
         </Container>

@@ -28,7 +28,7 @@ export default function Navbars() {
             {user ? 
               <>
                 <Button variant="primary" onClick={logout}>Kijelentkezés</Button>             
-               
+                <Nav.Link href="/useradmin">Felhasználók karbantartása</Nav.Link>
               </>
             :
               <>
