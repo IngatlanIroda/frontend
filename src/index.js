@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProviderIngatlan } from "./contexts/AuthContextIngatlan";
 import { ContextUserProvider } from "./contexts/AuthContextUserList";
+import { ContextIngatlanProvider } from "./contexts/ContextIngatlan";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

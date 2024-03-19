@@ -10,7 +10,7 @@ const Regisztracio = () => {
   const [szulIdo, setSzulIdo] = useState("");
   const [aktiv, setAktiv] = useState("1");
   const [email, setEmail] = useState("");
- const [jogosultsag, setJogosultsag] ="2";
+  const [jogosultsag, setJogosultsag] = "2";
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
 
@@ -19,11 +19,11 @@ const Regisztracio = () => {
     e.preventDefault();
     const adat = {
       name: name,
-      szulIdo:szulIdo,
+      szulIdo: szulIdo,
       jogosultsag,
-      aktiv:aktiv,
+      aktiv: aktiv,
       email: email,
-     
+
       password: password,
       password_confirmation: password_confirmation,
     };
@@ -67,12 +67,11 @@ const Regisztracio = () => {
               <div>
                 {errors.szulIdo && (
                   <span classSzulIdo="date">{errors.szulIdo[0]}</span>
-                )} 
+                )}
               </div>
-              
             </Form.Group>
-            <input type="hidden"value={aktiv}></input>
-          
+            <input type="hidden" value={aktiv}></input>
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>email:</Form.Label>
               <Form.Control

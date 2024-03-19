@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
         axios.post("/logout",{_token:token}).then((resp) => {
             setUser(null);
             console.log(resp);
+            navigate("/")
         });
     };
     
@@ -94,10 +95,31 @@ export const AuthProvider = ({ children }) => {
             }
         }
     };
+    const ujfelhasznalo =  async ({ ...adat }, vegpont) => {
+          await csrf()
+        console.log(token)
+        adat._token = token;
+        console.log(adat)  
+        
+        // Megrpóbáljuk elküldeni a /api/user végpontra az adatot
+        // hiba esetén kiiratjuk a hibaüzenetet
+        try {
+            await axios.post("/user", adat);
+            console.log("siker");
+            //sikeres mentés esetén
+           
+            navigate("/useradmin");
+        } catch (error) {
+            console.log(error);
+            if (error.response.status === 422) {
+                setErrors(error.response.data.errors);
+            }
+        }
+    };
  
     return (
         <AuthContext.Provider
-            value={{ logout, loginReg, register, errors, getUser, user }}
+            value={{ logout, loginReg, register, ujfelhasznalo, errors, getUser, user }}
         >
             {children}
         </AuthContext.Provider>
