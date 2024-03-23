@@ -18,8 +18,6 @@ import Container from "react-bootstrap/esm/Container";
 
 import Table from "react-bootstrap/Table"; 
 
-import Ingatlan from "./Ingatlan"; 
-
 import IngatlanTablaSor from "./IngatlanTablaSor"; 
 
  
@@ -77,29 +75,20 @@ export default function IngatlanAdmin() {
           <Table responsive striped hover> 
 
             <thead> 
-
               <tr> 
-
-                <th>ingatlan típus</th> 
-
-                <th>fűtés típus</th> 
-
+              
+                <th>ing_id</th> 
+                <th>település</th> 
                 <th>nagyság</th> 
-
-                <th>szobaszám</th> 
-
+                <th>ingatlan tipus</th> 
+                <th>szobák száma</th> 
+                <th>leírás</th> 
+                <th>cím</th> 
                 <th>erkély</th> 
-
                 <th>terasz</th> 
-
                 <th>kert</th> 
 
-                <th>település</th> 
-
-                <th>cím</th> 
-
-                <th>leírás</th> 
-
+                 
               </tr> 
 
             </thead> 
