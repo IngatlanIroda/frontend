@@ -10,6 +10,7 @@ import Bejelentkezes from "./components/Bejelentkezes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Admin from "./components/Admin";
 import UserAdmin from "./components/UserAdmin";
+import IngatlanAdmin from "./components/IngatlanAdmin";
 import Kijelentkezes from "./components/Kijelentkezes";
 import Regisztracio from "./components/Regisztracio";
 import EgyIngatlan from "./components/EgyIngatlan";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/egyingatlan" element={<EgyIngatlan />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/useradmin" element={<UserAdmin />} />
+          <Route path="/ingatlanadmin" element={<IngatlanAdmin />} />
           <Route path="*" element={<NotFound />} />
        
         
