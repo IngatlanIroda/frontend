@@ -16,18 +16,18 @@ export const AuthProvider = ({ children }) => {
         password: "",
         password_confirmation: "",
     });
-    
+    //const csrf = () => axios.get("/sanctum/csrf-cookie");
     let token = "";
     const csrf = () =>
         axios.get("/token").then((response) => {
             console.log(response);
             token = response.data;
-            
+
         });
 
     //bejelentkezett felhasználó adatainak lekérdezése
     const getUser = async () => {
-        const { data } = await axios.get("/api/user");
+        const { data } = await axios.get("/me");
         setUser(data);
     };
     const logout = async () => {
@@ -39,14 +39,14 @@ export const AuthProvider = ({ children }) => {
             navigate("/")
         });
     };
-    
+
     const loginReg = async ({ ...adat }, vegpont) => {
         await csrf()
         console.log(token)
         adat._token = token;
         console.log(adat)
-        
-      
+
+
         //bejelentkezés
         //Összegyűjtjük egyetlen objektumban az űrlap adatokat
 
@@ -73,7 +73,9 @@ export const AuthProvider = ({ children }) => {
         console.log(token)
         adat._token = token;
         console.log(adat)
-       
+
+
+        //bejelentkezés
         //Összegyűjtjük egyetlen objektumban az űrlap adatokat
 
         // Megrpóbáljuk elküldeni a /register végpontra az adatot
@@ -97,15 +99,15 @@ export const AuthProvider = ({ children }) => {
           await csrf()
         console.log(token)
         adat._token = token;
-        console.log(adat)  
-        
+        console.log(adat)
+
         // Megrpóbáljuk elküldeni a /api/user végpontra az adatot
         // hiba esetén kiiratjuk a hibaüzenetet
         try {
             await axios.post("/user", adat);
             console.log("siker");
             //sikeres mentés esetén
-           
+
             navigate("/useradmin");
         } catch (error) {
             console.log(error);
@@ -114,7 +116,7 @@ export const AuthProvider = ({ children }) => {
             }
         }
     };
- 
+
     return (
         <AuthContext.Provider
             value={{ logout, loginReg, register, ujfelhasznalo, errors, getUser, user }}

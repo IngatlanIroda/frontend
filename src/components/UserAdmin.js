@@ -35,7 +35,7 @@ const UserAdmin = () => {
 
   const handleEdit = async (user_id) => {
     await axios
-      .get("/api/user/" + user_id)
+      .get("/user/" + user_id)
       .then((response) => {
         setUName(response.data.name);
         setUSzulIdo(response.data.szul_ido);
@@ -50,7 +50,7 @@ const UserAdmin = () => {
   const handleSave = async () => {
     
     await axios
-      .put("api/user/" + editId, {
+      .put("/user/" + editId, {
        
         name: uname,
         szul_ido: uszul_ido,
@@ -74,7 +74,7 @@ const UserAdmin = () => {
 
   const handleDelete = async (user_id) => {
     await axios
-      .delete("api/user/" + user_id)
+      .delete("/user/" + user_id)
       .then(response => {
         console.log("törölt");
       })
