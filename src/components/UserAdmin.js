@@ -32,41 +32,53 @@ const UserAdmin = () => {
   const [upassword, setUPassword] = useState("");
   const [upassword_confirmation, setUPasswordConfirmation] = useState("");
   const [editId, setEditId] = useState(null);
-  const handleEdit = (user_id) => {
-    axios.get('/api/user'+user_id)
-    .then(response=>{
-      uname(response.data.name);
-      uszul_ido(response.data.szul_ido);
-      ujogosultsag(response.data.jogosultsag);
-      uaktiv(response.data.aktiv);
-      uemail(response.data.email);
 
-    })
-    .catch(error=>console.log(error))
+  const handleEdit = async (user_id) => {
+    await axios
+      .get("/api/user/" + user_id)
+      .then((response) => {
+        setUName(response.data.name);
+        setUSzulIdo(response.data.szul_ido);
+        setUJogosultsag(response.data.jogosultsag);
+        setUAktiv(response.data.aktiv);
+        setUEmail(response.data.email);
+        setUPassword(response.data.password);
+      })
+      .catch((error) => console.log(error));
     setEditId(user_id);
   };
-  const handleMent = (user_id) => {
-    axios
-      .put("/api/user" + editId, {
-        name:uname, szul_ido:uszul_ido,jogosultsag:ujogosultsag,aktiv:uaktiv, email:uemail
+  const handleSave = async () => {
+    
+    await axios
+      .put("api/user/" + editId, {
        
+        name: uname,
+        szul_ido: uszul_ido,
+        jogosultsag: ujogosultsag,
+        aktiv: uaktiv,
+        email: uemail,
+        password: upassword,
+        password_confirmation: password_confirmation,
       })
-      .then((response) => {
+      .then(response=> {
         console.log(response);
-        uname(response.data.name);
-        uszul_ido(response.data.szul_ido);
-        ujogosultsag(response.data.jogosultsag);
-        uaktiv(response.data.aktiv);
-        uemail(response.data.email);
+        setUName(response.data.name);
+        setUSzulIdo(response.data.szul_ido);
+        setUJogosultsag(response.data.jogosultsag);
+        setUAktiv(response.data.aktiv);
+        setUEmail(response.data.email);
+        setUPassword(response.data.password);
+        
       });
   };
 
-  const handleDelete = (user_id) => {
-    axios.delete('/api/user'+user_id)
-    .then(response=>{
-    console.log('törölt') 
-    })
-    .catch(error=>console.log(error))
+  const handleDelete = async (user_id) => {
+    await axios
+      .delete("api/user/" + user_id)
+      .then(response => {
+        console.log("törölt");
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleSubmit = async (e) => {
@@ -78,14 +90,13 @@ const UserAdmin = () => {
       jogosultsag: jogosultsag,
       aktiv: aktiv,
       email: email,
-
       password: password,
       password_confirmation: password_confirmation,
     };
     ujfelhasznalo(adat, "/user");
   };
   useEffect(() => {
-    console.log(user);
+    //console.log(user);
     if (!user) {
       getUser();
     }
@@ -96,171 +107,187 @@ const UserAdmin = () => {
       <ContextUserProvider>
         <Navbars />
         <div>
-          <p id="bejelentkezett">bejelentkezett: {user?.name}</p>
+          <p className="md-5" id="bejelentkezett">
+            bejelentkezett: {user?.name}
+          </p>
         </div>
-        <Container id="userList_container">
-          <div>
-            <p>Új felhasználó</p>
-          </div>
-          <div>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="ujfelhasznName">
-                <Form.Label>Név</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="név"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicDate">
-                <Form.Label>Születési idő</Form.Label>
-                <Form.Control
-                  type="date"
-                  placeholder="születés"
-                  onChange={(e) => setSzulIdo(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="ujfelhasznJog">
-                <Form.Label>Jogosultság</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="user"
-                  onChange={(e) => setJogosultsag(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="ujfelhasznAktiv">
-                <Form.Control
-                  type="hidden"
-                  placeholder="true"
-                  onChange={(e) => setAktiv(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="valami@valami.com"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Jelszó</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="jelszó"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicPasswordConfirmation"
-              >
-                <Form.Label>Jelszó újra:</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="jelszó"
-                  value={password_confirmation}
-                  onChange={(e) => {
-                    setPasswordConfirmation(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <button as="input" type="submit" value="Submit">
-                Mentés
-              </button>
-            </Form>
-          </div>
-          <p>Felhasználók karbantartása</p>
-          <Table responsive striped hover>
-            <thead>
-              <tr>
-                <th>név</th>
-                <th>születés</th>
-                <th>jogosultság</th>
-                <th>aktív</th>
-                <th>email</th>
-                <th>szerkesztés</th>
-                <th>törlés</th>
-              </tr>
-            </thead>
-            <tbody>
-              {registeredUser.map((item, index) => (
-                <React.Fragment key={index}>
-                  {item.user_id === editId ? (
-                    <tr>
-                      <td>
-                        <input
-                          type="text"
-                          value={uname}
-                          onChange={(e) => setUName(e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="date"
-                          value={uszul_ido}
-                          onChange={(e) => setUSzulIdo(e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          value={ujogosultsag}
-                          onChange={(e) => setUJogosultsag(e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          value={uaktiv}
-                          onChange={(e) => setUAktiv(e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          value={uemail}
-                          onChange={(e) => setUEmail(e.target.value)}
-                        ></input>
-                      </td>
-                      <td>
-                        <button
-                          variant="outline-info"
-                          onClick={() => handleMent(user_id)}
-                        >
-                          <i className="fa-solid fa-arrows-rotate"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>{item.name}</td>
-                      <td>{item.szul_ido}</td>
-                      <td>{item.jogosultsag}</td>
-                      <td>{item.aktiv}</td>
-                      <td>{item.email}</td>
-                      <td>
-                        <button
-                          variant="outline-info"
-                          onClick={() => handleEdit(item.user_id)}
-                        >
-                          <i className="fa-solid fa-pencil"></i>
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          variant="outline-info"
-                          onClick={() => handleDelete(item.user_id)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              ))}
-            </tbody>
-          </Table>
+        <Container className="d-flex ">
+          <Container id="newUser_container">
+            <div>
+              <p>Új felhasználó</p>
+            </div>
+            <div>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="ujfelhasznName">
+                  <Form.Label>Név</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="név"
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                  <Form.Label>Születési idő</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="születés"
+                    onChange={(e) => setSzulIdo(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="ujfelhasznJog">
+                  <Form.Label>Jogosultság</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="user"
+                    onChange={(e) => setJogosultsag(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="ujfelhasznAktiv">
+                  <Form.Control
+                    type="hidden"
+                    placeholder="true"
+                    onChange={(e) => setAktiv(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="valami@valami.com"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Jelszó</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="jelszó"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="formBasicPasswordConfirmation"
+                >
+                  <Form.Label>Jelszó újra:</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="jelszó"
+                    value={password_confirmation}
+                    onChange={(e) => {
+                      setPasswordConfirmation(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+                <button as="input" type="submit" value="Submit">
+                  Mentés
+                </button>
+              </Form>
+            </div>
+          </Container>
+          <Container id="userList_container">
+            <p>Felhasználók karbantartása</p>
+            <Table responsive striped hover>
+              <thead>
+                <tr>
+                  <th>név</th>
+                  <th>születés</th>
+                  <th>jogosultság</th>
+                  <th>aktív</th>
+                  <th>email</th>
+                  <th>szerkesztés</th>
+                  <th>törlés</th>
+                </tr>
+              </thead>
+              <tbody>
+                {registeredUser.map((item, index) => (
+                  <React.Fragment key={index}>
+                    {item.user_id === editId ? (
+                      <tr>
+                        <td>
+                          <input
+                            type="text"
+                            value={uname}
+                            onChange={(e) => setUName(e.target.value)}
+                          ></input>
+                        </td>
+                        <td>
+                          <input
+                            type="date"
+                            value={uszul_ido}
+                            onChange={(e) => setUSzulIdo(e.target.value)}
+                          ></input>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={ujogosultsag}
+                            onChange={(e) => setUJogosultsag(e.target.value)}
+                          ></input>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={uaktiv}
+                            onChange={(e) => setUAktiv(e.target.value)}
+                          ></input>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={uemail}
+                            onChange={(e) => setUEmail(e.target.value)}
+                          ></input>
+                        </td>
+                        <td>
+                          <input type="hidden" value={item.password}></input>
+                        </td>
+                        <td>
+                          <input
+                            type="hidden"
+                            value={item.password_confirmation}
+                          ></input>
+                        </td>
+                        <td>
+                          <button
+                            variant="outline-info"
+                            onClick={() => handleSave(user_id)}
+                          >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <td>{item.name}</td>
+                        <td>{item.szul_ido}</td>
+                        <td>{item.jogosultsag}</td>
+                        <td>{item.aktiv}</td>
+                        <td>{item.email}</td>
+                        <td>
+                          <button
+                            variant="outline-info"
+                            onClick={() => handleEdit(item.user_id)}
+                          >
+                            <i className="fa-solid fa-pencil"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            variant="outline-info"
+                            onClick={() => handleDelete(item.user_id)}
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </Table>
+          </Container>
         </Container>
       </ContextUserProvider>
     </>

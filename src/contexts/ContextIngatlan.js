@@ -16,19 +16,10 @@ export const ContextIngatlanProvider = ({ children}) => {
         szobaszam: "",
         telepules: "Nincs",
     },[]);
-    let adat = "";
-   const handleSelectIngatlan = () => {
-      setSelectedIngatlan(adat);
-     };
-   useEffect(()=>{
-    function handleSelectedIngatlan(e){
-      setSelectedIngatlan(e.target.value)    }
-      handleSelectedIngatlan();
-      console.log(selectedIngatlan)
-   },[])
- 
+    
+  
       return (
-        <ContextIngatlan.Provider value={{ selectedIngatlan, setSelectedIngatlan, handleSelectIngatlan }}>
+        <ContextIngatlan.Provider value={{ selectedIngatlan, setSelectedIngatlan }}>
           {children}
         </ContextIngatlan.Provider>
       );

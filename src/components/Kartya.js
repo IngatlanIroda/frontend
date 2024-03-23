@@ -1,5 +1,6 @@
 import React, { useState, useContext, Link } from "react";
 import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import style from "./module_card.css";
 import haz1 from "../foto/haz1.jpg";
@@ -9,6 +10,7 @@ import {
   ContextIngatlanProvider,
   useContextIngatlan
 } from "../contexts/ContextIngatlan";
+import { useNavigate } from "react-router-dom";
 
 export default function Kartya({ data }) {
   const {
@@ -21,8 +23,14 @@ export default function Kartya({ data }) {
   } = data;
   console.log(data);
   const [showText, setShowText] = useState(kategoria === "i");
+ 
 //const { handleSelectedIngatlan } = useContextIngatlan();
-//const {selectedIngatlan} = useContextIngatlan();
+const {setSelectedIngatlan} = useContextIngatlan();
+const navigate=useNavigate()
+function egyingatlan(){
+  setSelectedIngatlan(data)
+navigate("/EgyIngatlan")
+}
   return (
   //<Card style={{ width: "18rem", margin: "1rem" }} onClick={handleSelectedIngatlan}>
   <Card style={{ width: "18rem", margin: "1rem" }} >
@@ -55,7 +63,7 @@ export default function Kartya({ data }) {
         <ListGroup.Item>szobák száma: {szobaszam}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Card.Link href="./EgyIngatlan" >Részletek</Card.Link>
+        <Button  onClick={egyingatlan} >Részletek</Button>
         
       </Card.Body>
     </Card>
