@@ -2,9 +2,7 @@ import React,{ createContext, useContext, useEffect, useState } from "react";
 import axios from "../api/axios";
 
 const AuthContextIngatlan = createContext();
-
 export const AuthProviderIngatlan = ({ children }) => {
-   
     const [ingatlan,  setIngatlan] = useState([]);
     const [errors, setErrors] = useState({
         ing_id:"",

@@ -32,6 +32,8 @@ export default function IngatlanTablaSor({ data }) {
       <td>{data.erkely ? "Van" : "Nincs"} </td> 
       <td>{data.terasz ? "Van" : "Nincs"}</td> 
       <td>{data.kert ? "Van" : "Nincs"}</td> 
+      <td><button variant="outline-info"><i className="fa-solid fa-trash"></i></button></td> 
+      <td><button variant="outline-info"><i className="fa-solid fa-pencil"></i></button></td>  
     </> 
 
   ); 
