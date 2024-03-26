@@ -7,11 +7,14 @@
  
 }
 p{
-  color: var(--text);
+  color: var(--back);
   text-align: center;
   margin: auto;
   padding:1rem;
 
+}
+#karbantartas, #ujfelhasznalo{ 
+  color: var(--text);
 }
 #bejelentkezett{
   color: var(--back);

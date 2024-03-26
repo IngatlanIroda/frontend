@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbars from "./Navbars";
 import useAuthContext from "../contexts/AuthContext";
+import {AuthContext} from "../contexts/AuthContext";
 import {
   ContextUserProvider,
   ContextUserList,
@@ -10,9 +11,10 @@ import Container from "react-bootstrap/esm/Container";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const UserAdmin = () => {
-  const { user, ujfelhasznalo, getUser } = useAuthContext();
+  const { user, ujfelhasznalo, felhasznaloTorles,felhasznaloModositas, getUser } = useAuthContext();
   const { registeredUser, setRegisteredUser } = useContextUserList();
 
   const [data, setData] = useState([]);
@@ -33,6 +35,8 @@ const UserAdmin = () => {
   const [upassword_confirmation, setUPasswordConfirmation] = useState("");
   const [editId, setEditId] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleEdit = async (user_id) => {
     await axios
       .get("/user/" + user_id)
@@ -47,39 +51,26 @@ const UserAdmin = () => {
       .catch((error) => console.log(error));
     setEditId(user_id);
   };
-  const handleSave = async () => {
+ 
+  const handleSave = async (e) => {
+   //e.preventDefault();
     
-    await axios
-      .put("/user/" + editId, {
-       
+      felhasznaloModositas(editId, {
         name: uname,
         szul_ido: uszul_ido,
         jogosultsag: ujogosultsag,
         aktiv: uaktiv,
         email: uemail,
         password: upassword,
-        password_confirmation: password_confirmation,
-      })
-      .then(response=> {
-        console.log(response);
-        setUName(response.data.name);
-        setUSzulIdo(response.data.szul_ido);
-        setUJogosultsag(response.data.jogosultsag);
-        setUAktiv(response.data.aktiv);
-        setUEmail(response.data.email);
-        setUPassword(response.data.password);
-        
+        password_confirmation: upassword_confirmation,
       });
+      navigate("/UserAdmin");
   };
-
-  const handleDelete = async (user_id) => {
-    await axios
-      .delete("/user/" + user_id)
-      .then(response => {
-        console.log("törölt");
-      })
-      .catch((error) => console.log(error));
-  };
+  
+  const handleDelete = async (e)=>{
+    felhasznaloTorles(e, "/user")
+    console.log(e)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,6 +85,7 @@ const UserAdmin = () => {
       password_confirmation: password_confirmation,
     };
     ujfelhasznalo(adat, "/user");
+    navigate("/UserAdmin");
   };
   useEffect(() => {
     //console.log(user);
@@ -114,7 +106,7 @@ const UserAdmin = () => {
         <Container className="d-flex ">
           <Container id="newUser_container">
             <div>
-              <p>Új felhasználó</p>
+              <p id="ujfelhasznalo">Új felhasználó</p>
             </div>
             <div>
               <Form onSubmit={handleSubmit}>
@@ -187,7 +179,7 @@ const UserAdmin = () => {
             </div>
           </Container>
           <Container id="userList_container">
-            <p>Felhasználók karbantartása</p>
+            <p id="karbantartas">Felhasználók karbantartása</p>
             <Table responsive striped hover>
               <thead>
                 <tr>
@@ -252,7 +244,7 @@ const UserAdmin = () => {
                         <td>
                           <button
                             variant="outline-info"
-                            onClick={() => handleSave(user_id)}
+                            onClick={() => handleSave(item.user_id)}
                           >
                             <i className="fa-solid fa-arrows-rotate"></i>
                           </button>
