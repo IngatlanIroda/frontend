@@ -27,25 +27,9 @@ export default function IngatlanTablaSor({ data }) {
   /*  const {deleteData} = useContext(useContextIngatlanAdmin);  */
   console.log(data);
 
-  let token = "";
-  const csrf = () =>
-    axios.get("/token").then((response) => {
-      console.log(response);
-      token = response.data;
-    });
+  const {deleteData} = useContextIngatlanAdmin();   
 
-  const deleteData = async (id) => {
-    await csrf();
-    console.log(token);
-    console.log(id);
-    try {
-      await axios.delete(`/ingatlans/${id}`, { headers: { 'X-CSRF-TOKEN': token}}).then((response) => {
-        console.log(response.data);
-      });
-    } catch (error) {
-      console.error("Hiba történt az adatok törlésekor:", error);
-    }
-  };
+  
 
   return (
     <tr>

@@ -21,10 +21,19 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  let token = "";
+  const csrf = () =>
+    axios.get("/token").then((response) => {
+      console.log(response);
+      token = response.data;
+    });
+
   const deleteData = async (id) => {
+    await csrf();
+    console.log(token);
     console.log(id);
     try {
-      await axios.delete("/ingatlans/{id}").then((response) => {
+      await axios.delete(`/ingatlans/${id}`, { headers: { 'X-CSRF-TOKEN': token}}).then((response) => {
         console.log(response.data);
       });
     } catch (error) {
