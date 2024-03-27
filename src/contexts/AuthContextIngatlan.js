@@ -32,6 +32,9 @@ export const AuthProviderIngatlan = ({ children }) => {
     
         fetchData();
       }, []);
+
+
+      
       return (
         <AuthContextIngatlan.Provider value={{ ingatlan, errors }}>
           {children}

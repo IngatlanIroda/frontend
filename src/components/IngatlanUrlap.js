@@ -1,35 +1,61 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/esm/Container";
+import axios from 'axios'; 
+import { ContextIngatlanAdmin } from "../contexts/AuthContextIngatlanAdmin";
+import { useNavigate } from "react-router-dom";
 
 export default function IngatlanUrlap(props) {
+  const {ujIngatlan} = useContext(ContextIngatlanAdmin);
 
-    const [obj, setObj] = useState({telepules_megnevezes: "", nagysag: "", tipus_megnevezes: "", szobaszam: "", leiras: "", cim:"", erkely:"", terasz:"", kert:""})
+    const [telepules, setTelepules] = useState(""); 
+    const [nagysag, setNagysag] = useState(""); 
+    const [tipus, setTipus] = useState(""); 
+    const [szobaszam, setSzobaszam] = useState(""); 
+    const [leiras, setLeiras] = useState(""); 
+    const [cim, setCim] = useState(""); 
+    const [erkely, setErkely] = useState(""); 
+    const [terasz, setTerasz] = useState(""); 
+    const [kert, setKert] = useState(""); 
+ 
 
-    function kuld(e){
-        e.preventDefault()
-        
-    }
 
-    function adatValt(e){
-        const masolat = {...obj}
-        masolat[e.target.id]=e.target.value
-        setObj(masolat)
-        console.log(obj)
-    }
+
+    const beKuld = async (e) => {
+      e.preventDefault();
+      const adat = {
+        telepules_megnevezes: telepules,
+        nagysag: nagysag,
+        tipus_megnevezes: tipus,
+        szobaszam: szobaszam,
+        leiras: leiras,
+        cim: cim,
+        erkely: erkely,
+        terasz: terasz,
+        kert: kert
+      };
+      ujIngatlan(adat, "/user");
+    };
+
+
+
+
 
   return (
     <>
       <h2>Új ingatlan</h2>
 
       <div>
-        <Form onSubmit={kuld}>
+        <Form onSubmit={beKuld}>
           <Form.Group className="mb-3" controlId="">
             <Form.Label>Település</Form.Label>
             <Form.Control
               type="text"
               placeholder="Város"
-              onChange={(e) => adatValt(e.target.value)}
+              value={props.ingatlan.telepules_megnevezes}
+              onChange={(e) => setTelepules(e.target.value)}
+              
+             
               
             />
           </Form.Group>
@@ -38,7 +64,9 @@ export default function IngatlanUrlap(props) {
             <Form.Control
               type="text"
               placeholder="1"
-              onChange={adatValt}
+              value={props.ingatlan.nagysag}
+              onChange={(e) => setNagysag(e.target.value)}
+              
             
             />
           </Form.Group>
@@ -48,7 +76,9 @@ export default function IngatlanUrlap(props) {
            <Form.Control
               type="text"
               placeholder="családi ház"
-              onChange={adatValt}
+              value={props.ingatlan.tipus_megnevezes}
+              onChange={(e) => setTipus(e.target.value)}
+              
               
             />
           </Form.Group>
@@ -57,7 +87,9 @@ export default function IngatlanUrlap(props) {
             <Form.Control
               type="text"
               placeholder="1"
-              onChange={adatValt}
+              value={props.ingatlan.szobaszam}
+              onChange={(e) => setSzobaszam(e.target.value)}
+            
               
             />
           </Form.Group>
@@ -67,7 +99,9 @@ export default function IngatlanUrlap(props) {
           <Form.Control
             type="text"
             placeholder="Tágas, napfényes.."
-            onChange={adatValt}
+            value={props.ingatlan.leiras}
+            onChange={(e) => setLeiras(e.target.value)}
+          
             
           />
         </Form.Group>
@@ -76,7 +110,9 @@ export default function IngatlanUrlap(props) {
             <Form.Control
               type="text"
               placeholder="1117 Budapest, Irinyi József utca 4-20."
-              onChange={adatValt}
+              value={props.ingatlan.cim}
+              onChange={(e) => setCim(e.target.value)}
+            
               
             />
           </Form.Group>
@@ -85,7 +121,9 @@ export default function IngatlanUrlap(props) {
           <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
-            onChange={adatValt}
+            value={props.ingatlan.erkely}
+            onChange={(e) => setErkely(e.target.value)}
+          
             
           />
         </Form.Group>
@@ -94,7 +132,9 @@ export default function IngatlanUrlap(props) {
         <Form.Control
           type="text"
           placeholder="0: nincs, 1: van"
-          onChange={adatValt}
+          value={props.ingatlan.terasz}
+          onChange={(e) => setTerasz(e.target.value)}
+        
           
         />
       </Form.Group>
@@ -103,7 +143,9 @@ export default function IngatlanUrlap(props) {
       <Form.Control
         type="text"
         placeholder="0: nincs, 1: van"
-        onChange={adatValt}
+        value={props.ingatlan.kert}
+        onChange={(e) => setKert(e.target.value)}
+      
         
       />
     </Form.Group>
