@@ -8,7 +8,7 @@ import {
 import useAuthContext from "../contexts/AuthContext";
 import Container from "react-bootstrap/esm/Container";
 import Table from "react-bootstrap/Table";
-import IngatlanUrlap from "./IngatlanUrlap";
+
 import IngatlanTabla from "./IngatlanTabla";
 
 export default function IngatlanAdmin() {
@@ -40,7 +40,7 @@ export default function IngatlanAdmin() {
             <div>
               <p>Ingatlanok karbantartása</p>
             </div>
-            <IngatlanUrlap ingatlan={ingatlan} />
+   
           </Container>
 
           <Container>

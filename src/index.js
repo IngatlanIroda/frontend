@@ -9,19 +9,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProviderIngatlan } from "./contexts/AuthContextIngatlan";
 import { ContextUserProvider } from "./contexts/AuthContextUserList";
 import { ContextIngatlanProvider } from "./contexts/ContextIngatlan";
+import { ContextIngatlanAdminProvider } from "./contexts/AuthContextIngatlanAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <ContextIngatlanProvider>
-      <AuthProviderIngatlan>
-        <AuthProvider>
-          <ContextUserProvider>
-            <App />
-          </ContextUserProvider>
-        </AuthProvider>
-      </AuthProviderIngatlan>
+      <ContextIngatlanProvider>
+        <AuthProviderIngatlan>
+          <AuthProvider>
+            <ContextUserProvider>
+              <ContextIngatlanAdminProvider>
+                <App />
+              </ContextIngatlanAdminProvider>
+            </ContextUserProvider>
+          </AuthProvider>
+        </AuthProviderIngatlan>
       </ContextIngatlanProvider>
     </BrowserRouter>
   </React.StrictMode>

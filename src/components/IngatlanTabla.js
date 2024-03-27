@@ -1,15 +1,14 @@
-import Container from "react-bootstrap/esm/Container"; 
+
 import Table from "react-bootstrap/Table"; 
 import IngatlanTablaSor from "./IngatlanTablaSor"; 
-import { useContext } from "react";
+
 import { 
-    AuthProviderIngatlan, 
-    AuthContextIngatlan, 
-    useAuthContextIngatlan, 
-  } from "../contexts/AuthContextIngatlan"; 
+   
+  useContextIngatlanAdmin, 
+  } from "../contexts/AuthContextIngatlanAdmin"; 
 
 export default function IngatlanTabla(props){
-    const { ingatlan, setIngatlan } = useAuthContextIngatlan();   
+    const { ingatlan } = useContextIngatlanAdmin();   
 
 
     return(
@@ -32,11 +31,11 @@ export default function IngatlanTabla(props){
             </thead> 
             <tbody> 
               {ingatlan.map((item, index) => ( 
-                <> 
-                  <tr> 
+                
+              
                     <IngatlanTablaSor key={index} data={item} /> 
-                  </tr> 
-                </> 
+           
+            
               ))} 
             </tbody> 
           </Table> 
