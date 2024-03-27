@@ -12,76 +12,60 @@ import Row from "react-bootstrap/esm/Row";
 import Card from "react-bootstrap/Card";
 import haz1 from "../foto/haz1.jpg";
 import Ingatlan from "./Ingatlan";
-import {useContextIngatlan} from "../contexts/ContextIngatlan"
+import { useContextIngatlan } from "../contexts/ContextIngatlan";
 import { ContextIngatlanProvider } from "../contexts/ContextIngatlan";
 
-
 export default function EgyIngatlan() {
+  const { selectedIngatlan } = useContextIngatlan();
 
- const { selectedIngatlan} = useContextIngatlan();
+  console.log(selectedIngatlan);
 
- console.log(selectedIngatlan)
- /* const  aktIngatlan = data;
- 
-
- const {
-   ing_id,
-    telepules_megnevezes,
-    tipus_megnevezes,
-    kategoria,
-    nagysag,
-    szobaszam,
-    leiras,
-    cim,
-    erkely,
-    terasz,
-    kert,
-  } = data; 
-  console.log(data)  */
- 
   const [showText, setShowText] = useState(selectedIngatlan.kategoria === "i");
-  const [showErkely, setShowErkely] = useState(selectedIngatlan.erkely === true);
-  const [showTerasz, setShowTerasz] = useState(selectedIngatlan.terasz === true);
+  const [showErkely, setShowErkely] = useState(
+    selectedIngatlan.erkely === true
+  );
+  const [showTerasz, setShowTerasz] = useState(
+    selectedIngatlan.terasz === true
+  );
   const [showKert, setShowKert] = useState(selectedIngatlan.kert === true);
- 
+
   return (
     <>
-     
-        <Navbars />
-        <ContextIngatlanProvider>
+      <Navbars />
+      <ContextIngatlanProvider>
         <Container id="card_container">
           <Row>
-         
-          {selectedIngatlan? (
-            <Card style={{ width: "30rem", margin: "1rem" }}>
-              <Card.Img variant="top" src={haz1} alt="property" />
-              <Card.Body>
-                <Card.Title>{selectedIngatlan.telepules_megnevezes}</Card.Title>
+            {selectedIngatlan ? (
+              <Card style={{ width: "30rem", margin: "1rem" }}>
+                <Card.Img variant="top" src={haz1} alt="property" />
+                <Card.Body>
+                  <Card.Title>
+                    {selectedIngatlan.telepules_megnevezes}
+                  </Card.Title>
 
-                {showText ? (
-                  <>
-                    <Card.Text>{selectedIngatlan.tipus_megnevezes} </Card.Text>
-                  </>
-                ) : (
-                  <>
-                    <Card.Text> </Card.Text>
-                  </>
-                )}
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                {showText ? (
-                  <>
-                    <ListGroup.Item>fűtés:</ListGroup.Item>
-                  </>
-                ) : (
-                  <>
-                    <ListGroup.Item>fűtés: {selectedIngatlan.tipus_megnevezes} </ListGroup.Item>
-                  </>
-                )}
+                  {showText ? (
+                    <>
+                      <Card.Text>
+                        {selectedIngatlan.tipus_megnevezes}{" "}
+                      </Card.Text>
+                    </>
+                  ) : (
+                    <>
+                      <Card.Text> </Card.Text>
+                    </>
+                  )}
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroup.Item>
+                    fűtés: {selectedIngatlan.futes_tipus_megnevezes}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    alapterület: {selectedIngatlan.nagysag} m2
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    szobák száma: {selectedIngatlan.szobaszam}
+                  </ListGroup.Item>
 
-                <ListGroup.Item>alapterület: {selectedIngatlan.nagysag} m2</ListGroup.Item>
-                <ListGroup.Item>szobák száma: {selectedIngatlan.szobaszam}</ListGroup.Item>
-                
                   {showErkely ? (
                     <>
                       <ListGroup.Item>erkély: van</ListGroup.Item>
@@ -91,8 +75,7 @@ export default function EgyIngatlan() {
                       <ListGroup.Item>erkély: nincs </ListGroup.Item>
                     </>
                   )}
-                
-                 
+
                   {showTerasz ? (
                     <>
                       <ListGroup.Item>terasz: van</ListGroup.Item>
@@ -112,18 +95,15 @@ export default function EgyIngatlan() {
                     </>
                   )}
                   <ListGroup.Item>{selectedIngatlan.leiras}</ListGroup.Item>
-               
-              </ListGroup>
-              <Card.Body>cím: {selectedIngatlan.cim}</Card.Body>
-            </Card>
-            ):(
-                <p>Nincs ilyen ingatlan</p>
+                </ListGroup>
+                <Card.Body>cím: {selectedIngatlan.cim}</Card.Body>
+              </Card>
+            ) : (
+              <p>Nincs ilyen ingatlan</p>
             )}
           </Row>
-          
         </Container>
-        </ContextIngatlanProvider> 
-      
+      </ContextIngatlanProvider>
     </>
   );
 }

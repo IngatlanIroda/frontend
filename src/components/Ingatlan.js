@@ -11,8 +11,10 @@ import EgyIngatlan from "./EgyIngatlan";
 import ContextIngatlan, { useContextIngatlan } from "../contexts/ContextIngatlan";
 export default function Ingatlan() {
   const { ingatlan } = useAuthContextIngatlan();
-  
+ 
   const {selectedIngatlan} =useAuthContextIngatlan();
+ //console.log(osszefuzottIngatlan)
+ //console.log(ingatlan)
  
   return (
     <>
@@ -24,7 +26,7 @@ export default function Ingatlan() {
             {ingatlan.map((item, index) => (
               <>
              
-                <Kartya key={index} data={item} />
+                <Kartya key={index} data={item}  />
               
                 </>
             ))}

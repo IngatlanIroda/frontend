@@ -14,6 +14,7 @@ export const ContextUserProvider = ({ children }) => {
         aktiv:"",
         email: "",
         password: "",
+        password_confirmation: "",
     });
     let adat = "";
    
