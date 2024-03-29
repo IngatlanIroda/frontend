@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [registeredUser,  setRegisteredUser] = useState([]);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState({
@@ -94,65 +95,10 @@ export const AuthProvider = ({ children }) => {
       }
     }
   };
-  const felhasznaloTorles = async (user_id, vegpont) => {
-    await csrf();
-    console.log(token);
-    
-    try {
-      const response = await axios.delete(`/user/${user_id}`, {
-        headers: {
-          'X-CSRF-TOKEN': token,
-        },
-      });
-      console.log("sikeres törlés", response);
-    } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
-      }
-    }
-  };
-  
-  const felhasznaloModositas = async( user_id,{ ...adat })=>{
-    await csrf();
-    console.log(token);
-    
-    try {
-      const response = await axios.put(`/user/${user_id}`, adat,{
-        headers: {
-          'X-CSRF-TOKEN': token,
-        },
-      });
-     
-    }catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
-      }
-    }
-  };
+
  
-  const ujfelhasznalo = async ({ ...adat }, vegpont) => {
-    await csrf();
-    console.log(token);
-    adat._token = token;
-    console.log(adat);
-
-    // Megrpóbáljuk elküldeni a /api/user végpontra az adatot
-    // hiba esetén kiiratjuk a hibaüzenetet
-    try {
-      await axios.post("/user", adat);
-      console.log("siker");
-      //sikeres mentés esetén
-
-      navigate("/UserAdmin");
-    } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
-      }
-    }
-  };
+ 
+ 
 
   return (
     <AuthContext.Provider
@@ -160,9 +106,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         loginReg,
         register,
-        ujfelhasznalo,
-        felhasznaloTorles,
-        felhasznaloModositas,
+        
         errors,
         setErrors,
         getUser,

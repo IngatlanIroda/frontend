@@ -14,7 +14,8 @@ import haz1 from "../foto/haz1.jpg";
 import Ingatlan from "./Ingatlan";
 import { useContextIngatlan } from "../contexts/ContextIngatlan";
 import { ContextIngatlanProvider } from "../contexts/ContextIngatlan";
-
+import CloseButton from 'react-bootstrap/CloseButton';
+import { useNavigate } from "react-router-dom";
 export default function EgyIngatlan() {
   const { selectedIngatlan } = useContextIngatlan();
 
@@ -101,6 +102,7 @@ export default function EgyIngatlan() {
             ) : (
               <p>Nincs ilyen ingatlan</p>
             )}
+            <CloseButton disabled onClick={(e) =>(window.close)}/>
           </Row>
         </Container>
       </ContextIngatlanProvider>

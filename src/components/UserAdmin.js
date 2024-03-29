@@ -14,8 +14,8 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const UserAdmin = () => {
-  const { user, ujfelhasznalo, felhasznaloTorles,felhasznaloModositas, getUser } = useAuthContext();
-  const { registeredUser, setRegisteredUser } = useContextUserList();
+  const { user,  getUser } = useAuthContext();
+  const { registeredUser, setRegisteredUser, ujfelhasznalo, felhasznaloTorles,felhasznaloModositas, } = useContextUserList();
 
   const [data, setData] = useState([]);
   const [user_id, setUserId] = useState("");
@@ -53,9 +53,9 @@ const UserAdmin = () => {
   };
  
   const handleSave = async (e) => {
-   //e.preventDefault();
     
-      felhasznaloModositas(editId, {
+    try {
+      await felhasznaloModositas(editId, {
         name: uname,
         szul_ido: uszul_ido,
         jogosultsag: ujogosultsag,
@@ -64,28 +64,40 @@ const UserAdmin = () => {
         password: upassword,
         password_confirmation: upassword_confirmation,
       });
-      navigate("/UserAdmin");
+      navigate("/useradmin");
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/useradmin");
   };
   
   const handleDelete = async (e)=>{
-    felhasznaloTorles(e, "/user")
-    console.log(e)
+    try {
+      await felhasznaloTorles(e, "/user");
+      navigate("/useradmin")
+    } catch (error) {
+      console.log(error);
+    }
+    
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const adat = {
-      user_id: user_id,
-      name: name,
-      szul_ido: szul_ido,
-      jogosultsag: jogosultsag,
-      aktiv: aktiv,
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation,
-    };
-    ujfelhasznalo(adat, "/user");
-    navigate("/UserAdmin");
+    try {
+      const adat = {
+        user_id: user_id,
+        name: name,
+        szul_ido: szul_ido,
+        jogosultsag: jogosultsag,
+        aktiv: aktiv,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+      };
+      await ujfelhasznalo(adat, "/user");
+      navigate("/useradmin");
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     //console.log(user);
@@ -178,9 +190,10 @@ const UserAdmin = () => {
               </Form>
             </div>
           </Container>
-          <Container id="userList_container">
+          
+          <Container  className="mb-3" id="userList_container">
             <p id="karbantartas">Felhasználók karbantartása</p>
-            <Table responsive striped hover>
+            <Table class="table-responsive" striped hover>
               <thead>
                 <tr>
                   <th>név</th>
@@ -190,6 +203,7 @@ const UserAdmin = () => {
                   <th>email</th>
                   <th>szerkesztés</th>
                   <th>törlés</th>
+                  <th>mentés</th>
                 </tr>
               </thead>
               <tbody>
@@ -198,35 +212,35 @@ const UserAdmin = () => {
                     {item.user_id === editId ? (
                       <tr>
                         <td>
-                          <input
+                          <input id="unameInput"
                             type="text"
                             value={uname}
                             onChange={(e) => setUName(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input
+                          <input id="udateInput"
                             type="date"
                             value={uszul_ido}
                             onChange={(e) => setUSzulIdo(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input
+                          <input id="ujogosultsagInput"
                             type="text"
                             value={ujogosultsag}
                             onChange={(e) => setUJogosultsag(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input
+                          <input id="uaktivInput"
                             type="text"
                             value={uaktiv}
                             onChange={(e) => setUAktiv(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input
+                          <input id="uemailInput"
                             type="text"
                             value={uemail}
                             onChange={(e) => setUEmail(e.target.value)}
@@ -236,7 +250,7 @@ const UserAdmin = () => {
                           <input type="hidden" value={item.password}></input>
                         </td>
                         <td>
-                          <input
+                          <input 
                             type="hidden"
                             value={item.password_confirmation}
                           ></input>
@@ -249,6 +263,7 @@ const UserAdmin = () => {
                             <i className="fa-solid fa-arrows-rotate"></i>
                           </button>
                         </td>
+                       
                       </tr>
                     ) : (
                       <tr>
@@ -273,6 +288,7 @@ const UserAdmin = () => {
                             <i className="fa-solid fa-trash"></i>
                           </button>
                         </td>
+                        <td></td>
                       </tr>
                     )}
                   </React.Fragment>

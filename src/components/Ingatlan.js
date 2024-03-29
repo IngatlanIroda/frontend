@@ -7,14 +7,13 @@ import {
 } from "../contexts/AuthContextIngatlan";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import EgyIngatlan from "./EgyIngatlan";
+
 import ContextIngatlan, { useContextIngatlan } from "../contexts/ContextIngatlan";
 export default function Ingatlan() {
   const { ingatlan } = useAuthContextIngatlan();
  
   const {selectedIngatlan} =useAuthContextIngatlan();
- //console.log(osszefuzottIngatlan)
- //console.log(ingatlan)
+ 
  
   return (
     <>
