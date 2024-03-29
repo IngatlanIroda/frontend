@@ -12,14 +12,24 @@ export default function IngatlanUrlap(props) {
 
     const [ing_tipus, setTipus] = useState(""); 
     const [futes_tipus, setFutesTipus] = useState(""); 
-    const [telepules, setTelepules] = useState(""); 
     const [nagysag, setNagysag] = useState(""); 
     const [szobaszam, setSzobaszam] = useState(""); 
-    const [leiras, setLeiras] = useState(""); 
-    const [cim, setCim] = useState(""); 
     const [erkely, setErkely] = useState(""); 
     const [terasz, setTerasz] = useState(""); 
     const [kert, setKert] = useState(""); 
+    const [telepules, setTelepules] = useState(""); 
+    const [cim, setCim] = useState(""); 
+    const [leiras, setLeiras] = useState(""); 
+    const [ugytipus, setUgyTipus] = useState("");
+    const [user, setUser] = useState("");
+    const [hird_feladas_datuma, setHirdFeladasDatuma] = useState("");
+    const [hird_lejarata, setHirdLejarata] = useState("");
+    const [utolso_modositas_datuma, setUtolsoModositasDatuma] = useState(""); 
+    const [ar, setAr] = useState(""); 
+    
+    
+   
+
  
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -33,7 +43,13 @@ export default function IngatlanUrlap(props) {
         kert: kert,
         telepules: telepules,
         cim: cim,
-        leiras: leiras
+        leiras: leiras,
+        ugytipus: ugytipus,
+        user: user,
+        hird_feladas_datuma: hird_feladas_datuma,
+        hird_lejarata: hird_lejarata,
+        utolso_modositas_datuma: utolso_modositas_datuma,
+        ar: ar
       };
       ujIngatlan(adat);
      
@@ -42,86 +58,145 @@ export default function IngatlanUrlap(props) {
 
   return (
     <>
-      <h2>Új ingatlan</h2>
+      <h5>Új ingatlan</h5>
+
 
       <div>
         <Form onSubmit={handleSubmit} >
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Település</Form.Label>
+          <Form.Group className="mb-6" controlId="">
+            <Form.Label>Ingatlan típusa</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Város"
-              onChange={(e) => setTelepules(e.target.value)} 
+              type="number"
+              placeholder="1: családi ház, 2: téglalakás, 6: panel lakás"
+              onChange={(e) => setTipus(e.target.value)} 
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Nagyság</Form.Label>
+          <Form.Group className="mb-6" controlId="">
+            <Form.Label>Fűtés típusa</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="1"
-              onChange={(e) => setNagysag(e.target.value)} 
+              type="number"
+              placeholder="4: távfűtés, 5: gáz, 6: padlófűtés"
+              onChange={(e) => setFutesTipus(e.target.value)} 
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="">
-           <Form.Label>Ingatlan típus</Form.Label>
+          <Form.Group className="mb-6" controlId="">
+           <Form.Label>Nagyság</Form.Label>
            <Form.Control
-              type="text"
-              placeholder="családi ház"
-              onChange={(e) => setTipus(e.target.value)} 
+              type="number"
+              placeholder="60"
+              onChange={(e) => setNagysag(e.target.value)} 
             
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="">
+          <Form.Group className="mb-6" controlId="">
             <Form.Label>Szobák száma</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="1"
               onChange={(e) => setSzobaszam(e.target.value)} 
             />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="">
-          <Form.Label>Leírás</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Tágas, napfényes.."
-            onChange={(e) => setLeiras(e.target.value)} 
- 
-          />
         </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Cím</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="1117 Budapest, Irinyi József utca 4-20."
-              onChange={(e) => setCim(e.target.value)} 
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-          <Form.Label>Erkély</Form.Label>
-          <Form.Control
+        <Form.Group className="mb-6" controlId="">
+        <Form.Label>Erkély</Form.Label>
+        <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
             onChange={(e) => setErkely(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="">
+        <Form.Group className="mb-6" controlId="">
         <Form.Label>Terasz</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="0: nincs, 1: van"
-          onChange={(e) => setTerasz(e.target.value)}
+              type="text"
+              placeholder="0: nincs, 1: van"
+              onChange={(e) => setTerasz(e.target.value)}
+            />
+        </Form.Group>
+        <Form.Group className="mb-6" controlId="">
+        <Form.Label>Kert</Form.Label>
+        <Form.Control
+            type="text"
+            placeholder="0: nincs, 1: van"
+            onChange={(e) => setKert(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-6" controlId="">
+        <Form.Label>Település</Form.Label>
+        <Form.Control
+          type="number"
+          placeholder="1: Komló, 2: Kaposvár ... stb."
+          onChange={(e) => setTelepules(e.target.value)} 
+
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="">
-      <Form.Label>Kert</Form.Label>
+      <Form.Group className="mb-6" controlId="">
+        <Form.Label>Cím</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="1117 Budapest, Irinyi József utca 4-20."
+          onChange={(e) => setCim(e.target.value)} 
+        />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>Leírás</Form.Label>
       <Form.Control
         type="text"
-        placeholder="0: nincs, 1: van"
-        onChange={(e) => setKert(e.target.value)}
+        placeholder="Tágas, napfényes.."
+        onChange={(e) => setLeiras(e.target.value)} 
       />
-    </Form.Group>
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>Ügytípus</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="1"
+        onChange={(e) => setUgyTipus(e.target.value)} 
+      />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>User</Form.Label>
+      <Form.Control
+        type="number"
+        placeholder="1, 2... stb."
+        onChange={(e) => setUser(e.target.value)} 
+      />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>Hirdetés feladása</Form.Label>
+      <Form.Control
+        type="date"
+        placeholder=""
+        onChange={(e) => setHirdFeladasDatuma(e.target.value)} 
+      />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>Hirdetés lejárata</Form.Label>
+      <Form.Control
+        type="date"
+        placeholder=""
+        onChange={(e) => setHirdLejarata(e.target.value)} 
+      />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+      <Form.Label>Hirdetésmódosítás utolsó dátuma</Form.Label>
+      <Form.Control
+        type="date"
+        placeholder=""
+        onChange={(e) => setUtolsoModositasDatuma(e.target.value)} 
+      />
+      </Form.Group>
+      <Form.Group className="mb-6" controlId="">
+
+      <Form.Label>Ár</Form.Label>
+      <Form.Control
+        type="number"
+        placeholder=""
+        onChange={(e) => setAr(e.target.value)} 
+      />
+      </Form.Group>
+    
+    
           
           <button as="input" type="submit" value="Submit">
             Mentés
