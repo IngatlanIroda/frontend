@@ -26,3 +26,22 @@ p{
 button{
   padding: 0.5rem;
 }
+
+#uaktivInput{
+  max-inline-size:3rem;
+}
+#ujogosultsagInput{
+  max-inline-size: 5rem;
+}
+
+.keresContainer{
+  max-width: 66%;
+  padding: 1rem;
+  background-color: var(--text);
+  margin:0.5rem;
+ color: var(--back);
+}
+.keresDiv{
+  display: flex;
+  justify-content: center;
+}
