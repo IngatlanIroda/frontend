@@ -6,16 +6,32 @@ const ContextIngatlanAdmin = createContext();
 export const ContextIngatlanAdminProvider = ({ children }) => {
   const [ingatlan, setIngatlan] = useState([]);
   const [errors, setErrors] = useState({
-    ing_id: "",
+    ing_id:"",
+    ing_tipus: "",
+    futes_tipus: "",
     nagysag: "",
-    tipus_megnevezes: "",
     szobaszam: "",
-    leiras: "",
-    cim: "",
     erkely: "",
     terasz: "",
     kert: "",
+    telepules: "",
+    cim: "",
+    leiras: "",
+    ugytipus: "",
+    user: "",
+    hird_feladas_datuma: "",
+    hird_lejarata: "",
+    utolso_modositas_datuma: "",
+    ar: ""
   });
+  
+  let token = "";
+  const csrf = () =>
+    axios.get("/token").then((response) => {
+      console.log(response);
+      token = response.data;
+    });
+
 
   //adatok lekérése a szerverről
   useEffect(() => {

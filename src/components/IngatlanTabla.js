@@ -1,32 +1,39 @@
 
 import Table from "react-bootstrap/Table"; 
 import IngatlanTablaSor from "./IngatlanTablaSor"; 
-
 import { 
    
   useContextIngatlanAdmin, 
   } from "../contexts/AuthContextIngatlanAdmin"; 
+  import "./module_ingatlan_form.css";
 
 export default function IngatlanTabla(props){
     const { ingatlan } = useContextIngatlanAdmin();   
 
-
     return(
-        <Table responsive striped hover> 
+        <Table responsive striped hover id="ingatlan_table"> 
             <thead> 
               <tr> 
-                <th>ing_id</th> 
-                <th>település</th> 
+                <th>id</th> 
+                <th>ingatlan típusa</th> 
+                <th>fűtés típus</th> 
                 <th>nagyság</th> 
-                <th>ingatlan tipus</th> 
                 <th>szobák száma</th> 
-                <th>leírás</th> 
-                <th>cím</th> 
                 <th>erkély</th> 
                 <th>terasz</th> 
                 <th>kert</th> 
+                <th>település</th>
+                <th>cím</th>
+                <th>leírás</th> 
+                <th>ügytípus</th>
+                <th>user</th>
+                <th>hirdetés feladása</th>
+                <th>hirdetés lejárata</th> 
+                <th>hirdetés módosítása</th>
+                <th>ár</th>
                 <th>szerkesztés</th> 
-                <th>töröl</th> 
+                <th>törlés</th> 
+                <th>mentés</th> 
               </tr>
             </thead> 
             <tbody> 

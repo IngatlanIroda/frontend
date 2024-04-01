@@ -1,19 +1,24 @@
 import Navbars from "./Navbars";
 import React, { useEffect, useState } from "react";
+import {useContextIngatlanAdmin} from "../contexts/AuthContextIngatlanAdmin"
 import {
   AuthProviderIngatlan,
   AuthContextIngatlan,
   useAuthContextIngatlan,
 } from "../contexts/AuthContextIngatlan";
+import {
+  ContextIngatlanAdminProvider
+} from "../contexts/AuthContextIngatlanAdmin";
 import useAuthContext from "../contexts/AuthContext";
 import Container from "react-bootstrap/esm/Container";
-import Table from "react-bootstrap/Table";
 import IngatlanUrlap from "./IngatlanUrlap";
 import IngatlanTabla from "./IngatlanTabla";
+import { Row } from "react-bootstrap";
+import Col from 'react-bootstrap/Col';
 
 export default function IngatlanAdmin() {
   const { user, getUser } = useAuthContext();
-  const { ingatlan, setIngatlan } = useAuthContextIngatlan();
+  const { ingatlan, setIngatlan } = useContextIngatlanAdmin();
 
   
   useEffect(() => {
@@ -34,19 +39,23 @@ export default function IngatlanAdmin() {
           <p id="bejelentkezett">bejelentkezett: {user?.name}</p>
         </div>
 
-        <Container className="">
-
-          <Container id="ingatlanList_container">
-            <div>
-              <p>Ingatlanok karbantartása</p>
-            </div>
+        <Container className="" >
+       
+        
+          <Container id="ingatlanUrlap_container" className="">
               <IngatlanUrlap  />
           </Container>
-
-          <Container>
+        
+          
+          <Container id="ingatlanTabla_container" className="">
+                   
+          <div>
+          <h5>Ingatlanok karbantartása</h5>
+        </div>
             <IngatlanTabla  ingatlan={ingatlan}/>
           </Container>
-
+        
+       
         </Container>
 
       </AuthProviderIngatlan>
