@@ -30,7 +30,7 @@ export const ContextUserProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         await axios.get("/userTablaLista").then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           setRegisteredUser(response.data);
         });
       } catch (error) {
@@ -52,7 +52,7 @@ export const ContextUserProvider = ({ children }) => {
           "X-CSRF-TOKEN": token,
         },
       });
-      console.log("sikeres törlés", response);
+     // console.log("sikeres törlés", response);
       alert(response.data.message)
       window.location.reload();
     } catch (error) {
@@ -92,8 +92,8 @@ export const ContextUserProvider = ({ children }) => {
     //console.log(adat);
     try {
       await axios.post("/user", adat);
-      console.log("siker")
-      console.log(adat)
+      //console.log("siker")
+     // console.log(adat)
     // alert(response.message)
       window.location.reload();
     } catch (error) {
