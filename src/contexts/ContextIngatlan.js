@@ -1,6 +1,5 @@
 import React,{ createContext,  useState, useContext, useEffect } from "react";
-import EgyIngatlan from "../components/EgyIngatlan";
-import Kartya from "../components/Kartya"
+
 const ContextIngatlan = createContext();
 
 export const ContextIngatlanProvider = ({ children}) => {

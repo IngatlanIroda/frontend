@@ -49,6 +49,9 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
   }, []);
 
 
+
+
+
   const ujIngatlan = async ({ ...adat }) => {
     await csrf();
     //console.log(token);

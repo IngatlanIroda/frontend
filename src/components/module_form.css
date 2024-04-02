@@ -33,13 +33,26 @@ button{
 #ujogosultsagInput{
   max-inline-size: 5rem;
 }
+#conAdmin{
+  padding: 1rem;
+  justify-content: center;
+  text-align: center;
+  color: var(--text);
+}
+.conAdmin {
+  margin: 2rem;
+}
+.conAdmin p{
+  color: var(--text);
+ 
+}
 
 .keresContainer{
   max-width: 66%;
   padding: 1rem;
   background-color: var(--text);
   margin:0.5rem;
- color: var(--back);
+  color: var(--back);
 }
 .keresDiv{
   display: flex;

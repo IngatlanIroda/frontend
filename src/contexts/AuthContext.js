@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [registeredUser,  setRegisteredUser] = useState([]);
+  const [registeredUser, setRegisteredUser] = useState([]);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState({
@@ -24,13 +24,14 @@ export const AuthProvider = ({ children }) => {
       //console.log(response);
       token = response.data;
     });
-    useEffect(() => {
-        getUser(); 
-      }, []);
+  useEffect(() => {
+    getUser();
+  }, []);
   //bejelentkezett felhasználó adatainak lekérdezése
   const getUser = async () => {
     const { data } = await axios.get("/me");
     setUser(data);
+    console.log(data);
   };
   const logout = async () => {
     await csrf();
@@ -48,14 +49,9 @@ export const AuthProvider = ({ children }) => {
     adat._token = token;
     //console.log(adat);
 
-    //bejelentkezés
-    //Összegyűjtjük egyetlen objektumban az űrlap adatokat
-
-    // Megrpóbáljuk elküldeni a /register végpontra az adatot
-    // hiba esetén kiiratjuk a hibaüzenetet
     try {
       await axios.post(vegpont, adat);
-     // console.log("siker");
+      // console.log("siker");
       //sikeres bejelentkezés/regisztráció esetén
       //Lekérdezzük a usert
       await getUser();
@@ -73,7 +69,7 @@ export const AuthProvider = ({ children }) => {
     await csrf();
     //console.log(token);
     adat._token = token;
-   // console.log(adat);
+    // console.log(adat);
 
     //bejelentkezés
     //Összegyűjtjük egyetlen objektumban az űrlap adatokat
@@ -96,17 +92,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
- 
- 
- 
-
   return (
     <AuthContext.Provider
       value={{
         logout,
         loginReg,
         register,
-        
+
         errors,
         setErrors,
         getUser,
