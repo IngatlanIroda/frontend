@@ -13,8 +13,8 @@ import useAuthContext from "../contexts/AuthContext";
 import Container from "react-bootstrap/esm/Container";
 import IngatlanUrlap from "./IngatlanUrlap";
 import IngatlanTabla from "./IngatlanTabla";
-import { Row } from "react-bootstrap";
-import Col from 'react-bootstrap/Col';
+import "./module_ingatlan_form.css";
+
 
 export default function IngatlanAdmin() {
   const { user, getUser } = useAuthContext();
@@ -47,6 +47,9 @@ export default function IngatlanAdmin() {
        
         
           <Container id="ingatlanUrlap_container" className="">
+          <div>
+          <h5 id="ujIngFelvitele">Új ingatlan felvitele</h5>
+        </div>
               <IngatlanUrlap  />
           </Container>
         
@@ -54,7 +57,7 @@ export default function IngatlanAdmin() {
           <Container id="ingatlanTabla_container" className="">
                    
           <div>
-          <h5>Ingatlanok karbantartása</h5>
+          <h5 id="ingKarbantartas">Ingatlanok karbantartása</h5>
         </div>
             <IngatlanTabla  ingatlan={ingatlan}/>
           </Container>

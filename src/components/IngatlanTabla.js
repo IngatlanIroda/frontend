@@ -126,7 +126,6 @@ export default function IngatlanTabla(props){
     const handleSave = async (e) => {
       try {
         await ingatlanModositas(editId, {
-          ing_id:uing_id,
           ing_tipus: uing_tipus,
           futes_tipus: ufutes_tipus,
           nagysag: unagysag,
@@ -151,38 +150,11 @@ export default function IngatlanTabla(props){
 
 
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const adat = {
-          ing_tipus: ing_tipus,
-          futes_tipus: futes_tipus,
-          nagysag: nagysag,
-          szobaszam: szobaszam,
-          erkely: erkely,
-          terasz: terasz,
-          kert: kert,
-          telepules: telepules,
-          cim: cim,
-          leiras: leiras,
-          ugytipus: ugytipus,
-          user: user,
-          hird_feladas_datuma: hird_feladas_datuma,
-          hird_lejarata: hird_lejarata,
-          utolso_modositas_datuma: utolso_modositas_datuma,
-          ar: ar
-        };
-        await ujIngatlan(adat, "/ingatlans");
-      } catch (error) {
-        console.log(error);
-      }
-    };
    
     return(
-        <Table responsive striped hover id="ingatlan_table"> 
+        <Table responsive striped hover  size="sm" id="ingatlan_table"> 
             <thead> 
               <tr> 
-                <th>id</th> 
                 <th>ingatlan típusa</th> 
                 <th>fűtés típus</th> 
                 <th>nagyság</th> 
@@ -210,13 +182,6 @@ export default function IngatlanTabla(props){
               <React.Fragment key={index}>
                 {item.ing_id === editId ? (
                   <tr>
-                    <td>
-                      <input id=""
-                        type="number"
-                        value={item.ing_id}
-                        onChange={(e) => setUIngId(e.target.value)}
-                      ></input>
-                    </td>
                     <td>
                       <input id=""
                         type="number"
@@ -323,20 +288,12 @@ export default function IngatlanTabla(props){
             ></input>
         </td>
         <td>
-            <input id=""
-              type="date"
-              value={uutolso_modositas_datuma}
-               onChange={(e) => setUUtolsoModositasDatuma(e.target.value)}
-        ></input>
-        </td>
-        <td>
            <input id=""
               type="number"
               value={uar}
                onChange={(e) => setUAr(e.target.value)}
             ></input>
         </td>
-
                     <td>
                       <button
                         variant="outline-info"
@@ -349,7 +306,6 @@ export default function IngatlanTabla(props){
                   </tr>
                 ) : (   
                   <tr>
-                    <td>{item.ing_id}</td>
                     <td>{item.ing_tipus}</td>
                     <td>{item.futes_tipus}</td>
                     <td>{item.nagysag}</td>
@@ -359,11 +315,11 @@ export default function IngatlanTabla(props){
                     <td>{item.kert}</td>
                     <td>{item.telepules}</td>
                     <td>{item.cim}</td>
-                    <td>{item.leiras}</td>
+                    <td className="text-truncate"> {item.leiras}</td>
                     <td>{item.ugytipus}</td>
                     <td>{item.user}</td>
                     <td>{item.hird_feladas_datuma}</td>
-                    <td>{item.hird_lejarata}</td>
+                    <td>{item.hird_lejarata}</td> 
                     <td>{item.utolso_modositas_datuma}</td>
                     <td>{item.ar}</td>
                     <td>

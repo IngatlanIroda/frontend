@@ -2,8 +2,30 @@
 
 
 #ingatlan_table{
-  width: 50%;
   height: 50%;
-  
+  width: 60%;
+}
 
+.text-truncate{
+  max-width: 150px;
+
+}
+
+#submitButton{
+  margin-top: 15px;
+
+}
+
+.formLabel{
+  margin-top: 10px;
+}
+
+#ingKarbantartas{
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+#ujIngFelvitele{
+  padding-top: 20px;
+  
 }

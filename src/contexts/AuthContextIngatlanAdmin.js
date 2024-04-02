@@ -48,14 +48,6 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  let token = "";
-  const csrf = () =>
-    axios.get("/token").then((response) => {
-      //console.log(response);
-      token = response.data;
-    });
-
-
 
   const ujIngatlan = async ({ ...adat }) => {
     await csrf();
@@ -64,12 +56,8 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     //console.log(adat);
     try {
       await axios.post("/ingatlans",  adat);
-<<<<<<< HEAD
-      console.log("siker");
-      window.location.reload();
-=======
       //console.log("siker");
->>>>>>> d577d701febee285aea8d2d62e6f2be885da7efb
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
@@ -87,6 +75,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
         .delete(`/ingatlans/${id}`, { headers: { "X-CSRF-TOKEN": token } })
         .then((response) => {
           //console.log(response.data);
+          window.location.reload();
         });
     } catch (error) {
       console.error("Hiba történt az adatok törlésekor:", error);

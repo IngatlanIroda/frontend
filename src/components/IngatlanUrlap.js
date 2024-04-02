@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import {
   useContextIngatlanAdmin
 } from "../contexts/AuthContextIngatlanAdmin";
+import "./module_ingatlan_form.css";
 
 
 
@@ -58,13 +59,13 @@ export default function IngatlanUrlap(props) {
 
   return (
     <>
-      <h5>Új ingatlan</h5>
+      
 
 
       <div>
         <Form onSubmit={handleSubmit} >
           <Form.Group className="mb-6" controlId="">
-            <Form.Label>Ingatlan típusa</Form.Label>
+            <Form.Label className="formLabel">Ingatlan típusa</Form.Label>
             <Form.Control
               type="number"
               placeholder="1: családi ház, 2: téglalakás, 6: panel lakás"
@@ -72,7 +73,7 @@ export default function IngatlanUrlap(props) {
             />
           </Form.Group>
           <Form.Group className="mb-6" controlId="">
-            <Form.Label>Fűtés típusa</Form.Label>
+            <Form.Label className="formLabel">Fűtés típusa</Form.Label>
             <Form.Control
               type="number"
               placeholder="4: távfűtés, 5: gáz, 6: padlófűtés"
@@ -81,7 +82,7 @@ export default function IngatlanUrlap(props) {
           </Form.Group>
 
           <Form.Group className="mb-6" controlId="">
-           <Form.Label>Nagyság</Form.Label>
+           <Form.Label className="formLabel">Nagyság</Form.Label>
            <Form.Control
               type="number"
               placeholder="60"
@@ -90,7 +91,7 @@ export default function IngatlanUrlap(props) {
             />
           </Form.Group>
           <Form.Group className="mb-6" controlId="">
-            <Form.Label>Szobák száma</Form.Label>
+            <Form.Label className="formLabel">Szobák száma</Form.Label>
             <Form.Control
               type="number"
               placeholder="1"
@@ -98,7 +99,7 @@ export default function IngatlanUrlap(props) {
             />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label>Erkély</Form.Label>
+        <Form.Label className="formLabel">Erkély</Form.Label>
         <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
@@ -106,7 +107,7 @@ export default function IngatlanUrlap(props) {
           />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label>Terasz</Form.Label>
+        <Form.Label className="formLabel">Terasz</Form.Label>
         <Form.Control
               type="text"
               placeholder="0: nincs, 1: van"
@@ -114,7 +115,7 @@ export default function IngatlanUrlap(props) {
             />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label>Kert</Form.Label>
+        <Form.Label className="formLabel">Kert</Form.Label>
         <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
@@ -122,7 +123,7 @@ export default function IngatlanUrlap(props) {
           />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label>Település</Form.Label>
+        <Form.Label className="formLabel">Település</Form.Label>
         <Form.Control
           type="number"
           placeholder="1: Komló, 2: Kaposvár ... stb."
@@ -131,7 +132,7 @@ export default function IngatlanUrlap(props) {
         />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-        <Form.Label>Cím</Form.Label>
+        <Form.Label className="formLabel">Cím</Form.Label>
         <Form.Control
           type="text"
           placeholder="1117 Budapest, Irinyi József utca 4-20."
@@ -139,7 +140,7 @@ export default function IngatlanUrlap(props) {
         />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>Leírás</Form.Label>
+      <Form.Label className="formLabel">Leírás</Form.Label>
       <Form.Control
         type="text"
         placeholder="Tágas, napfényes.."
@@ -147,7 +148,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>Ügytípus</Form.Label>
+      <Form.Label className="formLabel">Ügytípus</Form.Label>
       <Form.Control
         type="text"
         placeholder="1"
@@ -155,7 +156,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>User</Form.Label>
+      <Form.Label className="formLabel">User</Form.Label>
       <Form.Control
         type="number"
         placeholder="1, 2... stb."
@@ -163,7 +164,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>Hirdetés feladása</Form.Label>
+      <Form.Label className="formLabel">Hirdetés feladása</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -171,7 +172,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>Hirdetés lejárata</Form.Label>
+      <Form.Label className="formLabel">Hirdetés lejárata</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -179,7 +180,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label>Hirdetésmódosítás utolsó dátuma</Form.Label>
+      <Form.Label className="formLabel">Hirdetésmódosítás utolsó dátuma</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -188,7 +189,7 @@ export default function IngatlanUrlap(props) {
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
 
-      <Form.Label>Ár</Form.Label>
+      <Form.Label className="formLabel">Ár</Form.Label>
       <Form.Control
         type="number"
         placeholder=""
@@ -198,7 +199,7 @@ export default function IngatlanUrlap(props) {
     
     
           
-          <button as="input" type="submit" value="Submit">
+          <button as="input" type="submit" value="Submit" id="submitButton">
             Mentés
           </button>
          
