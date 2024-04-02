@@ -52,9 +52,9 @@ export const AuthProviderIngatlan = ({ children }) => {
           }
         });
         
-        //console.log(ingatlan);
-        console.log(mData);
-        console.log(osszefuzottIngatlan);
+       //console.log(ingatlan);
+        //console.log(mData);
+       //console.log(osszefuzottIngatlan);
       } catch (error) {
         console.error("Hiba történt az adatok lekérdezésekor:", error);
 

@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   let token = "";
   const csrf = () =>
     axios.get("/token").then((response) => {
-      console.log(response);
+      //console.log(response);
       token = response.data;
     });
     useEffect(() => {
@@ -34,19 +34,19 @@ export const AuthProvider = ({ children }) => {
   };
   const logout = async () => {
     await csrf();
-    console.log(token);
+    //console.log(token);
     axios.post("/logout", { _token: token }).then((resp) => {
       setUser(null);
-      console.log(resp);
+      //console.log(resp);
       navigate("/");
     });
   };
 
   const loginReg = async ({ ...adat }, vegpont) => {
     await csrf();
-    console.log(token);
+    //console.log(token);
     adat._token = token;
-    console.log(adat);
+    //console.log(adat);
 
     //bejelentkezés
     //Összegyűjtjük egyetlen objektumban az űrlap adatokat
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     // hiba esetén kiiratjuk a hibaüzenetet
     try {
       await axios.post(vegpont, adat);
-      console.log("siker");
+     // console.log("siker");
       //sikeres bejelentkezés/regisztráció esetén
       //Lekérdezzük a usert
       await getUser();
@@ -71,9 +71,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async ({ ...adat }, vegpont) => {
     await csrf();
-    console.log(token);
+    //console.log(token);
     adat._token = token;
-    console.log(adat);
+   // console.log(adat);
 
     //bejelentkezés
     //Összegyűjtjük egyetlen objektumban az űrlap adatokat

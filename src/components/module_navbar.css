@@ -6,3 +6,7 @@
   background-color: var(--back);
   font: size 1.8rem;
 }
+.logoutButton{
+  color: var(--text);
+  background-color: var(--back);
+}
