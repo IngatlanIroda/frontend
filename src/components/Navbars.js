@@ -24,7 +24,7 @@ export default function Navbars() {
        
           <Nav className="me-auto">
             <Nav.Link href="/ingatlan"> Ingatlanok</Nav.Link>
-            <Nav.Link href="/hirdetes">Hirdetés</Nav.Link>
+            <Nav.Link href="/hirdetes">Hirdetésfeladás</Nav.Link>
 
             {(user && user.jogosultsag === "admin") ? 
               <>

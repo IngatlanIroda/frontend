@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ContextHirdetesProvider } from "./contexts/AuthContextHirdetes";
 import { AuthProvider } from "./contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProviderIngatlan } from "./contexts/AuthContextIngatlan";
@@ -11,10 +12,12 @@ import { ContextUserProvider } from "./contexts/AuthContextUserList";
 import { ContextIngatlanProvider } from "./contexts/ContextIngatlan";
 import { ContextIngatlanAdminProvider } from "./contexts/AuthContextIngatlanAdmin";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <ContextHirdetesProvider>
       <ContextIngatlanProvider>
         <AuthProviderIngatlan>
           <AuthProvider>
@@ -26,6 +29,7 @@ root.render(
           </AuthProvider>
         </AuthProviderIngatlan>
       </ContextIngatlanProvider>
+      </ContextHirdetesProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
