@@ -18,7 +18,11 @@ import Col from 'react-bootstrap/Col';
 
 export default function IngatlanAdmin() {
   const { user, getUser } = useAuthContext();
-  const { ingatlan, setIngatlan } = useContextIngatlanAdmin();
+  const { ingatlan, setIngatlan, ujIngatlan, deleteData } = useContextIngatlanAdmin();
+  const [editId, setEditId] = useState(null);
+
+  
+
 
   
   useEffect(() => {
