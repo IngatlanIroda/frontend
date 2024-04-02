@@ -50,6 +50,8 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
 
 
 
+
+
   const ujIngatlan = async ({ ...adat }) => {
     await csrf();
     //console.log(token);
@@ -57,7 +59,12 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     //console.log(adat);
     try {
       await axios.post("/ingatlans",  adat);
+<<<<<<< HEAD
+      console.log("siker");
+      window.location.reload();
+=======
       //console.log("siker");
+>>>>>>> d577d701febee285aea8d2d62e6f2be885da7efb
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
