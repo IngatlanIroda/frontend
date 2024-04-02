@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import Navbars from "../components/Navbars";
 import useAuthContext from '../contexts/AuthContext';
-
+import Nav from "react-bootstrap/Nav";
+import { Container } from 'react-bootstrap';
 
 const Admin = () => {
   const { user, getUser } = useAuthContext();
@@ -17,8 +18,20 @@ const Admin = () => {
     <>
     
     <Navbars/>
-    <div>Adminisztráció</div>
+    <div>
     <p>Bejelentekezett: {user?.name}</p>
+    </div>
+    <Container id='conAdmin'>
+
+    <div className='divAdmin'>
+    <Nav.Link href="/useradmin">Felhasználók karbantartása</Nav.Link>
+    </div>
+    <div className='divAdmin'>
+    <Nav.Link href="/ingatlanadmin">Ingatlanok karbantartása</Nav.Link> 
+    </div>
+    
+    </Container>
+    
     </>
 )}
 export default Admin

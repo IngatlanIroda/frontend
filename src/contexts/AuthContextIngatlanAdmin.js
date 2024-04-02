@@ -48,12 +48,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  let token = "";
-  const csrf = () =>
-    axios.get("/token").then((response) => {
-      //console.log(response);
-      token = response.data;
-    });
+
 
   const ujIngatlan = async ({ ...adat }) => {
     await csrf();
