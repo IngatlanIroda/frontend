@@ -53,11 +53,28 @@ export const ContextHirdetesProvider = ({ children }) => {
     }
   };
 
+  const fotoBekuldes = async ({ ...adat }) => {
+    await csrf();
+    //console.log(token);
+    adat._token = token;
+    //console.log(adat);
+    try {
+      await axios.post("/fotos",  adat);
+      //console.log("siker");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 422) {
+        setErrors(error.response.data.errors);
+      }
+    }
+  };
+
 
 
   return (
     <ContextHirdetes.Provider
-      value={{ ujHirdetes }}
+      value={{ ujHirdetes, fotoBekuldes }}
     >
       {children}
     </ContextHirdetes.Provider>
