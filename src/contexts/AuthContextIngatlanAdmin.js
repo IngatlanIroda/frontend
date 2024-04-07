@@ -34,24 +34,20 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
 
 
   //adatok lekérése a szerverről
-  useEffect(() => {
-    adatokLekerese()
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios.get("/ingatlans").then((response) => {
+          //console.log(response.data);
+          setIngatlan(response.data);
+        });
+      } catch (error) {
+        console.error("Hiba történt az adatok lekérdezésekor:", error);
+      }
+    };
+    fetchData();
   }, []);
 
-
-const adatokLekerese=()=>{
-  const fetchData = async () => {
-    try {
-      await axios.get("/ingatlans").then((response) => {
-        //console.log(response.data);
-        setIngatlan(response.data);
-      });
-    } catch (error) {
-      console.error("Hiba történt az adatok lekérdezésekor:", error);
-    }
-  };
-  fetchData();
-}
 
 
   const ujIngatlan = async ({ ...adat }) => {
@@ -61,9 +57,8 @@ const adatokLekerese=()=>{
     //console.log(adat);
     try {
       await axios.post("/ingatlans",  adat);
-      //console.log("siker");
-      //window.location.reload();
-      adatokLekerese()
+      console.log("siker");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
@@ -81,8 +76,8 @@ const adatokLekerese=()=>{
         .delete(`/ingatlans/${id}`, { headers: { "X-CSRF-TOKEN": token } })
         .then((response) => {
           //console.log(response.data);
-          //window.location.reload();
-          adatokLekerese()
+          window.location.reload();
+          
         });
     } catch (error) {
       console.error("Hiba történt az adatok törlésekor:", error);

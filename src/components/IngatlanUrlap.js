@@ -52,6 +52,7 @@ export default function IngatlanUrlap(props) {
         utolso_modositas_datuma: utolso_modositas_datuma,
         ar: ar
       };
+      //console.log(adat);
       ujIngatlan(adat);
      
     };
