@@ -18,9 +18,7 @@ const Admin = () => {
     <>
     
     <Navbars/>
-    <div>
-    <p>Bejelentekezett: {user?.name}</p>
-    </div>
+    
     <Container id='conAdmin'>
 
     <div className='divAdmin'>

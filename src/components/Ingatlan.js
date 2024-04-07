@@ -20,12 +20,12 @@ export default function Ingatlan() {
       <AuthProviderIngatlan>
         <Navbars />
 
-        <Container id="card_container">
+        <Container id="card_cont">
           <Row>
             {ingatlan.map((item, index) => (
               <>
              
-                <Kartya key={index} data={item}  />
+                <Kartya key={item.ing_id} data={item}  />
               
                 </>
             ))}

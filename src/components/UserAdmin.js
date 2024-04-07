@@ -34,7 +34,7 @@ const UserAdmin = () => {
   const [upassword, setUPassword] = useState("");
   const [upassword_confirmation, setUPasswordConfirmation] = useState("");
   const [editId, setEditId] = useState(null);
-
+ 
   const navigate = useNavigate();
 
   const handleEdit = async (user_id) => {
@@ -98,6 +98,7 @@ const UserAdmin = () => {
     } catch (error) {
       console.log(error);
     }
+    
   };
   useEffect(() => {
     //console.log(user);
@@ -110,11 +111,7 @@ const UserAdmin = () => {
     <>
       <ContextUserProvider>
         <Navbars />
-        <div>
-          <p className="md-5" id="bejelentkezett">
-            bejelentkezett: {user?.name}
-          </p>
-        </div>
+       
         <Container className="d-flex ">
           <Container id="newUser_container">
             <div>
@@ -127,6 +124,8 @@ const UserAdmin = () => {
                   <Form.Control
                     type="text"
                     placeholder="név"
+                    minLength="3"
+                    maxLength="100"
                     onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Group>
@@ -135,7 +134,8 @@ const UserAdmin = () => {
                   <Form.Control
                     type="date"
                     placeholder="születés"
-                    onChange={(e) => setSzulIdo(e.target.value)}
+                    onChange={(e) =>
+                     setSzulIdo(e.target.value)}
                   />
                 </Form.Group>
 
@@ -157,8 +157,9 @@ const UserAdmin = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     placeholder="valami@valami.com"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
@@ -167,6 +168,7 @@ const UserAdmin = () => {
                   <Form.Control
                     type="password"
                     placeholder="jelszó"
+                    minLength="8"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Form.Group>
@@ -241,7 +243,7 @@ const UserAdmin = () => {
                         </td>
                         <td>
                           <input id="uemailInput"
-                            type="text"
+                            type="mail"
                             value={uemail}
                             onChange={(e) => setUEmail(e.target.value)}
                           ></input>

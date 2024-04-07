@@ -1,6 +1,6 @@
 @import "../index.css";
 
-#card_container {
+#card_cont, #card_container {
   padding: 10px;
   background-color: var(--text);
   max-width: max-content;

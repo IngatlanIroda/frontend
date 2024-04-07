@@ -53,7 +53,7 @@ export default function Home() {
             {filteredIngatlan.length === 0 ? (
               <>
                 {ingatlan.map((item, index) => {
-                  if (index >= 1 && index <= 6) {
+                  if (index >= 1 && index <= 12) {
                     return <Kartya key={index} data={item} />;
                   }
                 })}
