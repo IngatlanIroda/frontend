@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
-
 const ContextUserList = createContext();
 
 export const ContextUserProvider = ({ children }) => {
@@ -18,7 +17,7 @@ export const ContextUserProvider = ({ children }) => {
     password: "",
     password_confirmation: "",
   });
- 
+
   let token = "";
   const csrf = () =>
     axios.get("/token").then((response) => {
@@ -41,25 +40,27 @@ export const ContextUserProvider = ({ children }) => {
     fetchData();
   }, []);
 
-
   const felhasznaloTorles = async (user_id, vegpont) => {
     await csrf();
     //console.log(token);
-
+//TODO:biztosan akarja-e törölni
     try {
       const response = await axios.delete(`/user/${user_id}`, {
         headers: {
           "X-CSRF-TOKEN": token,
         },
       });
-     // console.log("sikeres törlés", response);
-      alert(response.data.message)
+      // console.log("sikeres törlés", response);
+      alert(response.data.message);
       window.location.reload();
     } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
-        console.log(errors)
+      // Ellenőrizzük, hogy a hibaüzenet objektum tartalmazza-e az 'error' kulcsot
+      if (error.response && error.response.data && error.response.data.error) {
+        // Kiíratjuk az 'error' kulcshoz tartozó üzenetet
+        alert(error.response.data.error);
+      } else {
+        // Ha nincs 'error' kulcs az objektumban, akkor általános hibát jelzünk
+        alert("Hiba történt a művelet során");
       }
     }
   };
@@ -75,12 +76,11 @@ export const ContextUserProvider = ({ children }) => {
       });
       window.location.reload();
       //console.log(response.adat.message)
-      
-  
     } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
+      if (error.response && error.response.data && error.response.data.error) {
+        alert(error.response.data.error);
+      } else {
+        alert("Hiba történt a művelet során");
       }
     }
     navigate("/useradmin");
@@ -93,14 +93,14 @@ export const ContextUserProvider = ({ children }) => {
     try {
       await axios.post("/user", adat);
       //console.log("siker")
-     // console.log(adat)
-    // alert(response.message)
+      // console.log(adat)
+      // alert(response.message)
       window.location.reload();
     } catch (error) {
-      console.log(error);
-      if (error.response.status === 422) {
-        setErrors(error.response.data.message);
-        alert(error)
+      if (error.response && error.response.data && error.response.data.error) {
+        alert(error.response.data.error);
+      } else {
+        alert("Hiba történt a művelet során");
       }
     }
   };

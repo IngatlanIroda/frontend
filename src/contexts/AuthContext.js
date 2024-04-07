@@ -30,8 +30,8 @@ export const AuthProvider = ({ children }) => {
   //bejelentkezett felhasználó adatainak lekérdezése
   const getUser = async () => {
     const { data } = await axios.get("/me");
-    setUser(data);
-    console.log(data);
+   setUser(data);
+    //console.log(data);
   };
   const logout = async () => {
     await csrf();
@@ -60,7 +60,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
-        setErrors(error.response.data.errors);
+        alert("Hibás felhasználói adatok.")
+            // setErrors(error.response.data.errors);
+        console.log(error.response.data.errors)
       }
     }
   };
@@ -70,15 +72,11 @@ export const AuthProvider = ({ children }) => {
     //console.log(token);
     adat._token = token;
     // console.log(adat);
-
-    //bejelentkezés
-    //Összegyűjtjük egyetlen objektumban az űrlap adatokat
-
-    // Megrpóbáljuk elküldeni a /register végpontra az adatot
-    // hiba esetén kiiratjuk a hibaüzenetet
     try {
-      await axios.post("/register", adat);
+      const response = await axios.post("/register", adat);
       console.log("siker");
+      const registeredUser = response.data.user;
+      setRegisteredUser(registeredUser);
       //sikeres regisztráció esetén
       //Lekérdezzük a usert
       await getUser();
@@ -88,6 +86,7 @@ export const AuthProvider = ({ children }) => {
       console.log(error);
       if (error.response.status === 422) {
         setErrors(error.response.data.errors);
+      
       }
     }
   };
@@ -98,11 +97,11 @@ export const AuthProvider = ({ children }) => {
         logout,
         loginReg,
         register,
-
+        user,
         errors,
         setErrors,
         getUser,
-        user,
+       
         token,
       }}
     >

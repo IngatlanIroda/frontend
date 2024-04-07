@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
+import RegisztracioModal from "./RegisztracioModal";
 const Regisztracio = () => {
   const [name, setName] = useState("");
   const [szulIdo, setSzulIdo] = useState("");
@@ -13,22 +14,51 @@ const Regisztracio = () => {
   const [jogosultsag, setJogosultsag] = "2";
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
-
+  const [checked, setChecked] = useState(false);
+  const [show, setShow] = useState(false);
+  const [userId, setUserId] = useState(null);
   const { register, errors } = useAuthContext();
+
+  const handleCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
+    setChecked(isChecked);
+    if (isChecked) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+    
+     console.log("Checkbox :", isChecked);
+  };
+
+  
+
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!name || !szulIdo || !email || !password || !password_confirmation) {
+      alert("Kérem, töltse ki az összes mezőt!");
+      return;
+    }
     const adat = {
       name: name,
       szulIdo: szulIdo,
       jogosultsag,
       aktiv: aktiv,
       email: email,
-
       password: password,
       password_confirmation: password_confirmation,
     };
+   try{
     register(adat, "/register");
-  };
+     //   setUserId(response.data.user_id);
+
+    setShow(true);
+
+   } catch(error){
+    alert("Hiba történt a regisztráció során")
+   }
+  }
   return (
     <>
       <Navbars />
@@ -43,6 +73,8 @@ const Regisztracio = () => {
               <Form.Control
                 type="text"
                 placeholder="név"
+                minLength="3"
+                maxLength="100"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -77,6 +109,7 @@ const Regisztracio = () => {
               <Form.Control
                 type="email"
                 placeholder="email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -127,11 +160,19 @@ const Regisztracio = () => {
                 </span>
               )}
             </div>
-
+            <Form.Group controlId="formBasicCheckbox">
+            <Form.Check
+              type="checkbox"
+              label="Szeretnék hírlevelet"
+              checked={checked}
+              onChange={handleCheckboxChange}
+            />
+          </Form.Group>
             <Button id="formButton" variant="primary" type="submit">
               Regisztrálok
             </Button>
           </Form>
+          {show && <RegisztracioModal show={show} setShow={setShow} userId={userId}/>} 
         </Row>
       </Container>
     </>

@@ -39,9 +39,7 @@ export default function IngatlanAdmin() {
       <AuthProviderIngatlan>
         <Navbars />
 
-        <div>
-          <p id="bejelentkezett">bejelentkezett: {user?.name}</p>
-        </div>
+       
 
         <Container className="" >
        

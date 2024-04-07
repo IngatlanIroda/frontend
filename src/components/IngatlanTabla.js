@@ -85,7 +85,7 @@ export default function IngatlanTabla(props){
           setUUgytipus(response.data.ugytipus);
           setUUser(response.data.user);
           setUHirdFeladasDatuma(response.data.hird_feladas_datuma);
-          setUHirdLejarata(response.data.uhird_lejarata);
+          setUHirdLejarata(response.data.hird_lejarata);
           setUUtolsoModositasDatuma(response.data.utolso_modositas_datuma);
           setUAr(response.data.ar);
           //console.log(response.data)
