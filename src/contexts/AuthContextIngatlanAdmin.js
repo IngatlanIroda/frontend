@@ -27,7 +27,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
   
   let token = "";
   const csrf = () =>
-    axios.get("/token").then((response) => {
+    axios.get("api/token").then((response) => {
       console.log(response);
       token = response.data;
     });
@@ -37,7 +37,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
    useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get("/ingatlans").then((response) => {
+        await axios.get("api/ingatlans").then((response) => {
           //console.log(response.data);
           setIngatlan(response.data);
         });
@@ -56,7 +56,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     adat._token = token;
     //console.log(adat);
     try {
-      await axios.post("/ingatlans",  adat);
+      await axios.post("api/ingatlans",  adat);
       console.log("siker");
       window.location.reload();
     } catch (error) {
@@ -73,7 +73,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     //console.log(id);
     try {
       await axios
-        .delete(`/ingatlans/${id}`, { headers: { "X-CSRF-TOKEN": token } })
+        .delete(`api/ingatlans/${id}`, { headers: { "X-CSRF-TOKEN": token } })
         .then((response) => {
           //console.log(response.data);
           window.location.reload();

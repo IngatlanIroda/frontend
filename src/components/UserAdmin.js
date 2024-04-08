@@ -39,7 +39,7 @@ const UserAdmin = () => {
 
   const handleEdit = async (user_id) => {
     await axios
-      .get("/user/" + user_id)
+      .get("api/users/" + user_id)
       .then((response) => {
         setUName(response.data.name);
         setUSzulIdo(response.data.szul_ido);
@@ -73,7 +73,7 @@ const UserAdmin = () => {
   
   const handleDelete = async (e)=>{
     try {
-      await felhasznaloTorles(e, "/user");
+      await felhasznaloTorles(e, "api/users");
       navigate("/useradmin")
     } catch (error) {
       console.log(error);
@@ -93,7 +93,7 @@ const UserAdmin = () => {
         password: password,
         password_confirmation: password_confirmation,
       };
-      await ujfelhasznalo(adat, "/user");
+      await ujfelhasznalo(adat, "api/users");
       navigate("/useradmin");
     } catch (error) {
       console.log(error);

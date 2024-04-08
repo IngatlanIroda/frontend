@@ -70,7 +70,7 @@ export default function IngatlanTabla(props){
 
     const handleEdit = async (ing_id) => {
       await axios
-        .get("/ingatlans/" + ing_id)
+        .get("api/ingatlans/" + ing_id)
         .then((response) => {
           setUIngTipus(response.data.ing_tipus);
           setUFutesTipus(response.data.futes_tipus);
@@ -96,17 +96,18 @@ export default function IngatlanTabla(props){
 
     let token = "";
     const csrf = () =>
-      axios.get("/token").then((response) => {
+      axios.get("api/token").then((response) => {
         console.log(response);
         token = response.data;
-      });
+      }); 
 
     const ingatlanModositas = async (ing_id, { ...adat }) => {
-      await csrf();
-      //console.log(token);
+     await csrf();
+      console.log(token);
+      
       try {
         console.log(adat);
-        const response = await axios.put(`/ingatlans/${ing_id}`, adat, {
+        const response = await axios.put(`api/ingatlans/${ing_id}`, adat, {
           headers: {
             "X-CSRF-TOKEN": token,
           },

@@ -20,7 +20,7 @@ export const ContextUserProvider = ({ children }) => {
 
   let token = "";
   const csrf = () =>
-    axios.get("/token").then((response) => {
+    axios.get("api/token").then((response) => {
       //console.log(response);
       token = response.data;
     });
@@ -28,7 +28,7 @@ export const ContextUserProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get("/userTablaLista").then((response) => {
+        await axios.get("api/userTablaLista").then((response) => {
           //console.log(response.data);
           setRegisteredUser(response.data);
         });
@@ -45,7 +45,7 @@ export const ContextUserProvider = ({ children }) => {
     //console.log(token);
 //TODO:biztosan akarja-e törölni
     try {
-      const response = await axios.delete(`/user/${user_id}`, {
+      const response = await axios.delete(`api/users/${user_id}`, {
         headers: {
           "X-CSRF-TOKEN": token,
         },
@@ -69,7 +69,7 @@ export const ContextUserProvider = ({ children }) => {
     //console.log(token);
 
     try {
-      const response = await axios.put(`/user/${user_id}`, adat, {
+      const response = await axios.put(`api/users/${user_id}`, adat, {
         headers: {
           "X-CSRF-TOKEN": token,
         },
@@ -91,7 +91,7 @@ export const ContextUserProvider = ({ children }) => {
     adat._token = token;
     //console.log(adat);
     try {
-      await axios.post("/user", adat);
+      await axios.post("api/users", adat);
       //console.log("siker")
       // console.log(adat)
       // alert(response.message)

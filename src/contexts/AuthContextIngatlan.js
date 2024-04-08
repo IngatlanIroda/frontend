@@ -19,9 +19,9 @@ export const AuthProviderIngatlan = ({ children }) => {
     telepules: "Nincs",
   });
   let vegpontok = [
-    "/ingatlans",
-    "/ingatlanKartyaLista",
-    "/ingatlanFutesTipusokLista",
+    "api/ingatlans",
+    "api/ingatlanKartyaLista",
+    "api/ingatlanFutesTipusokLista",
   ];
 
   useEffect(() => {
