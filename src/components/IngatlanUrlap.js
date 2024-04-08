@@ -52,7 +52,7 @@ export default function IngatlanUrlap(props) {
         utolso_modositas_datuma: utolso_modositas_datuma,
         ar: ar
       };
-      //console.log(adat);
+      console.log(adat);
       ujIngatlan(adat);
      
     };
@@ -66,7 +66,7 @@ export default function IngatlanUrlap(props) {
       <div>
         <Form onSubmit={handleSubmit} >
           <Form.Group className="mb-6" controlId="">
-            <Form.Label className="formLabel">Ingatlan típusa</Form.Label>
+            <Form.Label className="formLabel" style={{color:"white"}}>Ingatlan típusa</Form.Label>
             <Form.Control
               type="number"
               placeholder="1: családi ház, 2: téglalakás, 6: panel lakás"
@@ -74,7 +74,7 @@ export default function IngatlanUrlap(props) {
             />
           </Form.Group>
           <Form.Group className="mb-6" controlId="">
-            <Form.Label className="formLabel">Fűtés típusa</Form.Label>
+            <Form.Label className="formLabel" style={{color:"white"}}>Fűtés típusa</Form.Label>
             <Form.Control
               type="number"
               placeholder="4: távfűtés, 5: gáz, 6: padlófűtés"
@@ -83,7 +83,7 @@ export default function IngatlanUrlap(props) {
           </Form.Group>
 
           <Form.Group className="mb-6" controlId="">
-           <Form.Label className="formLabel">Nagyság</Form.Label>
+           <Form.Label className="formLabel" style={{color:"white"}}>Nagyság</Form.Label>
            <Form.Control
               type="number"
               placeholder="60"
@@ -92,7 +92,7 @@ export default function IngatlanUrlap(props) {
             />
           </Form.Group>
           <Form.Group className="mb-6" controlId="">
-            <Form.Label className="formLabel">Szobák száma</Form.Label>
+            <Form.Label className="formLabel" style={{color:"white"}}>Szobák száma</Form.Label>
             <Form.Control
               type="number"
               placeholder="1"
@@ -100,7 +100,7 @@ export default function IngatlanUrlap(props) {
             />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label className="formLabel">Erkély</Form.Label>
+        <Form.Label className="formLabel" style={{color:"white"}}>Erkély</Form.Label>
         <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
@@ -108,7 +108,7 @@ export default function IngatlanUrlap(props) {
           />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label className="formLabel">Terasz</Form.Label>
+        <Form.Label className="formLabel" style={{color:"white"}}>Terasz</Form.Label>
         <Form.Control
               type="text"
               placeholder="0: nincs, 1: van"
@@ -116,7 +116,7 @@ export default function IngatlanUrlap(props) {
             />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label className="formLabel">Kert</Form.Label>
+        <Form.Label className="formLabel" style={{color:"white"}}>Kert</Form.Label>
         <Form.Control
             type="text"
             placeholder="0: nincs, 1: van"
@@ -124,7 +124,7 @@ export default function IngatlanUrlap(props) {
           />
         </Form.Group>
         <Form.Group className="mb-6" controlId="">
-        <Form.Label className="formLabel">Település</Form.Label>
+        <Form.Label className="formLabel" style={{color:"white"}}>Település</Form.Label>
         <Form.Control
           type="number"
           placeholder="1: Komló, 2: Kaposvár ... stb."
@@ -133,7 +133,7 @@ export default function IngatlanUrlap(props) {
         />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-        <Form.Label className="formLabel">Cím</Form.Label>
+        <Form.Label className="formLabel" style={{color:"white"}}>Cím</Form.Label>
         <Form.Control
           type="text"
           placeholder="1117 Budapest, Irinyi József utca 4-20."
@@ -141,7 +141,7 @@ export default function IngatlanUrlap(props) {
         />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">Leírás</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Leírás</Form.Label>
       <Form.Control
         type="text"
         placeholder="Tágas, napfényes.."
@@ -149,7 +149,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">Ügytípus</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Ügytípus</Form.Label>
       <Form.Control
         type="text"
         placeholder="1"
@@ -157,7 +157,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">User</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>User</Form.Label>
       <Form.Control
         type="number"
         placeholder="1, 2... stb."
@@ -165,7 +165,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">Hirdetés feladása</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Hirdetés feladása</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -173,7 +173,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">Hirdetés lejárata</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Hirdetés lejárata</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -181,7 +181,7 @@ export default function IngatlanUrlap(props) {
       />
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
-      <Form.Label className="formLabel">Hirdetésmódosítás utolsó dátuma</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Hirdetésmódosítás utolsó dátuma</Form.Label>
       <Form.Control
         type="date"
         placeholder=""
@@ -190,7 +190,7 @@ export default function IngatlanUrlap(props) {
       </Form.Group>
       <Form.Group className="mb-6" controlId="">
 
-      <Form.Label className="formLabel">Ár</Form.Label>
+      <Form.Label className="formLabel" style={{color:"white"}}>Ár</Form.Label>
       <Form.Control
         type="number"
         placeholder=""
