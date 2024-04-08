@@ -16,6 +16,18 @@ import FormSelect from 'react-bootstrap/FormSelect'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { useNavigate } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
+
+
+
+import {
+  ContextIngatlanProvider,
+  useContextIngatlan,
+} from "../contexts/ContextIngatlan";
+ 
 
 
 
@@ -23,7 +35,11 @@ const Hirdetes = () => {
 
   const { user,  getUser } = useAuthContext();
   const { ingatlan, setIngatlan, ujHirdetes } = useContextHirdetes();
+  const { setSelectedIngatlan } = useContextIngatlan();
+  const navigate = useNavigate();
  
+
+
   
   const [ing_tipus, setTipus] = useState("");
   const [futes_tipus, setFutesTipus] = useState("");
@@ -95,10 +111,12 @@ const Hirdetes = () => {
     };
     console.log(adat);
     ujHirdetes(adat);
-    //window.location.reload();
-    //navigate("/EgyIngatlan");
-    
+    setSelectedIngatlan(adat);
+    navigate("/EgyIngatlan");
+   
   };
+
+
 
   return (
     <>
