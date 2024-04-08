@@ -1,18 +1,46 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbars from "./Navbars";
 import Form from "react-bootstrap/Form";
-import { useContextHirdetes, ContextHirdetesProvider } from "../contexts/AuthContextHirdetes";
-import Container from "react-bootstrap/esm/Container";
+import { ContextHirdetes, useContextHirdetes, ContextHirdetesProvider } from "../contexts/AuthContextHirdetes";
+import Container from "react-bootstrap/esm/Container"
+import {useContextIngatlanAdmin} from "../contexts/AuthContextIngatlanAdmin"
+import {
+  AuthProviderIngatlan,
+  AuthContextIngatlan,
+  useAuthContextIngatlan,
+} from "../contexts/AuthContextIngatlan";
 import useAuthContext from "../contexts/AuthContext";
 import {AuthContext} from "../contexts/AuthContext";
 import "./module_hirdetes.css";
+import FormSelect from 'react-bootstrap/FormSelect'
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { useNavigate } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
+
+
+
+import {
+  ContextIngatlanProvider,
+  useContextIngatlan,
+} from "../contexts/ContextIngatlan";
+ 
+
 
 
 const Hirdetes = () => {
 
   const { user,  getUser } = useAuthContext();
   const { ingatlan, setIngatlan, ujHirdetes } = useContextHirdetes();
+  const { setSelectedIngatlan } = useContextIngatlan();
+  const navigate = useNavigate();
+ 
 
+
+  
   const [ing_tipus, setTipus] = useState("");
   const [futes_tipus, setFutesTipus] = useState("");
   const [nagysag, setNagysag] = useState("");
@@ -24,14 +52,37 @@ const Hirdetes = () => {
   const [cim, setCim] = useState("");
   const [leiras, setLeiras] = useState("");
   const [ugytipus, setUgyTipus] = useState("");
-  const [hird_feladas_datuma, setHirdFeladasDatuma] = useState("");
+  const [hird_feladas_datuma, setHirdFeladasDatuma] = useState(new Date());
   const [hird_lejarata, setHirdLejarata] = useState("");
   const [utolso_modositas_datuma, setUtolsoModositasDatuma] = useState("");
   const [ar, setAr] = useState("");
+  
 
+
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth()+1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    const actual_date= `${year}-${month}-${date}`;
+    //console.log(actual_date);
+    return actual_date;
+  }
+
+  const originalDate = getDate();
+  const dateObject = new Date(originalDate);
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+  const month2 = String(dateObject.getMonth() + 6).padStart(2, '0');
+  const day = String(dateObject.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+  const formattedDate2 = `${year}-${month2}-${day}`;
+ 
+
+ 
 
   useEffect(() => {
-    console.log(user);
+    //console.log(user);
     if (!user) {
       getUser();
     }
@@ -51,15 +102,21 @@ const Hirdetes = () => {
       telepules: telepules,
       cim: cim,
       leiras: leiras,
-      ugytipus: ugytipus,
-      user: user,
-      hird_feladas_datuma: hird_feladas_datuma,
-      hird_lejarata: hird_lejarata,
-      utolso_modositas_datuma: utolso_modositas_datuma,
+      ugytipus: 1,
+      user: 1,
+      hird_feladas_datuma: formattedDate,
+      hird_lejarata: formattedDate2,
+      utolso_modositas_datuma: formattedDate,
       ar: ar,
     };
+    console.log(adat);
     ujHirdetes(adat);
+    setSelectedIngatlan(adat);
+    navigate("/EgyIngatlan");
+   
   };
+
+
 
   return (
     <>
@@ -68,7 +125,7 @@ const Hirdetes = () => {
       <ContextHirdetesProvider>
       <Container>
       <div className="header">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-house-add-fill" viewBox="0 0 16 16">
               <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
               <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
               <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -76,150 +133,159 @@ const Hirdetes = () => {
         <h5>Hirdetés feladása</h5>
         </div>
 
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Ingatlan típusa</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="1: családi ház, 2: téglalakás, 6: panel lakás"
-                onChange={(e) => setTipus(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Fűtés típusa</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="4: távfűtés, 5: gáz, 6: padlófűtés"
-                onChange={(e) => setFutesTipus(e.target.value)}
-              />
-            </Form.Group>
+          <Form onSubmit={handleSubmit} style={{color: "white"}}>
 
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Nagyság</Form.Label>
+          <div style={{margin: "10px"}}>
+          <Form.Group>          
+          <span htmlFor="" >Ingatlan típusa</span>
+          
+            <Form.Select aria-label="Default select example" onChange={(e) => setTipus(e.target.value)}>
+            <option>Válassz!</option>
+            <option value="1">Családi ház</option>
+            <option value="2">Téglalakás</option>
+            <option value="3">Panel lakás</option>
+          </Form.Select>
+          </Form.Group>
+
+          </div>
+
+
+          <div style={{margin: "10px"}}>
+          <Form.Group>
+          <span htmlFor="" >Fűtés típus</span>
+          <Form.Select aria-label="Default select example"   onChange={(e) => setFutesTipus(e.target.value)}>
+          <option>Válassz!</option>
+          <option value="4">Távfűtés</option>
+          <option value="5">Gáz</option>
+          <option value="6">Padlófűtés</option>
+          </Form.Select>
+          </Form.Group>
+          </div>
+
+
+          <div style={{margin: "10px"}}>
+              <Form.Group className="" controlId="" >
+              <Form.Label className=""  style={{color:"white"}}>Nagyság</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="60"
                 onChange={(e) => setNagysag(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Szobák száma</Form.Label>
+          </div>
+
+            <div  style={{margin: "10px"}}>
+              <Form.Group className="mb-3" controlId="">
+              <Form.Label className="" style={{color: "white"}} min="0" max="30">Szobák száma</Form.Label>
               <Form.Control
+             
                 type="number"
                 placeholder="1"
                 onChange={(e) => setSzobaszam(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Erkély</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="0: nincs, 1: van"
-                onChange={(e) => setErkely(e.target.value)}
-              />
+            </div>
+
+           
+            <div style={{margin: "10px"}}>
+            <Form.Group>
+            <span htmlFor="" >Erkély</span>
+            <Form.Select aria-label="Default select example" onChange={(e) => setErkely(e.target.value)}>
+              <option>Válassz!</option>
+              <option value="0">Nincs</option>
+              <option value="1">Van</option>
+            </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Terasz</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="0: nincs, 1: van"
-                onChange={(e) => setTerasz(e.target.value)}
-              />
+
+            </div>
+
+            <div style={{margin: "10px"}}>
+            <Form.Group>
+            <span htmlFor="">Terasz</span>
+            <Form.Select aria-label="Default select example" onChange={(e) => setTerasz(e.target.value)}>
+            <option>Válassz!</option>
+            <option value="0">Nincs</option>
+            <option value="1">Van</option>
+            </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Kert</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="0: nincs, 1: van"
-                onChange={(e) => setKert(e.target.value)}
-              />
+            </div>
+
+
+            <div style={{margin: "10px"}}>
+            <Form.Group>
+            <span htmlFor="">Kert</span>
+            <Form.Select aria-label="Default select example" onChange={(e) => setKert(e.target.value)}>
+            <option>Válassz!</option>
+            <option value="0">Nincs</option>
+            <option value="1">Van</option>
+            </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Település</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="1: Komló, 2: Kaposvár ... stb."
-                onChange={(e) => setTelepules(e.target.value)}
-              />
+
+            </div>
+
+
+
+            <div style={{margin: "10px"}}>
+            <Form.Group className="" controlId="">
+            <span>Település</span>
+            <Form.Select aria-label="Default select example" onChange={(e) => setTelepules(e.target.value)}>
+            <option>Válassz!</option>
+            <option value="1">Budapest</option>
+            <option value="2">Szentendre</option>
+            <option value="3">Miskolc</option>
+            <option value="4">Sopron</option>
+            <option value="5">Zalaegerszeg</option>
+            <option value="6">Szeged</option>
+            </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Cím</Form.Label>
+            </div>
+
+
+            <div style={{margin: "10px"}}>
+              <Form.Group className="" controlId="">
+              <Form.Label className="" style={{color: "white"}}>Cím</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="1117 Budapest, Irinyi József utca 4-20."
                 onChange={(e) => setCim(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Leírás</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Tágas, napfényes.."
-                onChange={(e) => setLeiras(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Ügytípus</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="1"
-                onChange={(e) => setUgyTipus(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">User</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="1, 2... stb."
-               
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Hirdetés feladása</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder=""
-                onChange={(e) => setHirdFeladasDatuma(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Hirdetés lejárata</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder=""
-                onChange={(e) => setHirdLejarata(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">
-                Hirdetésmódosítás utolsó dátuma
-              </Form.Label>
-              <Form.Control
-                type="date"
-                placeholder=""
-                onChange={(e) => setUtolsoModositasDatuma(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label className="formLabel">Ár</Form.Label>
+            </div>
+
+            <div style={{margin: "10px"}}>
+            <span>Leírás</span>
+            <InputGroup>
+            <InputGroup.Text></InputGroup.Text>
+            <Form.Control as="textarea" aria-label="With textarea" placeholder="Tágas, napfényes.."   onChange={(e) => setLeiras(e.target.value)}/>
+            </InputGroup>
+            </div >
+
+
+          
+
+
+            <div style={{margin: "10px"}}>
+              <Form.Group className="" controlId="">
+              <Form.Label className="" style={{color: "white"}}>Ár</Form.Label>
               <Form.Control
                 type="number"
                 placeholder=""
                 onChange={(e) => setAr(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formFileMultiple" className="mb-3">
-            <Form.Label>Képek feltöltése</Form.Label>
-            <Form.Control type="file" multiple />
-          </Form.Group>
+            </div>
 
-            <button as="input" type="submit" value="Submit" id="submitButton">
+
+
+            <button as="input" type="submit" value="Submit" id="submitButton" style={{margin: "10px"}}>
               Mentés
             </button>
           </Form>
+
+
        
           </Container >
-      </ContextHirdetesProvider>
+          </ContextHirdetesProvider>
     </>
   );
 };

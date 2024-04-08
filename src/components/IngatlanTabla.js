@@ -143,6 +143,7 @@ export default function IngatlanTabla(props){
           utolso_modositas_datuma: uutolso_modositas_datuma,
           ar: uar
         });
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -294,6 +295,8 @@ export default function IngatlanTabla(props){
                onChange={(e) => setUAr(e.target.value)}
             ></input>
         </td>
+        <td></td>
+        <td></td>
                     <td>
                       <button
                         variant="outline-info"

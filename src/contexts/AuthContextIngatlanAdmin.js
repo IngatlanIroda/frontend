@@ -34,7 +34,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
 
 
   //adatok lekérése a szerverről
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
       try {
         await axios.get("/ingatlans").then((response) => {
@@ -50,8 +50,6 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
 
 
 
-
-
   const ujIngatlan = async ({ ...adat }) => {
     await csrf();
     //console.log(token);
@@ -59,7 +57,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     //console.log(adat);
     try {
       await axios.post("/ingatlans",  adat);
-      //console.log("siker");
+      console.log("siker");
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -79,6 +77,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
         .then((response) => {
           //console.log(response.data);
           window.location.reload();
+          
         });
     } catch (error) {
       console.error("Hiba történt az adatok törlésekor:", error);

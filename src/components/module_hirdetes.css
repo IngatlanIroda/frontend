@@ -2,6 +2,7 @@ form{
     width: 90%;
     margin: auto;
     padding: auto;
+    color: aliceblue;
 }
 
 h5{
@@ -12,9 +13,7 @@ h5{
 
 
 
-svg{
-    display: inline-block;
-}
+
 
 .header {
     display: flex;

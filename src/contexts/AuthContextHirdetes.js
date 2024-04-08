@@ -33,18 +33,31 @@ export const ContextHirdetesProvider = ({ children }) => {
     });
 
 
-
+      //adatok lekérése a szerverről
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios.get("/ingatlans").then((response) => {
+          //console.log(response.data);
+          setIngatlan(response.data);
+        });
+      } catch (error) {
+        console.error("Hiba történt az adatok lekérdezésekor:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
 
   const ujHirdetes = async ({ ...adat }) => {
     await csrf();
     //console.log(token);
     adat._token = token;
-    //console.log(adat);
+    console.log(adat);
     try {
       await axios.post("/ingatlans",  adat);
       //console.log("siker");
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
@@ -52,6 +65,8 @@ export const ContextHirdetesProvider = ({ children }) => {
       }
     }
   };
+
+
 
 
 
