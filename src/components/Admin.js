@@ -3,7 +3,7 @@ import Navbars from "../components/Navbars";
 import useAuthContext from '../contexts/AuthContext';
 import Nav from "react-bootstrap/Nav";
 import { Container } from 'react-bootstrap';
-
+import { Link } from "react-router-dom";
 const Admin = () => {
   const { user, getUser } = useAuthContext();
   
@@ -22,10 +22,10 @@ const Admin = () => {
     <Container id='conAdmin'>
 
     <div className='divAdmin'>
-    <Nav.Link href="/useradmin">Felhasználók karbantartása</Nav.Link>
+    <Nav.Link as={Link} to="/useradmin">Felhasználók karbantartása</Nav.Link>
     </div>
     <div className='divAdmin'>
-    <Nav.Link href="/ingatlanadmin">Ingatlanok karbantartása</Nav.Link> 
+    <Nav.Link as={Link} to="/ingatlanadmin">Ingatlanok karbantartása</Nav.Link> 
     </div>
     
     </Container>

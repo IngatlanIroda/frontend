@@ -35,7 +35,7 @@ export default function Navbars() {
                     <NavDropdown.Item as={Link} to="/ingatlanadmin">
                       Ingatlanok karbantartása
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action">Hírlevél küldése</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="#action">Hírlevél küldése</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item as={Link} to="/admin">Karbantartások</NavDropdown.Item>
                   </NavDropdown>
@@ -44,6 +44,7 @@ export default function Navbars() {
             )}
           </Nav>
           <Nav>
+          
             {user ? ( // Bejelentkezett felhasználó esetén
               <>
                 <Navbar.Text>Bejelentkezve mint: {user.name}</Navbar.Text>
@@ -57,6 +58,7 @@ export default function Navbars() {
                 <Nav.Link as={Link} to="/regisztracio">Regisztráció</Nav.Link>
               </>
             )}
+            <Nav.Link as={Link} to="/kapcsolat">Kapcsolat</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

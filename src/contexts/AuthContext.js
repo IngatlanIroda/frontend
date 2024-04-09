@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
       //console.log(response);
       token = response.data;
     });
-  
 
   //bejelentkezett felhasználó adatainak lekérdezése
   const getUser = async () => {
@@ -37,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     //console.log(token);
     axios.post("api/logout", { _token: token }).then((resp) => {
       setUser(null);
-      //console.log(resp);
+     // console.log(resp);
       navigate("/");
     });
   };
@@ -46,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     await csrf();
     //console.log(token);
     adat._token = token;
-    //console.log(adat);
+   // console.log(adat);
 
     try {
       await axios.post(vegpont, adat);
@@ -54,8 +53,10 @@ export const AuthProvider = ({ children }) => {
       //sikeres bejelentkezés/regisztráció esetén
       //Lekérdezzük a usert
       await getUser();
+      
       //elmegyünk  a kezdőlapra
-      navigate("/Admin");
+      
+        navigate("/");
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
