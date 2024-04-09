@@ -4,54 +4,57 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import useAuthContext from "../contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import style from "./module_navbar.css";
-import useAuthContext from "../contexts/AuthContext";
 
 export default function Navbars() {
   const { user, logout } = useAuthContext();
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" data-bs-theme="dark" className={`${style.nav}`}>
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light" data-bs-theme="dark" className={`${style.nav}`}>
       <Container>
-        <Navbar.Brand href="/">Ingatlaniroda.com</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Ingatlaniroda.com</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/ingatlan">Ingatlanok</Nav.Link>
-            {user && ( // Csak bejelentkezett felhasználóként jeleníti meg
-              <Nav.Link href="/hirdetes">Hirdetésfeladás</Nav.Link>
-            )}
-            {user && user.jogosultsag === "admin" && ( // Csak adminisztrátorként jeleníti meg
-              <NavDropdown
-                id="nav-dropdown-dark"
-                title="Karbantartás"
-                menuVariant="dark"
-              >
-                <NavDropdown.Item href="/useradmin">
-                  Felhasználók karbantartása
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/ingatlanadmin">
-                  Ingatlanok karbantartása
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action">Valami</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="/admin">Karbantartások</NavDropdown.Item>
-              </NavDropdown>
+            <Nav.Link as={Link} to="/ingatlan">Ingatlanok</Nav.Link>
+            {user && ( // Bejelentkezett felhasználó esetén
+              <>
+                <Nav.Link as={Link} to="/hirdetes">Hirdetésfeladás</Nav.Link>
+                {user.jogosultsag === "admin" && ( // Csak adminisztrátoroknak
+                  <NavDropdown
+                    id="nav-dropdown-dark"
+                    title="Karbantartás"
+                    menuVariant="dark"
+                  >
+                    <NavDropdown.Item as={Link} to="/useradmin">
+                      Felhasználók karbantartása
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/ingatlanadmin">
+                      Ingatlanok karbantartása
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action">Hírlevél küldése</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item as={Link} to="/admin">Karbantartások</NavDropdown.Item>
+                  </NavDropdown>
+                )}
+              </>
             )}
           </Nav>
           <Nav>
-            {user ? (
+            {user ? ( // Bejelentkezett felhasználó esetén
               <>
                 <Navbar.Text>Bejelentkezve mint: {user.name}</Navbar.Text>
                 <Button className="logoutButton" variant="primary" onClick={logout}>
                   Kijelentkezés
                 </Button>
               </>
-            ) : (
+            ) : ( // Bejelentkezés nélküli felhasználó esetén
               <>
-                <Nav.Link href="/bejelentkezes">Bejelentkezés</Nav.Link>
-                <Nav.Link href="/regisztracio">Regisztráció</Nav.Link>
+                <Nav.Link as={Link} to="/bejelentkezes">Bejelentkezés</Nav.Link>
+                <Nav.Link as={Link} to="/regisztracio">Regisztráció</Nav.Link>
               </>
             )}
           </Nav>

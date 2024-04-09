@@ -4,5 +4,10 @@
   padding: 10px;
   background-color: var(--text);
   max-width: max-content;
- 
+  display: block;
+}
+
+#card_row{
+  margin: auto;
+	display: inline-block;
 }

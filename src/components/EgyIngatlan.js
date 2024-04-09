@@ -18,8 +18,8 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import { useNavigate } from "react-router-dom";
 export default function EgyIngatlan() {
   const { selectedIngatlan } = useContextIngatlan();
-
-  console.log(selectedIngatlan);
+  const navigate = useNavigate();
+  //console.log(selectedIngatlan);
 
   const [showText, setShowText] = useState(selectedIngatlan.kategoria === "i");
   const [showErkely, setShowErkely] = useState(
@@ -29,13 +29,18 @@ export default function EgyIngatlan() {
     selectedIngatlan.terasz === true
   );
   const [showKert, setShowKert] = useState(selectedIngatlan.kert === true);
-
+  const back = () => {
+    navigate("/ingatlan")
+  }
   return (
     <>
       <Navbars />
       <ContextIngatlanProvider>
         <Container id="card_container">
-          <Row>
+       
+        
+          <Row id="card_row">
+          <div id="card_div"><CloseButton className="closeBtn" onClick={(e) =>back(e.target)}/></div>
             {selectedIngatlan ? (
               <Card style={{ width: "30rem", margin: "1rem" }}>
                 <Card.Img variant="top" src={haz1} alt="property" />
@@ -102,8 +107,8 @@ export default function EgyIngatlan() {
             ) : (
               <p>Nincs ilyen ingatlan</p>
             )}
-            <CloseButton disabled onClick={(e) =>(window.close)}/>
-          </Row>
+           
+          </Row>)
         </Container>
       </ContextIngatlanProvider>
     </>

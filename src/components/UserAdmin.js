@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbars from "./Navbars";
 import useAuthContext from "../contexts/AuthContext";
-import {AuthContext} from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import {
   ContextUserProvider,
   ContextUserList,
@@ -14,8 +14,14 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const UserAdmin = () => {
-  const { user,  getUser } = useAuthContext();
-  const { registeredUser, setRegisteredUser, ujfelhasznalo, felhasznaloTorles,felhasznaloModositas, } = useContextUserList();
+  const { user, getUser } = useAuthContext();
+  const {
+    registeredUser,
+    setRegisteredUser,
+    ujfelhasznalo,
+    felhasznaloTorles,
+    felhasznaloModositas,
+  } = useContextUserList();
 
   const [data, setData] = useState([]);
   const [user_id, setUserId] = useState("");
@@ -34,7 +40,7 @@ const UserAdmin = () => {
   const [upassword, setUPassword] = useState("");
   const [upassword_confirmation, setUPasswordConfirmation] = useState("");
   const [editId, setEditId] = useState(null);
- 
+
   const navigate = useNavigate();
 
   const handleEdit = async (user_id) => {
@@ -51,9 +57,8 @@ const UserAdmin = () => {
       .catch((error) => console.log(error));
     setEditId(user_id);
   };
- 
+
   const handleSave = async (e) => {
-    
     try {
       await felhasznaloModositas(editId, {
         name: uname,
@@ -70,16 +75,15 @@ const UserAdmin = () => {
     }
     navigate("/useradmin");
   };
-  
-  const handleDelete = async (e)=>{
+
+  const handleDelete = async (e) => {
     try {
       await felhasznaloTorles(e, "api/users");
-      navigate("/useradmin")
+      navigate("/useradmin");
     } catch (error) {
       console.log(error);
     }
-    
-  }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -98,7 +102,6 @@ const UserAdmin = () => {
     } catch (error) {
       console.log(error);
     }
-    
   };
   useEffect(() => {
     //console.log(user);
@@ -111,7 +114,7 @@ const UserAdmin = () => {
     <>
       <ContextUserProvider>
         <Navbars />
-       
+
         <Container className="d-flex ">
           <Container id="newUser_container">
             <div>
@@ -120,7 +123,7 @@ const UserAdmin = () => {
             <div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="ujfelhasznName">
-                  <Form.Label>Név</Form.Label>
+                  <Form.Label>Név:</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="név"
@@ -130,22 +133,23 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                  <Form.Label>Születési idő</Form.Label>
+                  <Form.Label>Születési idő:</Form.Label>
                   <Form.Control
                     type="date"
                     placeholder="születés"
-                    onChange={(e) =>
-                     setSzulIdo(e.target.value)}
+                    onChange={(e) => setSzulIdo(e.target.value)}
                   />
                 </Form.Group>
-
-                <Form.Group className="mb-3" controlId="ujfelhasznJog">
-                  <Form.Label>Jogosultság</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="user"
+                <Form.Group className="mb-3" id="ujfelhasznJog">
+                <Form.Label>Jogosultság:</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
                     onChange={(e) => setJogosultsag(e.target.value)}
-                  />
+                  >
+                    <option>Jogosultság</option>
+                    <option value="user">regisztrált felhasználó</option>
+                    <option value="admin">adminisztrátor</option>
+                  </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="ujfelhasznAktiv">
                   <Form.Control
@@ -155,7 +159,7 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Email cím:</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="valami@valami.com"
@@ -164,7 +168,7 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Jelszó</Form.Label>
+                  <Form.Label>Jelszó:</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="jelszó"
@@ -192,8 +196,8 @@ const UserAdmin = () => {
               </Form>
             </div>
           </Container>
-          
-          <Container  className="mb-3" id="userList_container">
+
+          <Container className="mb-3" id="userList_container">
             <p id="karbantartas">Felhasználók karbantartása</p>
             <Table class="table-responsive" striped hover>
               <thead>
@@ -214,35 +218,40 @@ const UserAdmin = () => {
                     {item.user_id === editId ? (
                       <tr>
                         <td>
-                          <input id="unameInput"
+                          <input
+                            id="unameInput"
                             type="text"
                             value={uname}
                             onChange={(e) => setUName(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input id="udateInput"
+                          <input
+                            id="udateInput"
                             type="date"
                             value={uszul_ido}
                             onChange={(e) => setUSzulIdo(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input id="ujogosultsagInput"
+                          <input
+                            id="ujogosultsagInput"
                             type="text"
                             value={ujogosultsag}
                             onChange={(e) => setUJogosultsag(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input id="uaktivInput"
+                          <input
+                            id="uaktivInput"
                             type="text"
                             value={uaktiv}
                             onChange={(e) => setUAktiv(e.target.value)}
                           ></input>
                         </td>
                         <td>
-                          <input id="uemailInput"
+                          <input
+                            id="uemailInput"
                             type="mail"
                             value={uemail}
                             onChange={(e) => setUEmail(e.target.value)}
@@ -252,7 +261,7 @@ const UserAdmin = () => {
                           <input type="hidden" value={item.password}></input>
                         </td>
                         <td>
-                          <input 
+                          <input
                             type="hidden"
                             value={item.password_confirmation}
                           ></input>
@@ -265,7 +274,6 @@ const UserAdmin = () => {
                             <i className="fa-solid fa-arrows-rotate"></i>
                           </button>
                         </td>
-                       
                       </tr>
                     ) : (
                       <tr>
