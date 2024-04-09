@@ -11,12 +11,7 @@ const Kapcsolat = () =>{
 
     const { user, getUser } = useAuthContext();
   
-    useEffect(() => {
-        console.log(user)
-        if (!user) {
-            getUser();
-        }
-    });
+  
 
         return(
         
