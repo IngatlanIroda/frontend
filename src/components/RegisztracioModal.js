@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "../api/axios";
 import useAuthContext from "../contexts/AuthContext";
 
 export default function RegisztracioModal(props) {
@@ -43,7 +43,7 @@ export default function RegisztracioModal(props) {
   };
   const handleSubscription = async () => {
     try {
-      const response = await axios.post('/api/preferencia', {
+      const response = await axios.post('api/preferencia', {
         partner: user.user_id,
         //TODO: bekérés után
         tipus_id: "",

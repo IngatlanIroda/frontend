@@ -20,23 +20,22 @@ export const AuthProvider = ({ children }) => {
 
   let token = "";
   const csrf = () =>
-    axios.get("/token").then((response) => {
+    axios.get("api/token").then((response) => {
       //console.log(response);
       token = response.data;
     });
-  useEffect(() => {
-    getUser();
-  }, []);
+  
+
   //bejelentkezett felhasználó adatainak lekérdezése
   const getUser = async () => {
-    const { data } = await axios.get("/me");
-   setUser(data);
+    const { data } = await axios.get("api/user");
+    setUser(data);
     //console.log(data);
   };
   const logout = async () => {
     await csrf();
     //console.log(token);
-    axios.post("/logout", { _token: token }).then((resp) => {
+    axios.post("api/logout", { _token: token }).then((resp) => {
       setUser(null);
       //console.log(resp);
       navigate("/");
@@ -60,9 +59,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
-        alert("Hibás felhasználói adatok.")
-            // setErrors(error.response.data.errors);
-        console.log(error.response.data.errors)
+        alert("Hibás felhasználói adatok.");
+        // setErrors(error.response.data.errors);
+        console.log(error.response.data.errors);
       }
     }
   };
@@ -86,7 +85,6 @@ export const AuthProvider = ({ children }) => {
       console.log(error);
       if (error.response.status === 422) {
         setErrors(error.response.data.errors);
-      
       }
     }
   };
@@ -101,7 +99,7 @@ export const AuthProvider = ({ children }) => {
         errors,
         setErrors,
         getUser,
-       
+
         token,
       }}
     >

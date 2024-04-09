@@ -27,7 +27,7 @@ export const ContextHirdetesProvider = ({ children }) => {
   
   let token = "";
   const csrf = () =>
-    axios.get("/token").then((response) => {
+    axios.get("api/token").then((response) => {
       console.log(response);
       token = response.data;
     });
@@ -37,7 +37,7 @@ export const ContextHirdetesProvider = ({ children }) => {
    useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get("/ingatlans").then((response) => {
+        await axios.get("api/ingatlans").then((response) => {
           //console.log(response.data);
           setIngatlan(response.data);
         });
@@ -55,7 +55,7 @@ export const ContextHirdetesProvider = ({ children }) => {
     adat._token = token;
     console.log(adat);
     try {
-      await axios.post("/ingatlans",  adat);
+      await axios.post("api/ingatlans",  adat);
       //console.log("siker");
       
     } catch (error) {
