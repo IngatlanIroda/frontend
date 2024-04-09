@@ -19,6 +19,7 @@ export default function Navbars() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/ingatlan">Ingatlanok</Nav.Link>
+            <Nav.Link href="/kapcsolat">Kapcsolat</Nav.Link>
             {user && ( // Csak bejelentkezett felhasználóként jeleníti meg
               <Nav.Link href="/hirdetes">Hirdetésfeladás</Nav.Link>
             )}

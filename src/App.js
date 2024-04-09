@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Admin from "./components/Admin";
 import UserAdmin from "./components/UserAdmin";
 import IngatlanAdmin from "./components/IngatlanAdmin";
+import Kapcsolat from "./components/Kapcsolat";
 
 import Regisztracio from "./components/Regisztracio";
 import EgyIngatlan from "./components/EgyIngatlan";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/ingatlan" element={<Ingatlan />} />
           <Route path="/hirdetes" element={<Hirdetes />} />
           <Route path="/bejelentkezes" element={<Bejelentkezes />} />
+          <Route path="/kapcsolat" element={<Kapcsolat />} />
         
           <Route path="/regisztracio" element={<Regisztracio />} />
           <Route path="/egyingatlan" element={<EgyIngatlan />} />
