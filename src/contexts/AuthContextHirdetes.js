@@ -57,7 +57,7 @@ export const ContextHirdetesProvider = ({ children }) => {
     try {
       await axios.post("api/ingatlans",  adat);
       //console.log("siker");
-      //window.location.reload();
+      
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {

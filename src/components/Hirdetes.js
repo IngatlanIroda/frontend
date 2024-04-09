@@ -17,9 +17,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useNavigate } from "react-router-dom";
-import Card from "react-bootstrap/Card";
-import { Button } from "react-bootstrap";
-import ListGroup from "react-bootstrap/ListGroup";
+
 
 
 
@@ -65,7 +63,6 @@ const Hirdetes = () => {
     const year = today.getFullYear();
     const date = today.getDate();
     const actual_date= `${year}-${month}-${date}`;
-    //console.log(actual_date);
     return actual_date;
   }
 
@@ -103,14 +100,14 @@ const Hirdetes = () => {
       cim: cim,
       leiras: leiras,
       ugytipus: 1,
-      user: 1,
+      user: user,
       hird_feladas_datuma: formattedDate,
       hird_lejarata: formattedDate2,
       utolso_modositas_datuma: formattedDate,
       ar: ar,
     };
     console.log(adat);
-    ujHirdetes(adat);
+    ujHirdetes(adat); 
     setSelectedIngatlan(adat);
     navigate("/EgyIngatlan");
    
@@ -243,7 +240,7 @@ const Hirdetes = () => {
 
             <div style={{margin: "10px"}}>
               <Form.Group className="" controlId="">
-              <Form.Label className="" style={{color: "white"}}>Cím</Form.Label>
+              <Form.Label className="" style={{color: "white"}}>Teljes cím</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="1117 Budapest, Irinyi József utca 4-20."
