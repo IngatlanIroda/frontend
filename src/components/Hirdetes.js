@@ -101,6 +101,7 @@ const Hirdetes = () => {
       e.stopPropagation();
     }
 
+    
     setValidated(true);
 
     const adat = {
@@ -123,6 +124,8 @@ const Hirdetes = () => {
     };
 
     ujHirdetes(adat); 
+
+
 
 
    
