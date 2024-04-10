@@ -59,7 +59,7 @@ const Kapcsolat = () =>{
             </InputGroup>
 
             <Button variant="primary" type="submit">
-              Submit
+              Küldés
             </Button>
           </Form>
             
