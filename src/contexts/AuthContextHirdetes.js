@@ -18,7 +18,7 @@ export const ContextHirdetesProvider = ({ children }) => {
     cim: "",
     leiras: "",
     ugytipus: "",
-    user: "",
+    user_id: "",
     hird_feladas_datuma: "",
     hird_lejarata: "",
     utolso_modositas_datuma: "",
@@ -38,7 +38,7 @@ export const ContextHirdetesProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         await axios.get("api/ingatlans").then((response) => {
-          //console.log(response.data);
+          console.log(response.data);
           setIngatlan(response.data);
         });
       } catch (error) {

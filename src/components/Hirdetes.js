@@ -13,10 +13,10 @@ import useAuthContext from "../contexts/AuthContext";
 import {AuthContext} from "../contexts/AuthContext";
 import "./module_hirdetes.css";
 import FormSelect from 'react-bootstrap/FormSelect'
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+
 
 
 
@@ -31,14 +31,20 @@ import {
 
 const Hirdetes = () => {
 
-  const { user,  getUser } = useAuthContext();
-  const { ingatlan, setIngatlan, ujHirdetes } = useContextHirdetes();
-  const { setSelectedIngatlan } = useContextIngatlan();
+  const { user, getUser } = useAuthContext();
+  const { ujHirdetes } = useContextHirdetes();
+  const { setSelectedIngatlan} = useContextIngatlan();
   const navigate = useNavigate();
+  const {        ingatlan,
+    ingatlanKartyaLista,
+    ingatlanFutesTipusokLista,
+    osszefuzottIngatlan,
+
+    errors,} = useAuthContextIngatlan();
  
 
-
-  
+  const [validated, setValidated] = useState(false);
+  const [ing_id, setIngid] = useState("");
   const [ing_tipus, setTipus] = useState("");
   const [futes_tipus, setFutesTipus] = useState("");
   const [nagysag, setNagysag] = useState("");
@@ -55,7 +61,7 @@ const Hirdetes = () => {
   const [utolso_modositas_datuma, setUtolsoModositasDatuma] = useState("");
   const [ar, setAr] = useState("");
   
-
+       
 
   function getDate() {
     const today = new Date();
@@ -76,7 +82,7 @@ const Hirdetes = () => {
   const formattedDate2 = `${year}-${month2}-${day}`;
  
 
- 
+
 
   useEffect(() => {
     //console.log(user);
@@ -88,6 +94,15 @@ const Hirdetes = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+
     const adat = {
       ing_tipus: ing_tipus,
       futes_tipus: futes_tipus,
@@ -100,16 +115,20 @@ const Hirdetes = () => {
       cim: cim,
       leiras: leiras,
       ugytipus: 1,
-      user: user,
+      user: user.user_id,
       hird_feladas_datuma: formattedDate,
       hird_lejarata: formattedDate2,
       utolso_modositas_datuma: formattedDate,
       ar: ar,
     };
-    console.log(adat);
+
     ujHirdetes(adat); 
-    setSelectedIngatlan(adat);
-    navigate("/EgyIngatlan");
+
+
+   
+    //setSelectedIngatlan(adat);
+    //navigate("/EgyIngatlan");
+ 
    
   };
 
@@ -118,7 +137,7 @@ const Hirdetes = () => {
   return (
     <>
       <Navbars />
-      
+     
       <ContextHirdetesProvider>
       <Container>
       <div className="header">
@@ -130,18 +149,25 @@ const Hirdetes = () => {
         <h5>Hirdetés feladása</h5>
         </div>
 
-          <Form onSubmit={handleSubmit} style={{color: "white"}}>
+          <Form  noValidate validated={validated} onSubmit={handleSubmit} >
 
           <div style={{margin: "10px"}}>
           <Form.Group>          
-          <span htmlFor="" >Ingatlan típusa</span>
-          
-            <Form.Select aria-label="Default select example" onChange={(e) => setTipus(e.target.value)}>
-            <option>Válassz!</option>
-            <option value="1">Családi ház</option>
-            <option value="2">Téglalakás</option>
-            <option value="3">Panel lakás</option>
-          </Form.Select>
+          <Form.Label className="" style={{color: "white"}}>Ingatlan típusa</Form.Label>
+          <Form.Control
+          required 
+          as="select"
+          type="select"
+          name="erkely"
+          value={ing_tipus}
+          onChange={(e) => setTipus(e.target.value)}
+          >
+          <option value="">Válassz!</option>
+          <option value="1">Családi ház</option>
+          <option value="2">Téglalakás</option>
+          <option value="3">Panel lakás</option>
+          </Form.Control>
+          <Form.Control.Feedback type="invalid">Kérlek add meg az ingatlan típusát!</Form.Control.Feedback>
           </Form.Group>
 
           </div>
@@ -149,13 +175,21 @@ const Hirdetes = () => {
 
           <div style={{margin: "10px"}}>
           <Form.Group>
-          <span htmlFor="" >Fűtés típus</span>
-          <Form.Select aria-label="Default select example"   onChange={(e) => setFutesTipus(e.target.value)}>
-          <option>Válassz!</option>
+          <Form.Label className="" style={{color: "white"}}>Fűtés típusa</Form.Label>
+          <Form.Control
+          required 
+          as="select"
+          type="select"
+          name="erkely"
+          value={futes_tipus}
+          onChange={(e) => setFutesTipus(e.target.value)}
+          >
+          <option value="">Válassz!</option>
           <option value="4">Távfűtés</option>
           <option value="5">Gáz</option>
           <option value="6">Padlófűtés</option>
-          </Form.Select>
+          </Form.Control>
+          <Form.Control.Feedback type="invalid">Kérlek add meg a fűtés típusát!</Form.Control.Feedback>
           </Form.Group>
           </div>
 
@@ -164,10 +198,13 @@ const Hirdetes = () => {
               <Form.Group className="" controlId="" >
               <Form.Label className=""  style={{color:"white"}}>Nagyság</Form.Label>
               <Form.Control
+                required
                 type="number"
                 placeholder="60"
                 onChange={(e) => setNagysag(e.target.value)}
+               
               />
+              <Form.Control.Feedback type="invalid">Kérlek add meg az ingatlan nagyságát!</Form.Control.Feedback>
             </Form.Group>
           </div>
 
@@ -175,65 +212,100 @@ const Hirdetes = () => {
               <Form.Group className="mb-3" controlId="">
               <Form.Label className="" style={{color: "white"}} min="0" max="30">Szobák száma</Form.Label>
               <Form.Control
-             
+                required
                 type="number"
                 placeholder="1"
                 onChange={(e) => setSzobaszam(e.target.value)}
+               
+
               />
+              <Form.Control.Feedback type="invalid">Kérlek add meg a szobaszámot!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
            
             <div style={{margin: "10px"}}>
             <Form.Group>
-            <span htmlFor="" >Erkély</span>
-            <Form.Select aria-label="Default select example" onChange={(e) => setErkely(e.target.value)}>
-              <option>Válassz!</option>
-              <option value="0">Nincs</option>
-              <option value="1">Van</option>
-            </Form.Select>
+            <Form.Label className="" style={{color: "white"}}>Erkély</Form.Label>
+            <Form.Control
+            required 
+            as="select"
+            type="select"
+            name="erkely"
+            value={erkely}
+            onChange={(e) => setErkely(e.target.value)}
+            >
+            <option value="">Válassz!</option>
+            <option value="0">Nincs</option>
+            <option value="1">Van</option>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e erkély!</Form.Control.Feedback>
             </Form.Group>
 
             </div>
 
             <div style={{margin: "10px"}}>
             <Form.Group>
-            <span htmlFor="">Terasz</span>
-            <Form.Select aria-label="Default select example" onChange={(e) => setTerasz(e.target.value)}>
-            <option>Válassz!</option>
+            <Form.Label className="" style={{color: "white"}}>Terasz</Form.Label>
+            <Form.Control
+            required 
+            as="select"
+            type="select"
+            name="terasz"
+            value={terasz}
+            onChange={(e) => setTerasz(e.target.value)}
+            >
+            <option value="">Válassz!</option>
             <option value="0">Nincs</option>
             <option value="1">Van</option>
-            </Form.Select>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e terasz!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
 
             <div style={{margin: "10px"}}>
             <Form.Group>
-            <span htmlFor="">Kert</span>
-            <Form.Select aria-label="Default select example" onChange={(e) => setKert(e.target.value)}>
-            <option>Válassz!</option>
+            <Form.Label className="" style={{color: "white"}}>Kert</Form.Label>
+            <Form.Control
+            required 
+            as="select"
+            type="select"
+            name="terasz"
+            value={kert}
+            onChange={(e) => setKert(e.target.value)}
+            >
+            <option value="">Válassz!</option>
             <option value="0">Nincs</option>
             <option value="1">Van</option>
-            </Form.Select>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e kert!</Form.Control.Feedback>
             </Form.Group>
-
             </div>
 
 
 
             <div style={{margin: "10px"}}>
             <Form.Group className="" controlId="">
-            <span>Település</span>
-            <Form.Select aria-label="Default select example" onChange={(e) => setTelepules(e.target.value)}>
-            <option>Válassz!</option>
+            <Form.Label className="" style={{color: "white"}}>Település</Form.Label>
+            <Form.Control
+            required 
+            as="select"
+            type="select"
+            name="terasz"
+            value={telepules}
+            onChange={(e) => setTelepules(e.target.value)}
+            
+            >
+            <option value="">Válassz!</option>
             <option value="1">Budapest</option>
             <option value="2">Szentendre</option>
             <option value="3">Miskolc</option>
             <option value="4">Sopron</option>
             <option value="5">Zalaegerszeg</option>
             <option value="6">Szeged</option>
-            </Form.Select>
+            </Form.Control>
+            <Form.Control.Feedback type="invalid">Kérlek add meg a települést!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -242,18 +314,21 @@ const Hirdetes = () => {
               <Form.Group className="" controlId="">
               <Form.Label className="" style={{color: "white"}}>Teljes cím</Form.Label>
               <Form.Control
+                required
                 type="text"
                 placeholder="1117 Budapest, Irinyi József utca 4-20."
                 onChange={(e) => setCim(e.target.value)}
               />
+              <Form.Control.Feedback type="invalid">Kérlek add meg a teljes címet!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
             <div style={{margin: "10px"}}>
             <span>Leírás</span>
-            <InputGroup>
+            <InputGroup hasValidation>
             <InputGroup.Text></InputGroup.Text>
-            <Form.Control as="textarea" aria-label="With textarea" placeholder="Tágas, napfényes.."   onChange={(e) => setLeiras(e.target.value)}/>
+            <Form.Control reqired as="textarea" aria-label="With textarea" placeholder="Tágas, napfényes.."   onChange={(e) => setLeiras(e.target.value)}/>
+            <Form.Control.Feedback type="invalid">Kérlek add meg a leírást!</Form.Control.Feedback>
             </InputGroup>
             </div >
 
@@ -265,13 +340,21 @@ const Hirdetes = () => {
               <Form.Group className="" controlId="">
               <Form.Label className="" style={{color: "white"}}>Ár</Form.Label>
               <Form.Control
+                required
                 type="number"
                 placeholder=""
                 onChange={(e) => setAr(e.target.value)}
               />
+              <Form.Control.Feedback type="invalid">Kérlek add meg az árat!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
+              <div style={{margin: "10px", color: "white"}}>
+              <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Képfeltöltés</Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
+              </div>
 
 
             <button as="input" type="submit" value="Submit" id="submitButton" style={{margin: "10px"}}>
@@ -283,6 +366,7 @@ const Hirdetes = () => {
        
           </Container >
           </ContextHirdetesProvider>
+         
     </>
   );
 };

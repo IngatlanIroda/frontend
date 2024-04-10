@@ -33,6 +33,7 @@ export const ContextIngatlanAdminProvider = ({ children }) => {
     });
 
 
+
   //adatok lekérése a szerverről
    useEffect(() => {
     const fetchData = async () => {
