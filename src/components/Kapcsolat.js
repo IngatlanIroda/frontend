@@ -39,13 +39,13 @@ const Kapcsolat = () =>{
 
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Név</Form.Label>
+            <Form.Label>Név: </Form.Label>
             <Form.Control type="password" placeholder="Keresztnév Vezetéknév" />
             </Form.Group>
              
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Email cím:</Form.Label>
               <Form.Control type="email" placeholder="Email" />
               <Form.Text className="text-muted">
               Nem fogjuk megosztani az email címét

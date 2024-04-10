@@ -167,7 +167,7 @@ const Hirdetes = () => {
           <option value="2">Téglalakás</option>
           <option value="3">Panel lakás</option>
           </Form.Control>
-          <Form.Control.Feedback type="invalid">Kérlek add meg az ingatlan típusát!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Kérem adja meg az ingatlan típusát!</Form.Control.Feedback>
           </Form.Group>
 
           </div>
@@ -189,7 +189,7 @@ const Hirdetes = () => {
           <option value="5">Gáz</option>
           <option value="6">Padlófűtés</option>
           </Form.Control>
-          <Form.Control.Feedback type="invalid">Kérlek add meg a fűtés típusát!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Kérem adja meg a fűtés típusát!</Form.Control.Feedback>
           </Form.Group>
           </div>
 
@@ -204,7 +204,7 @@ const Hirdetes = () => {
                 onChange={(e) => setNagysag(e.target.value)}
                
               />
-              <Form.Control.Feedback type="invalid">Kérlek add meg az ingatlan nagyságát!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Kérem adja meg az ingatlan nagyságát!</Form.Control.Feedback>
             </Form.Group>
           </div>
 
@@ -219,7 +219,7 @@ const Hirdetes = () => {
                
 
               />
-              <Form.Control.Feedback type="invalid">Kérlek add meg a szobaszámot!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Kérem adja meg a szobaszámot!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -239,7 +239,7 @@ const Hirdetes = () => {
             <option value="0">Nincs</option>
             <option value="1">Van</option>
             </Form.Control>
-            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e erkély!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Kérem adja meg, hogy van-e erkély!</Form.Control.Feedback>
             </Form.Group>
 
             </div>
@@ -259,7 +259,7 @@ const Hirdetes = () => {
             <option value="0">Nincs</option>
             <option value="1">Van</option>
             </Form.Control>
-            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e terasz!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Kérem adja meg, hogy van-e terasz!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -279,7 +279,7 @@ const Hirdetes = () => {
             <option value="0">Nincs</option>
             <option value="1">Van</option>
             </Form.Control>
-            <Form.Control.Feedback type="invalid">Kérlek add meg, hogy van-e kert!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Kérem adja meg, hogy van-e kert!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -305,7 +305,7 @@ const Hirdetes = () => {
             <option value="5">Zalaegerszeg</option>
             <option value="6">Szeged</option>
             </Form.Control>
-            <Form.Control.Feedback type="invalid">Kérlek add meg a települést!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Kérem adja meg a települést!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -319,7 +319,7 @@ const Hirdetes = () => {
                 placeholder="1117 Budapest, Irinyi József utca 4-20."
                 onChange={(e) => setCim(e.target.value)}
               />
-              <Form.Control.Feedback type="invalid">Kérlek add meg a teljes címet!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Kérem adja meg a teljes címet!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
@@ -328,7 +328,7 @@ const Hirdetes = () => {
             <InputGroup hasValidation>
             <InputGroup.Text></InputGroup.Text>
             <Form.Control reqired as="textarea" aria-label="With textarea" placeholder="Tágas, napfényes.."   onChange={(e) => setLeiras(e.target.value)}/>
-            <Form.Control.Feedback type="invalid">Kérlek add meg a leírást!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Kérem adja meg a leírást!</Form.Control.Feedback>
             </InputGroup>
             </div >
 
@@ -345,7 +345,7 @@ const Hirdetes = () => {
                 placeholder=""
                 onChange={(e) => setAr(e.target.value)}
               />
-              <Form.Control.Feedback type="invalid">Kérlek add meg az árat!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Kérem adja meg az árat!</Form.Control.Feedback>
             </Form.Group>
             </div>
 
