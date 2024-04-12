@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbars from "./Navbars";
 import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
 import {
   ContextHirdetes,
   useContextHirdetes,
@@ -20,13 +21,20 @@ import FormSelect from "react-bootstrap/FormSelect";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-
 import {
   ContextIngatlanProvider,
   useContextIngatlan,
 } from "../contexts/ContextIngatlan";
+import Elem from "./Elem";
+
+
 
 const Hirdetes = () => {
+
+  const [openElem, setOpenElem] = useState(false);
+  const reload=()=>window.location.reload();
+  
+
   const { user, getUser } = useAuthContext();
   const { ujHirdetes } = useContextHirdetes();
   const { setSelectedIngatlan } = useContextIngatlan();
@@ -39,6 +47,8 @@ const Hirdetes = () => {
 
     errors,
   } = useAuthContextIngatlan();
+
+
 
   const [validated, setValidated] = useState(false);
   const [ing_id, setIngid] = useState("");
@@ -57,6 +67,9 @@ const Hirdetes = () => {
   const [hird_lejarata, setHirdLejarata] = useState("");
   const [utolso_modositas_datuma, setUtolsoModositasDatuma] = useState("");
   const [ar, setAr] = useState("");
+  const [adatok, setAdatok] = useState({});
+
+
 
   function getDate() {
     const today = new Date();
@@ -83,6 +96,8 @@ const Hirdetes = () => {
     }
   });
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -93,8 +108,6 @@ const Hirdetes = () => {
     }
 
     setValidated(true);
-
-    console.log(e.currentTarget.checkValidity());
 
     const adat = {
       ing_tipus: ing_tipus,
@@ -115,18 +128,93 @@ const Hirdetes = () => {
       ar: ar,
     };
 
-    ujHirdetes(adat);
+    ujHirdetes(adat); //ab-ba
+    setOpenElem(true)
 
-    //setSelectedIngatlan(adat);
-    //navigate("/EgyIngatlan");
+    if (adat.telepules === "1") {
+      adat.telepules = "Budapest";
+    } else if (adat.telepules === "2") {
+      adat.telepules = "Szentendre";
+    } else if (adat.telepules === "3") {
+      adat.telepules = "Miskolc";
+    } else if (adat.telepules === "4") {
+      adat.telepules = "Sopron";
+    } else if (adat.telepules === "5") {
+      adat.telepules = "Zalaegerszeg";
+    } else {
+      adat.telepules = "Szeged";
+    }
+
+    if (adat.ing_tipus === "1") {
+      adat.ing_tipus = "családi ház";
+    } else if (adat.ing_tipus === "2") {
+      adat.ing_tipus = "téglalakás";
+    } else {
+      adat.ing_tipus = "panellakás";
+    }
+
+    if (adat.futes_tipus === "4") {
+      adat.futes_tipus = "távfűtés";
+    } else if (adat.futes_tipus === "5") {
+      adat.futes_tipus = "gáz";
+    } else {
+      adat.futes_tipus = "padlófűtés";
+    }
+
+    if (adat.erkely === "0") {
+      adat.erkely = "nincs";
+    } else if (adat.erkely === "1") {
+      adat.erkely = "van";
+    }
+
+    if (adat.terasz === "0") {
+      adat.terasz = "nincs";
+    } else if (adat.terasz === "1") {
+      adat.terasz = "van";
+    }
+
+    if (adat.kert === "0") {
+      adat.kert = "nincs";
+    } else if (adat.kert === "1") {
+      adat.kert = "van";
+    }
+
+    const adat2 = {
+      telepules: adat.telepules,
+      ing_tipus: adat.ing_tipus,
+      futes_tipus: adat.futes_tipus,
+      nagysag: adat.nagysag,
+      szobaszam: adat.szobaszam,
+      erkely: adat.erkely,
+      terasz: adat.terasz,
+      kert: adat.kert,
+      leiras: adat.leiras,
+      cim: cim,
+    };
+
+    setAdatok(adat2);
+    
+
+  
   };
+
+
+
+
+
 
   return (
     <>
       <Navbars />
 
+
+
       <ContextHirdetesProvider>
+
+
+     
         <Container>
+        
           <div className="header">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,6 +230,10 @@ const Hirdetes = () => {
             </svg>
             <h5>Hirdetés feladása</h5>
           </div>
+
+          {openElem && <Elem  adatok ={adatok} closeElem={setOpenElem} onExiting={reload}  />}
+
+        
 
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <div style={{ margin: "10px" }}>
@@ -349,20 +441,13 @@ const Hirdetes = () => {
                 <Form.Label className="" style={{ color: "white" }}>
                   Leírás
                 </Form.Label>
-                <InputGroup hasValidation>
-                  <InputGroup.Text ></InputGroup.Text>
                   <Form.Control
                     reqired
                     as="textarea"
                     aria-label="With textarea"
                     placeholder="Tágas, napfényes.."
-                    isInvalid={!leiras?.length && validated}
                     onChange={(e) => setLeiras(e.target.value)}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Kérem adja meg a leírást!
-                  </Form.Control.Feedback>
-                </InputGroup>
               </Form.Group>
             </div>
 

@@ -55,9 +55,9 @@ export const ContextHirdetesProvider = ({ children }) => {
     adat._token = token;
     console.log(adat);
     try {
-      await axios.post("api/ingatlans",  adat);
-      //console.log("siker");
-      
+      await axios.post("api/ingatlans",  adat).then((response)=>{
+      console.log(response.data);
+      })
     } catch (error) {
       console.log(error);
       if (error.response.status === 422) {
@@ -72,7 +72,7 @@ export const ContextHirdetesProvider = ({ children }) => {
 
   return (
     <ContextHirdetes.Provider
-      value={{ ujHirdetes }}
+      value={{ ujHirdetes}}
     >
       {children}
     </ContextHirdetes.Provider>
