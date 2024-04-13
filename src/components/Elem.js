@@ -1,11 +1,8 @@
 import React from "react";
-import Container from "react-bootstrap/esm/Container";
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Row from "react-bootstrap/esm/Row";
 import haz1 from "../foto/haz1.jpg";
-import CloseButton from 'react-bootstrap/CloseButton';
 import ListGroup from "react-bootstrap/ListGroup";
+import CloseButton from 'react-bootstrap/CloseButton';
 import "./Elem.css";
 
 function Elem( {adatok, closeElem }){
@@ -14,29 +11,27 @@ function Elem( {adatok, closeElem }){
 
     return(
         <>
-        <Container id="elemContainer">
+        
 
         <div  className="elemBackground">
         <div  className="elemContainer">
 
         <div className="titleCloseBtn">
-        <button onClick={()=>closeElem(false) & window.location.reload()}> X </button>
+        <div id=""><CloseButton className="closeBtn" onClick={()=>closeElem(false) & window.location.reload()}/></div>
         </div>
         
         <div  className="title">
         <h3>Sikeres beküldés</h3>
+        <h6>Köszönjük!</h6>
         </div>
 
 
         <div className="body" >
 
-        <Row id="c">
-        
-          
-            <Card style={{ width: "30rem", margin: "1rem" }}>
-              <Card.Img variant="top" src={haz1} alt="property" />
+            <Card   style={{ width: "30rem", margin: "1rem" }} className="hirdCard">
+              <Card.Img variant="top" src={haz1} alt="property" id="hirdImg"  />
 
-              <Card.Body>
+              <Card.Body className="">
                 <Card.Title>
                   {adatok.telepules}
                 </Card.Title>
@@ -63,13 +58,13 @@ function Elem( {adatok, closeElem }){
               </ListGroup>
               <Card.Body>cím: {adatok.cim}</Card.Body>
             </Card>
-        </Row>
+        
 
         </div>
 
         </div>
         </div>
-        </Container>
+        
 
         </>
 

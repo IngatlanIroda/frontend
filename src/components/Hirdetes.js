@@ -29,11 +29,15 @@ import Elem from "./Elem";
 
 
 
+
 const Hirdetes = () => {
 
+  //modal ablak állapotának figyelése
   const [openElem, setOpenElem] = useState(false);
+
+  // oldal frissítése;
   const reload=()=>window.location.reload();
-  
+
 
   const { user, getUser } = useAuthContext();
   const { ujHirdetes } = useContextHirdetes();
@@ -109,93 +113,94 @@ const Hirdetes = () => {
 
     setValidated(true);
 
-    const adat = {
-      ing_tipus: ing_tipus,
-      futes_tipus: futes_tipus,
-      nagysag: nagysag,
-      szobaszam: szobaszam,
-      erkely: erkely,
-      terasz: terasz,
-      kert: kert,
-      telepules: telepules,
-      cim: cim,
-      leiras: leiras,
-      ugytipus: 1,
-      user: user.user_id,
-      hird_feladas_datuma: formattedDate,
-      hird_lejarata: formattedDate2,
-      utolso_modositas_datuma: formattedDate,
-      ar: ar,
-    };
-
-    ujHirdetes(adat); //ab-ba
-    setOpenElem(true)
-
-    if (adat.telepules === "1") {
-      adat.telepules = "Budapest";
-    } else if (adat.telepules === "2") {
-      adat.telepules = "Szentendre";
-    } else if (adat.telepules === "3") {
-      adat.telepules = "Miskolc";
-    } else if (adat.telepules === "4") {
-      adat.telepules = "Sopron";
-    } else if (adat.telepules === "5") {
-      adat.telepules = "Zalaegerszeg";
-    } else {
-      adat.telepules = "Szeged";
-    }
-
-    if (adat.ing_tipus === "1") {
-      adat.ing_tipus = "családi ház";
-    } else if (adat.ing_tipus === "2") {
-      adat.ing_tipus = "téglalakás";
-    } else {
-      adat.ing_tipus = "panellakás";
-    }
-
-    if (adat.futes_tipus === "4") {
-      adat.futes_tipus = "távfűtés";
-    } else if (adat.futes_tipus === "5") {
-      adat.futes_tipus = "gáz";
-    } else {
-      adat.futes_tipus = "padlófűtés";
-    }
-
-    if (adat.erkely === "0") {
-      adat.erkely = "nincs";
-    } else if (adat.erkely === "1") {
-      adat.erkely = "van";
-    }
-
-    if (adat.terasz === "0") {
-      adat.terasz = "nincs";
-    } else if (adat.terasz === "1") {
-      adat.terasz = "van";
-    }
-
-    if (adat.kert === "0") {
-      adat.kert = "nincs";
-    } else if (adat.kert === "1") {
-      adat.kert = "van";
-    }
-
-    const adat2 = {
-      telepules: adat.telepules,
-      ing_tipus: adat.ing_tipus,
-      futes_tipus: adat.futes_tipus,
-      nagysag: adat.nagysag,
-      szobaszam: adat.szobaszam,
-      erkely: adat.erkely,
-      terasz: adat.terasz,
-      kert: adat.kert,
-      leiras: adat.leiras,
-      cim: cim,
-    };
-
-    setAdatok(adat2);
-    
-
+    if (form.checkValidity() === true) {
+      const adat = {
+        ing_tipus: ing_tipus,
+        futes_tipus: futes_tipus,
+        nagysag: nagysag,
+        szobaszam: szobaszam,
+        erkely: erkely,
+        terasz: terasz,
+        kert: kert,
+        telepules: telepules,
+        cim: cim,
+        leiras: leiras,
+        ugytipus: 1,
+        user: user.user_id,
+        hird_feladas_datuma: formattedDate,
+        hird_lejarata: formattedDate2,
+        utolso_modositas_datuma: formattedDate,
+        ar: ar,
+      };
   
+      ujHirdetes(adat); //ab-ba
+      setOpenElem(true)
+  
+      if (adat.telepules === "1") {
+        adat.telepules = "Budapest";
+      } else if (adat.telepules === "2") {
+        adat.telepules = "Szentendre";
+      } else if (adat.telepules === "3") {
+        adat.telepules = "Miskolc";
+      } else if (adat.telepules === "4") {
+        adat.telepules = "Sopron";
+      } else if (adat.telepules === "5") {
+        adat.telepules = "Zalaegerszeg";
+      } else {
+        adat.telepules = "Szeged";
+      }
+  
+      if (adat.ing_tipus === "1") {
+        adat.ing_tipus = "családi ház";
+      } else if (adat.ing_tipus === "2") {
+        adat.ing_tipus = "téglalakás";
+      } else {
+        adat.ing_tipus = "panellakás";
+      }
+  
+      if (adat.futes_tipus === "4") {
+        adat.futes_tipus = "távfűtés";
+      } else if (adat.futes_tipus === "5") {
+        adat.futes_tipus = "gáz";
+      } else {
+        adat.futes_tipus = "padlófűtés";
+      }
+  
+      if (adat.erkely === "0") {
+        adat.erkely = "nincs";
+      } else if (adat.erkely === "1") {
+        adat.erkely = "van";
+      }
+  
+      if (adat.terasz === "0") {
+        adat.terasz = "nincs";
+      } else if (adat.terasz === "1") {
+        adat.terasz = "van";
+      }
+  
+      if (adat.kert === "0") {
+        adat.kert = "nincs";
+      } else if (adat.kert === "1") {
+        adat.kert = "van";
+      }
+  
+      const adat2 = {
+        telepules: adat.telepules,
+        ing_tipus: adat.ing_tipus,
+        futes_tipus: adat.futes_tipus,
+        nagysag: adat.nagysag,
+        szobaszam: adat.szobaszam,
+        erkely: adat.erkely,
+        terasz: adat.terasz,
+        kert: adat.kert,
+        leiras: adat.leiras,
+        cim: cim,
+      };
+  
+      setAdatok(adat2);
+    }
+
+    
   };
 
 
@@ -442,7 +447,6 @@ const Hirdetes = () => {
                   Leírás
                 </Form.Label>
                   <Form.Control
-                    reqired
                     as="textarea"
                     aria-label="With textarea"
                     placeholder="Tágas, napfényes.."
@@ -469,11 +473,11 @@ const Hirdetes = () => {
             </div>
 
             <div style={{ margin: "10px", color: "white" }}>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Képfeltöltés</Form.Label>
-                <Form.Control type="file" />
-              </Form.Group>
-            </div>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Képfeltöltés</Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
+          </div>
 
             <button
               as="input"

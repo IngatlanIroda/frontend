@@ -1,39 +1,44 @@
-.elemBackground{
-    background-color: rgba(200, 200, 200);
+
+
+.elemBackground {
+    /*background-color: rgba(200, 200, 200);*/
     position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1; /* biztosítja, hogy a háttér előtérben maradjon */
+    
 }
 
-#elemContainer{
-    width: 100vw;
-    height: 100vh;
 
-}
-
-.elemContainer{
-    width: 500px;
-    height: 500px;
+.elemContainer {
+    max-width: 400px; /* opcionális: korlátozza a kártya szélességét */
+    max-height: auto; /* opcionális: korlátozza a kártya magasságát */
+    overflow: hidden; /* ha a kártya nagyobb a képernyőnél, gurulósávokat jelenít meg */
+    background-color:rgb(198, 211, 204);
     border-radius: 12px;
-    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
+    padding: 2px;
+    z-index: 2; 
 }
+
+
 
 .elemContainer .title{
-    display: inline-block;
     text-align: center;
     margin-top: 10px;
 
 }
 
-.titleCloseBtn{
-   display: flex;
-   justify-content: flex-end;
-
+.titleCloseBtn {
+    display: flex;
+    justify-content: flex-start; /* Jobbra igazítás */
+    
+   
 }
 
 
@@ -46,33 +51,71 @@
 }
 
 
-.elemContainer .body{
+.elemContainer .body {
     flex: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.7rem;
+    font-size: 18px;
     text-align: center;
-
-
-}
-
-.elemContainer .footer button{
-    width: 150px;
-    height: 45px;
-    margin: 10px;
-    border: none;
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 8px;
-    font-size: 20px;
-    cursor: pointer;
-
-}
-
-
-
-#cancelBtn{
-    background-color: crimson;
    
 }
+
+
+
+.elemContainer .body .list-group-item {
+    font-size: 0.9rem; /* Kisebb listaelem méret */
+}
+
+.elemContainer .body .card-title {
+    font-size: 1rem; /* Kisebb címméret */
+}
+
+.elemContainer .body .card-text {
+    font-size: 0.9rem; /* Kisebb szövegméret */
+    padding: 5px;
+}
+
+.elemContainer .body .card-body {
+    font-size: 14px; /* Kisebb betűméret beállítása */
+    padding: 10px; /* Kisebb belső margó beállítása */
+}
+
+.elemContainer .body .card-img-top {
+    
+    width: 78%; /* Kép szélessége */
+    height: auto; /* Automatikus magasság beállítása az arány megtartása érdekében */
+    margin: auto;
+}
+
+
+.list-group-item {
+    text-align: left;
+}
+
+.card-body {
+    text-align: left; /* Az összes szöveg balra igazítva */
+    margin-left: 10px;
+}
+.card-text, .card-title{
+    text-align: center; 
+   
+}
+
+h3, h6{
+    color: rgb(23, 24, 22);
+}
+
+
+/* #cancelBtn{
+    background-color: crimson;
+   
+} */
+
+.elemBackground .elemContainer .titleCloseBtn  .closeBtn{
+    background-color: red;
+    opacity: 0.3;
+    padding:0.8rem;
+    border-radius: 30%;
+    margin-right: 1rem;
+  }
