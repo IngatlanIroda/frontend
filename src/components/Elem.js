@@ -54,9 +54,9 @@ function Elem( {adatok, closeElem }){
                     <ListGroup.Item>erkély:{adatok.erkely}</ListGroup.Item>
                     <ListGroup.Item>terasz:{adatok.terasz}</ListGroup.Item>
                     <ListGroup.Item>kert:{adatok.kert}</ListGroup.Item>
-                <ListGroup.Item>{adatok.leiras}</ListGroup.Item>
+                <ListGroup.Item className="leirasCim">{adatok.leiras}</ListGroup.Item>
               </ListGroup>
-              <Card.Body>cím: {adatok.cim}</Card.Body>
+              <Card.Body className="leirasCim">cím: {adatok.cim}</Card.Body>
             </Card>
         
 

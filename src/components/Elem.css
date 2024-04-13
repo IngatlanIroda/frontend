@@ -1,8 +1,5 @@
-
-
 .elemBackground {
-    /*background-color: rgba(200, 200, 200);*/
-    position: fixed;
+    position: fixed; /*A képernyő adott részén jelenik meg*/
     top: 0;
     right: 0;
     bottom: 0;
@@ -18,11 +15,11 @@
 .elemContainer {
     max-width: 400px; /* opcionális: korlátozza a kártya szélességét */
     max-height: auto; /* opcionális: korlátozza a kártya magasságát */
-    overflow: hidden; /* ha a kártya nagyobb a képernyőnél, gurulósávokat jelenít meg */
+    overflow: auto; /* ha a kártya nagyobb a képernyőnél, gurulósávokat jelenít meg, de erre most nincs szükség */
     background-color:rgb(198, 211, 204);
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 2px;
+    padding: 1px;
     z-index: 2; 
 }
 
@@ -30,15 +27,8 @@
 
 .elemContainer .title{
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
 
-}
-
-.titleCloseBtn {
-    display: flex;
-    justify-content: flex-start; /* Jobbra igazítás */
-    
-   
 }
 
 
@@ -56,34 +46,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 0.8rem;
     text-align: center;
    
 }
 
 
-
 .elemContainer .body .list-group-item {
-    font-size: 0.9rem; /* Kisebb listaelem méret */
+    font-size: 0.8rem; /* Kisebb listaelem méret */
 }
 
 .elemContainer .body .card-title {
-    font-size: 1rem; /* Kisebb címméret */
+    font-size:  0.8rem; 
 }
 
 .elemContainer .body .card-text {
-    font-size: 0.9rem; /* Kisebb szövegméret */
+    font-size: 0.8rem; /* Kisebb szövegméret */
     padding: 5px;
 }
 
 .elemContainer .body .card-body {
-    font-size: 14px; /* Kisebb betűméret beállítása */
+    font-size: 0.8rem; /* Kisebb betűméret beállítása */
     padding: 10px; /* Kisebb belső margó beállítása */
 }
 
 .elemContainer .body .card-img-top {
-    
-    width: 78%; /* Kép szélessége */
+    width: 75%; /* Kép szélessége */
     height: auto; /* Automatikus magasság beállítása az arány megtartása érdekében */
     margin: auto;
 }
@@ -94,28 +82,31 @@
 }
 
 .card-body {
-    text-align: left; /* Az összes szöveg balra igazítva */
+    text-align: left; /* Az összes szöveg balra igazítva a kártya belsejében */
     margin-left: 10px;
 }
-.card-text, .card-title{
-    text-align: center; 
+.card-text, .card-title {
+    text-align: center; /*A település neve és az ingatlan típus középre igazítva*/
    
 }
 
 h3, h6{
     color: rgb(23, 24, 22);
+    font-size: 1.3rem;
+
 }
 
 
-/* #cancelBtn{
-    background-color: crimson;
-   
-} */
-
 .elemBackground .elemContainer .titleCloseBtn  .closeBtn{
-    background-color: red;
+    display: flex;
+    justify-content: flex-start; /*Jobbra igazítás */
+    background-color: crimson;
     opacity: 0.3;
     padding:0.8rem;
     border-radius: 30%;
     margin-right: 1rem;
+  }
+
+  .leirasCim{
+    text-align: center;
   }
