@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -71,13 +70,13 @@ export const AuthProvider = ({ children }) => {
     await csrf();
     //console.log(token);
     adat._token = token;
-    // console.log(adat);
+    console.log(adat);
     try {
       const response = await axios.post("/register", adat);
       console.log("siker");
       const registeredUser = response.data.user;
       setRegisteredUser(registeredUser);
-      //sikeres regisztráció esetén
+      console.log(response.data.user)
       //Lekérdezzük a usert
       await getUser();
       //elmegyünk  a kezdőlapra

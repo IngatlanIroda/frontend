@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import RegisztracioModal from "./RegisztracioModal";
+import './module_card.css'
 const Regisztracio = () => {
   const [name, setName] = useState("");
   const [szulIdo, setSzulIdo] = useState("");
@@ -14,26 +14,10 @@ const Regisztracio = () => {
   const [jogosultsag, setJogosultsag] = "2";
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
-  const [checked, setChecked] = useState(false);
-  const [show, setShow] = useState(false);
-  const [userId, setUserId] = useState(null);
+ 
   const { register, errors } = useAuthContext();
-
-  const handleCheckboxChange = (e) => {
-    const isChecked = e.target.checked;
-    setChecked(isChecked);
-    if (isChecked) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-    
-     console.log("Checkbox :", isChecked);
-  };
-
-  
-
-
+ 
+  //regisztráció: az inputok kitöltését ellenőrzi
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!name || !szulIdo || !email || !password || !password_confirmation) {
@@ -49,33 +33,29 @@ const Regisztracio = () => {
       password: password,
       password_confirmation: password_confirmation,
     };
-   try{
+    console.log(adat)
     register(adat, "/register");
-     //   setUserId(response.data.user_id);
+  };
 
-    setShow(true);
-
-   } catch(error){
-    alert("Hiba történt a regisztráció során")
-   }
-  }
+    
+  
   return (
     <>
       <Navbars />
-      <Container id="form_container">
+      <div className="kDiv">
+      <Container className="form_container">
         <Row md={{ span: 3, offset: 3 }}>
           <Form className=" text-center" id="login" onSubmit={handleRegister}>
             <Form.Text id="formtext" className="text-center" display="block">
               Regisztráció
             </Form.Text>
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Név:</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="név"
                 minLength="3"
                 maxLength="100"
-                value={name}
+              value={name}
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
@@ -87,25 +67,23 @@ const Regisztracio = () => {
               </div>
             </Form.Group>
             <Form.Group classSzulIdo="mb-3" controlId="formBasicDate">
-              <Form.Label>Születési ideje:</Form.Label>
               <Form.Control
                 type="date"
                 placeholder="születési ideje"
-                value={szulIdo}
+                
                 onChange={(e) => {
                   setSzulIdo(e.target.value);
                 }}
               />
               <div>
                 {errors.szulIdo && (
-                  <span classSzulIdo="date">{errors.szulIdo[0]}</span>
+                  <span className="date">{errors.szulIdo[0]}</span>
                 )}
               </div>
             </Form.Group>
-            <input type="hidden" value={aktiv}></input>
+            <input  type="hidden" value={aktiv}></input>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>email:</Form.Label>
+            <Form.Group id="regInput" className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="email"
                 placeholder="email"
@@ -123,7 +101,6 @@ const Regisztracio = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Jelszó:</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="jelszó"
@@ -143,10 +120,9 @@ const Regisztracio = () => {
               className="mb-3"
               controlId="formBasicPasswordConfirmation"
             >
-              <Form.Label>Jelszó újra:</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="jelszó"
+                placeholder="jelszó megerősítés"
                 value={password_confirmation}
                 onChange={(e) => {
                   setPasswordConfirmation(e.target.value);
@@ -160,21 +136,14 @@ const Regisztracio = () => {
                 </span>
               )}
             </div>
-            <Form.Group controlId="formBasicCheckbox">
-            <Form.Check
-              type="checkbox"
-              label="Szeretnék hírlevelet"
-              checked={checked}
-              onChange={handleCheckboxChange}
-            />
-          </Form.Group>
+            
             <Button id="formButton" variant="primary" type="submit">
               Regisztrálok
             </Button>
           </Form>
-          {show && <RegisztracioModal show={show} setShow={setShow} userId={userId}/>} 
         </Row>
       </Container>
+      </div>
     </>
   );
 };

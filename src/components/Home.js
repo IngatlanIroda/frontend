@@ -10,11 +10,13 @@ import Navbars from "./Navbars";
 import Kartya from "./Kartya";
 import Searchbox from "./Searchbox";
 
+//a program belépő oldala
 export default function Home() {
   const { user } = useAuthContext();
   const { ingatlan } = useAuthContextIngatlan();
   const [filteredIngatlan, setFilteredIngatlan] = useState([]);
 
+  //az ingatlanok közt keres, településre, ingatlan típusra vagy fűtés típusra lehet keresni
   const search = (searchWord) => {
     //console.log(ingatlan);
     if (typeof searchWord !== "string" || !searchWord) {
@@ -37,7 +39,7 @@ export default function Home() {
             .toLowerCase()
             .includes(searchWord.toLowerCase()))
     );
-
+    //a szűrt tömb beállítása
     setFilteredIngatlan(filtered);
     // console.log(filtered);
     // console.log(filteredIngatlan);
@@ -48,7 +50,7 @@ export default function Home() {
       <AuthProviderIngatlan>
         <Navbars />
         <Searchbox search={search} />
-        <Container id="card_container">
+        <Container className="card_container">
           <Row>
             {filteredIngatlan.length === 0 ? (
               <>

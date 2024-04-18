@@ -4,6 +4,8 @@ import useAuthContext from '../contexts/AuthContext';
 import Nav from "react-bootstrap/Nav";
 import { Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+
+//az adminisztrációhoz tartozó linkek közös felülete
 const Admin = () => {
   const { user, getUser } = useAuthContext();
   

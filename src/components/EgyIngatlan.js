@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import style from "./module_card.css";
+import "./module_card.css"
+//import "./module_form.css"
 import Kartya from "./Kartya";
 import {
   AuthProviderIngatlan,
@@ -11,11 +12,13 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Card from "react-bootstrap/Card";
 import haz1 from "../foto/haz1.jpg";
-import Ingatlan from "./Ingatlan";
 import { useContextIngatlan } from "../contexts/ContextIngatlan";
 import { ContextIngatlanProvider } from "../contexts/ContextIngatlan";
-import CloseButton from 'react-bootstrap/CloseButton';
+import CloseButton from "react-bootstrap/CloseButton";
 import { useNavigate } from "react-router-dom";
+
+//a kiválasztott ingatlan részleteit jelaníti meg az Egyingatlan
+// a ContextIngatlan.Provider-ből megkapva a selectedIngatlan-ban levő adatokat használja
 export default function EgyIngatlan() {
   const { selectedIngatlan } = useContextIngatlan();
   const navigate = useNavigate();
@@ -23,24 +26,29 @@ export default function EgyIngatlan() {
 
   const [showText, setShowText] = useState(selectedIngatlan.kategoria === "i");
   const [showErkely, setShowErkely] = useState(
-    selectedIngatlan.erkely === true
+    selectedIngatlan.erkely 
   );
   const [showTerasz, setShowTerasz] = useState(
-    selectedIngatlan.terasz === true
+    selectedIngatlan.terasz 
   );
-  const [showKert, setShowKert] = useState(selectedIngatlan.kert === true);
+  const [showKert, setShowKert] = useState(selectedIngatlan.kert);
+  //visszanavigál az ingatlan oldalra, a closeBtn oldalt bezáró gomb eseményével
   const back = () => {
-    navigate("/ingatlan")
-  }
+    navigate("/ingatlan");
+  };
   return (
     <>
       <Navbars />
       <ContextIngatlanProvider>
-        <Container id="card_container">
-       
-        
+      <div className="kDiv">
+        <Container className="card_container">
           <Row id="card_row">
-          <div id="card_div"><CloseButton className="closeBtn" onClick={(e) =>back(e.target)}/></div>
+            <div id="card_div">
+              <CloseButton
+                className="closeBtn"
+                onClick={(e) => back(e.target)}
+              />
+            </div>
             {selectedIngatlan ? (
               <Card style={{ width: "30rem", margin: "1rem" }}>
                 <Card.Img variant="top" src={haz1} alt="property" />
@@ -107,9 +115,9 @@ export default function EgyIngatlan() {
             ) : (
               <p>Nincs ilyen ingatlan</p>
             )}
-           
-          </Row>)
+          </Row>
         </Container>
+        </div>
       </ContextIngatlanProvider>
     </>
   );

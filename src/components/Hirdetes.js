@@ -106,6 +106,7 @@ const Hirdetes = () => {
       utolso_modositas_datuma: formattedDate,
       ar: ar,
     };
+    
     console.log(adat);
     ujHirdetes(adat); 
     setSelectedIngatlan(adat);

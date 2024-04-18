@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuthContextIngatlan } from "../contexts/AuthContextIngatlan";
 
-
+//egy kártya felülete
 export default function Kartya({ data }) {
   const {
     ing_id,
@@ -31,19 +31,18 @@ export default function Kartya({ data }) {
   const { setSelectedIngatlan } = useContextIngatlan();
 
   const navigate = useNavigate();
+  //a részletek gombra kattintva az adott ingatlan adatait beállítjuk 
   function egyingatlan() {
     setSelectedIngatlan(data);
     navigate("/EgyIngatlan");
   }
   return (
-    //<Card style={{ width: "18rem", margin: "1rem" }} onClick={handleSelectedIngatlan}>
     <Card style={{ width: "18rem", margin: "1rem" }}>
       <Card.Img variant="top" src={haz1} alt="property" />
-  
+
       <Card.Body>
         <Card.Title>{telepules_megnevezes}</Card.Title>
         <Card.Text>{ing_tipus_megnevezes} </Card.Text>
-        
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>fűtés: {futes_tipus_megnevezes}</ListGroup.Item>
@@ -52,7 +51,9 @@ export default function Kartya({ data }) {
         <ListGroup.Item>szobák száma: {szobaszam}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Button onClick={egyingatlan}>Részletek</Button>
+        <Button id="cardButton" onClick={egyingatlan}>
+          Részletek
+        </Button>
       </Card.Body>
     </Card>
   );

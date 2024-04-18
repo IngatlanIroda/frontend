@@ -118,12 +118,11 @@ const UserAdmin = () => {
         <Container className="d-flex ">
           <Container id="newUser_container">
             <div>
-              <p id="ujfelhasznalo">Új felhasználó</p>
+              <p id="ujfelhasznalo">Új felhasználó rögzítése</p>
             </div>
             <div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="ujfelhasznName">
-                  <Form.Label>Név:</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="név"
@@ -133,7 +132,6 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                  <Form.Label>Születési idő:</Form.Label>
                   <Form.Control
                     type="date"
                     placeholder="születés"
@@ -141,12 +139,11 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" id="ujfelhasznJog">
-                <Form.Label>Jogosultság:</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
                     onChange={(e) => setJogosultsag(e.target.value)}
                   >
-                    <option>Jogosultság</option>
+                    <option>jogosultság</option>
                     <option value="user">regisztrált felhasználó</option>
                     <option value="admin">adminisztrátor</option>
                   </Form.Select>
@@ -159,16 +156,14 @@ const UserAdmin = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email cím:</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="valami@valami.com"
+                    placeholder="email cím"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Jelszó:</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="jelszó"
@@ -180,10 +175,9 @@ const UserAdmin = () => {
                   className="mb-3"
                   controlId="formBasicPasswordConfirmation"
                 >
-                  <Form.Label>Jelszó újra:</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="jelszó"
+                    placeholder="jelszó megerősítése"
                     value={password_confirmation}
                     onChange={(e) => {
                       setPasswordConfirmation(e.target.value);
