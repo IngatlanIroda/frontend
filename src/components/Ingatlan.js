@@ -7,20 +7,19 @@ import {
 } from "../contexts/AuthContextIngatlan";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-
 import ContextIngatlan, { useContextIngatlan } from "../contexts/ContextIngatlan";
+
+//az ingatlanokat megjelenítő oldal, 
+//a contextből megkapott ingatlan objektum adatait ciklussal nyerjük ki és a Kártya meghívásával mutatjuk meg
 export default function Ingatlan() {
   const { ingatlan } = useAuthContextIngatlan();
- 
-  const {selectedIngatlan} =useAuthContextIngatlan();
- 
+   const {selectedIngatlan} =useAuthContextIngatlan();
  
   return (
     <>
       <AuthProviderIngatlan>
         <Navbars />
-
-        <Container id="card_cont">
+        <Container className="card_container">
           <Row>
             {ingatlan.map((item, index) => (
               <>

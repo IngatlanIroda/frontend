@@ -3,10 +3,12 @@ import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const ContextUserList = createContext();
-
+//A componens a userek adatainak az API végpontok felé való továbbíttását biztosítja
 export const ContextUserProvider = ({ children }) => {
   const navigate = useNavigate();
   const [registeredUser, setRegisteredUser] = useState([]);
+  
+  //Állapotok inicializálása
   const [errors, setErrors] = useState({
     user_id: "",
     name: "",
@@ -19,17 +21,19 @@ export const ContextUserProvider = ({ children }) => {
   });
 
   let token = "";
+   // CSRF token lekérdezése
   const csrf = () =>
     axios.get("api/token").then((response) => {
       //console.log(response);
       token = response.data;
     });
-
+ 
+    // Felhasználók lekérdezése
   useEffect(() => {
     const fetchData = async () => {
       try {
         await axios.get("api/userTablaLista").then((response) => {
-          //console.log(response.data);
+          console.log(response.data);
           setRegisteredUser(response.data);
         });
       } catch (error) {
@@ -40,6 +44,7 @@ export const ContextUserProvider = ({ children }) => {
     fetchData();
   }, []);
 
+    // Felhasználó törlése
   const felhasznaloTorles = async (user_id, vegpont) => {
     await csrf();
     //console.log(token);
@@ -64,6 +69,8 @@ export const ContextUserProvider = ({ children }) => {
       }
     }
   };
+
+  // Felhasználó módosítása
   const felhasznaloModositas = async (user_id, { ...adat }) => {
     await csrf();
     //console.log(token);
@@ -85,6 +92,8 @@ export const ContextUserProvider = ({ children }) => {
     }
     navigate("/useradmin");
   };
+
+    // Új felhasználó hozzáadása
   const ujfelhasznalo = async ({ ...adat }, vegpont) => {
     await csrf();
     //console.log(token);
@@ -120,7 +129,7 @@ export const ContextUserProvider = ({ children }) => {
     </ContextUserList.Provider>
   );
 };
-
+// user context hook használata
 export const useContextUserList = () => {
   return useContext(ContextUserList);
 };

@@ -17,9 +17,9 @@ export default function Searchbox({ search }) {
 
   return (
     <>
-      <div className="keresDiv">
+      <div className="kDiv">
         <Container className="keresContainer">
-          <Form.Label>Ingatlanok</Form.Label>
+          <Form.Label>Keressen kínálatunkból...</Form.Label>
           <InputGroup.Text className="mb-3 sm">
             <Form.Control
               placeholder="Keresés..."
@@ -27,7 +27,7 @@ export default function Searchbox({ search }) {
               aria-describedby="basic-addon2"
               onChange={onChange}
             />
-            <Button onClick={handleSearch}>Keresés</Button>
+            <Button id="keresBtn" onClick={handleSearch}>Keresés</Button>
           </InputGroup.Text>
         </Container>
       </div>
