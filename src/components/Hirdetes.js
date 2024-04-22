@@ -35,7 +35,7 @@ const Hirdetes = () => {
   //modal ablak állapotának figyelése
   const [openElem, setOpenElem] = useState(false);
 
-  // oldal frissítése;
+  // oldal frissítése modal bezárása után;
   const reload=()=>window.location.reload();
 
 
@@ -105,15 +105,19 @@ const Hirdetes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //űrlap validációjának figyelése
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
     }
-
+    //ha helyesen van kitöltve az űrlap az állapot true-ra változik
     setValidated(true);
 
+    //true állapot esetén megengedjük, hogy az alábbi metódusok lefussanak
     if (form.checkValidity() === true) {
+
+      //ingatlan adatok összeállítása
       const adat = {
         ing_tipus: ing_tipus,
         futes_tipus: futes_tipus,
@@ -132,10 +136,14 @@ const Hirdetes = () => {
         utolso_modositas_datuma: formattedDate,
         ar: ar,
       };
-  
-      ujHirdetes(adat); //ab-ba
+      
+      //ingatlan adatainak beküldése az adatbázisba
+      ujHirdetes(adat);
+      //modal ablak megnyitása
       setOpenElem(true)
-  
+
+
+      //adatok összeállítása a modal ablakba
       if (adat.telepules === "1") {
         adat.telepules = "Budapest";
       } else if (adat.telepules === "2") {
@@ -197,6 +205,7 @@ const Hirdetes = () => {
         cim: cim,
       };
   
+      //adatok beállítása a useState változóban a modalhoz
       setAdatok(adat2);
     }
 
@@ -238,8 +247,7 @@ const Hirdetes = () => {
 
           {openElem && <Elem  adatok ={adatok} closeElem={setOpenElem} onExiting={reload}  />}
 
-        
-
+      
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <div style={{ margin: "10px" }}>
               <Form.Group>
