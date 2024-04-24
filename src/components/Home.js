@@ -40,7 +40,12 @@ export default function Home() {
             .includes(searchWord.toLowerCase()))
     );
     //a szűrt tömb beállítása
-    setFilteredIngatlan(filtered);
+   if(filtered.length!=0){
+    setFilteredIngatlan(filtered)
+   }else{
+    alert("Érvénytelen keresési kifejezés");
+   }
+  
     // console.log(filtered);
     // console.log(filteredIngatlan);
   };
