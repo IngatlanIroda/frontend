@@ -27,7 +27,6 @@ function Elem( {adatok, closeElem }){
 
 
         <div className="body" >
-
             <Card   style={{ width: "30rem", margin: "1rem" }} className="hirdCard">
               <Card.Img variant="top" src={haz1} alt="property" id="hirdImg"  />
 
@@ -56,24 +55,14 @@ function Elem( {adatok, closeElem }){
                     <ListGroup.Item>kert:{adatok.kert}</ListGroup.Item>
                 <ListGroup.Item className="leirasCim">{adatok.leiras}</ListGroup.Item>
               </ListGroup>
+
               <Card.Body className="leirasCim">cím: {adatok.cim}</Card.Body>
             </Card>
-        
-
-        </div>
-
         </div>
         </div>
-        
-
+        </div>
         </>
-
-
     );
-
-
-
-
 }
 
 export default Elem;

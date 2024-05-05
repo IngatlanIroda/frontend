@@ -1,61 +1,30 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Navbars from "./Navbars";
 import Form from "react-bootstrap/Form";
-import ListGroup from "react-bootstrap/ListGroup";
 import {
-  ContextHirdetes,
   useContextHirdetes,
   ContextHirdetesProvider,
 } from "../contexts/AuthContextHirdetes";
 import Container from "react-bootstrap/esm/Container";
-import { useContextIngatlanAdmin } from "../contexts/AuthContextIngatlanAdmin";
-import {
-  AuthProviderIngatlan,
-  AuthContextIngatlan,
-  useAuthContextIngatlan,
-} from "../contexts/AuthContextIngatlan";
 import useAuthContext from "../contexts/AuthContext";
-import { AuthContext } from "../contexts/AuthContext";
 import "./module_hirdetes.css";
-import FormSelect from "react-bootstrap/FormSelect";
-import InputGroup from "react-bootstrap/InputGroup";
-import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
-import {
-  ContextIngatlanProvider,
-  useContextIngatlan,
-} from "../contexts/ContextIngatlan";
 import Elem from "./Elem";
-
-
 
 
 const Hirdetes = () => {
 
-  //modal ablak állapotának figyelése
+  //felugróablak állapotának figyelése
+  //alapállapota false, ezért rejtve marad
   const [openElem, setOpenElem] = useState(false);
 
-  // oldal frissítése modal bezárása után;
+  // oldal frissítése felugróablak bezárása után;
   const reload=()=>window.location.reload();
-
 
   const { user, getUser } = useAuthContext();
   const { ujHirdetes } = useContextHirdetes();
-  const { setSelectedIngatlan } = useContextIngatlan();
-  const navigate = useNavigate();
-  const {
-    ingatlan,
-    ingatlanKartyaLista,
-    ingatlanFutesTipusokLista,
-    osszefuzottIngatlan,
-
-    errors,
-  } = useAuthContextIngatlan();
-
 
 
   const [validated, setValidated] = useState(false);
-  const [ing_id, setIngid] = useState("");
   const [ing_tipus, setTipus] = useState("");
   const [futes_tipus, setFutesTipus] = useState("");
   const [nagysag, setNagysag] = useState("");
@@ -74,7 +43,7 @@ const Hirdetes = () => {
   const [adatok, setAdatok] = useState({});
 
 
-
+  //dátum adatok beállítása, az éppen akuális dátumot veszi
   function getDate() {
     const today = new Date();
     const month = today.getMonth() + 1;
@@ -84,6 +53,8 @@ const Hirdetes = () => {
     return actual_date;
   }
 
+  //az adott dátumot az adatbázisban lévő formátumra alakítja (formattedDate)
+  // illetve a 6 hónappal későbbi dátumot is előállítja a hirdetés lejáratához (formattedDate2)
   const originalDate = getDate();
   const dateObject = new Date(originalDate);
   const year = dateObject.getFullYear();
@@ -101,7 +72,7 @@ const Hirdetes = () => {
   });
 
 
-
+  //űrlap beküldésekor lefutó metódusok
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -136,14 +107,14 @@ const Hirdetes = () => {
         utolso_modositas_datuma: formattedDate,
         ar: ar,
       };
-      
+
       //ingatlan adatainak beküldése az adatbázisba
       ujHirdetes(adat);
-      //modal ablak megnyitása
+      //felufró ablak megnyitása
       setOpenElem(true)
 
 
-      //adatok összeállítása a modal ablakba
+      //adatok összeállítása a felugróablakba
       if (adat.telepules === "1") {
         adat.telepules = "Budapest";
       } else if (adat.telepules === "2") {
@@ -192,6 +163,7 @@ const Hirdetes = () => {
         adat.kert = "van";
       }
   
+      //adatok összeállítása a felugróablakba 
       const adat2 = {
         telepules: adat.telepules,
         ing_tipus: adat.ing_tipus,
@@ -205,14 +177,10 @@ const Hirdetes = () => {
         cim: cim,
       };
   
-      //adatok beállítása a useState változóban a modalhoz
+      //adatok beállítása a felugróablakhoz
       setAdatok(adat2);
     }
-
-    
   };
-
-
 
 
 
@@ -220,15 +188,8 @@ const Hirdetes = () => {
   return (
     <>
       <Navbars />
-
-
-
       <ContextHirdetesProvider>
-
-
-     
-        <Container>
-        
+         <Container>
           <div className="header">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -245,6 +206,7 @@ const Hirdetes = () => {
             <h5>Hirdetés feladása</h5>
           </div>
 
+          {/*A felugró ablak alapállapotban rejtve van. Ha az adatok beküldése sikeres, akkor fog megjelenni csak.*/}
           {openElem && <Elem  adatok ={adatok} closeElem={setOpenElem} onExiting={reload}  />}
 
       
@@ -497,8 +459,9 @@ const Hirdetes = () => {
               Mentés
             </button>
           </Form>
-        </Container>
-      </ContextHirdetesProvider>
+          </Container>
+      </ContextHirdetesProvider> 
+   
     </>
   );
 };
